@@ -15,13 +15,49 @@
             <Grid RowDefinitions="*, Auto">
                 <StackPanel Spacing="12">
                     <Image Source="/Assets/images/spike_logo.png" Height="130"></Image>
-                    <Button Content="Home" Foreground="White" HorizontalAlignment="Stretch"></Button>
-                    <Button Content="clients" Foreground="White" HorizontalAlignment="Stretch"></Button>
-                    <Button Content="pets" Foreground="White" HorizontalAlignment="Stretch"></Button>
-                    <Button Content="Appointments" Foreground="White" HorizontalAlignment="Stretch"></Button>
-                    <Button Content="Transactions" Foreground="White" HorizontalAlignment="Stretch"></Button>
+                    
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe2c4;"></Label>
+                            <Label Content="Home"></Label>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe4c2;"></Label>
+                            <Label Content="Clients"></Label>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe74a;"></Label>
+                            <Label Content="Pets"></Label>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe10a;"></Label>
+                            <Label Content="Appointments"></Label>
+                        </StackPanel>
+                    </Button>
+                   
+                    <Button HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe54c;"></Label>
+                            <Label Content="Transactions"></Label>
+                        </StackPanel>
+                    </Button>
+                    
                 </StackPanel>
-                <Button Grid.Row="1" Content="Settings" Foreground="White"></Button>
+                <Button Grid.Row="1" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="SideBar" Content="&#xe270;"></Label>
+                        <Label Content="Settings"></Label>
+                    </StackPanel>
+                </Button>
             </Grid>
         </Border>
     </Grid>

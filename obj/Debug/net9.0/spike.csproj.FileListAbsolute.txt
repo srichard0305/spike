@@ -66,3 +66,10 @@ C:\Dev\spike\obj\Debug\net9.0\spike.csproj.Up2Date
 C:\Dev\spike\obj\Debug\net9.0\spike.genruntimeconfig.cache
 C:\Dev\spike\obj\Debug\net9.0\ref\spike.dll
 C:\Dev\spike\obj\Debug\net9.0\spike.sourcelink.json
+C:\Dev\spike\bin\Debug\net9.0\Avalonia.Svg.Skia.dll
+C:\Dev\spike\bin\Debug\net9.0\ExCSS.dll
+C:\Dev\spike\bin\Debug\net9.0\ShimSkiaSharp.dll
+C:\Dev\spike\bin\Debug\net9.0\SkiaSharp.HarfBuzz.dll
+C:\Dev\spike\bin\Debug\net9.0\Svg.Custom.dll
+C:\Dev\spike\bin\Debug\net9.0\Svg.Model.dll
+C:\Dev\spike\bin\Debug\net9.0\Svg.Skia.dll
