@@ -65,3 +65,4 @@ C:\Dev\spike\obj\Debug\net9.0\refint\Avalonia\spike.dll
 C:\Dev\spike\obj\Debug\net9.0\spike.csproj.Up2Date
 C:\Dev\spike\obj\Debug\net9.0\spike.genruntimeconfig.cache
 C:\Dev\spike\obj\Debug\net9.0\ref\spike.dll
+C:\Dev\spike\obj\Debug\net9.0\spike.sourcelink.json

@@ -24,5 +24,8 @@ build_property.EnableCodeStyleSeverity =
 [C:/Dev/spike/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Dev/spike/Styles/AppDefaultStyles.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Dev/spike/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

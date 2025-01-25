@@ -3,6 +3,8 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="App.axaml" value="spike.csproj" />
+        <entry key="Styles/AppDefaultStyles.axaml" value="spike.csproj" />
         <entry key="Views/MainWindow.axaml" value="spike.csproj" />
       </map>
     </option>
