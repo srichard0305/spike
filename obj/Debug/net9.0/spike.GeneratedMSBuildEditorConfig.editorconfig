@@ -27,5 +27,17 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Dev/spike/Styles/AppDefaultStyles.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Dev/spike/Views/MainWindow.axaml]
+[C:/Dev/spike/Views/ClientPetView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Dev/spike/Views/EmployeePageView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Dev/spike/Views/HomePageView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Dev/spike/Views/MainWindowView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Dev/spike/Views/ReportsPageView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

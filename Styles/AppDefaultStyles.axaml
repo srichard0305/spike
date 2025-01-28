@@ -5,7 +5,7 @@
             <!-- Add Controls for Previewer Here -->
             <Button HorizontalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal">
-                    <Label Classes="icon" FontFamily="{DynamicResource Phosphor}" Content="&#xe2c4;"></Label>
+                    <Label Classes="SideBar" FontFamily="{DynamicResource Phosphor}" Content="&#xe2c4;"></Label>
                     <Label Content="Home"></Label>
                 </StackPanel>
             </Button>
@@ -43,7 +43,6 @@
             </Transitions>
         </Setter>
     </Style>
-
     
     <Style Selector="Button:pointerover Label">
         <Setter Property="RenderTransform" Value="scale(1.1)"></Setter>
@@ -54,6 +53,8 @@
         <Setter Property="Background" Value="{DynamicResource PrimaryHover}"></Setter>
     </Style>
     
-    
+    <Style Selector="Button.active /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource PrimaryActiveBackground}"></Setter>
+    </Style>
   
 </Styles>

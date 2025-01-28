@@ -1,0 +1,92 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:spike.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:spike.Views"
+        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
+        x:Class="spike.Views.MainWindowView"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/icons/spike_logo_ico.ico"
+        Title="spike">
+    
+    <!-- updates design view when binding data only for dev -->
+    <Design.DataContext><vm:MainWindowViewModel></vm:MainWindowViewModel></Design.DataContext>
+    
+    <!-- Main window grid -->
+    <Grid Background="{DynamicResource PrimaryBackground}" ColumnDefinitions="Auto, *">
+        
+        <!-- right panel grid -->
+        <Grid Grid.Column="1" RowDefinitions="Auto, *">
+            <!-- top panel -->
+            <Border Grid.Row="0"  Padding="10" Background="{DynamicResource PrimaryTopPanelGradient}">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Button Grid.Column="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe2c4;"></Label>
+                            <Label Content="Store"></Label>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="1" Background="#DF6C1A">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe108;"></Label>
+                            <Label Content="Book" Padding="0 2 10 0 "></Label>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+            
+            <!-- all pages here -->
+            <Border Grid.Row="1" Background="Aqua" Margin="20">
+                <ContentControl Content="{Binding CurrentPage}"></ContentControl>
+            </Border>
+            
+            
+        </Grid>
+        
+        <!-- Side panel grid -->
+        <Border Grid.Column="0" Padding="20" Background="{DynamicResource PrimaryBackGroundGradient}">
+            <Grid RowDefinitions="*, Auto">
+                <StackPanel Spacing="12">
+                    <Image Source="/Assets/images/spike_logo.png" Height="130"></Image>
+                    
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding HomePageActive}" Command="{Binding NavigateToHomePageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe2c4;"></Label>
+                            <Label Content="Home"></Label>
+                        </StackPanel>
+                    </Button>
+                    
+               
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding ClientPetPageActive}" Command="{Binding NavigateToClientPetPageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe74a;"></Label>
+                            <Label Content="Clients &amp; Pets"></Label>
+                        </StackPanel>
+                    </Button>
+                    
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding EmployeePageActive}" Command="{Binding NavigateToEmployeePageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe4c2;"></Label>
+                            <Label Content="Employees"></Label>
+                        </StackPanel>
+                    </Button>
+                   
+                    <Button HorizontalAlignment="Stretch" Classes.active="{Binding ReportsPageActive}" Command="{Binding NavigateToReportsPageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xe156;"></Label>
+                            <Label Content="Reports"></Label>
+                        </StackPanel>
+                    </Button>
+                    
+                </StackPanel>
+                <Button Grid.Row="1" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="SideBar" Content="&#xe270;"></Label>
+                        <Label Content="Settings"></Label>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
