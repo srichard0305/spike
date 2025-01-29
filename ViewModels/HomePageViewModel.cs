@@ -1,6 +1,11 @@
-﻿namespace spike.ViewModels;
+﻿using spike.Data;
 
-public partial class HomePageViewModel : ViewModelBase
+namespace spike.ViewModels;
+
+public partial class HomePageViewModel : PageViewModel
 {
-    public string Test { get; set; } = "Home";
+    public HomePageViewModel()
+    {
+        PageTitle = AppPageNames.Home;
+    }
 }

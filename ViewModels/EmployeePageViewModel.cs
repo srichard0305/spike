@@ -1,6 +1,11 @@
-﻿namespace spike.ViewModels;
+﻿using spike.Data;
 
-public class EmployeePageViewModel : ViewModelBase
+namespace spike.ViewModels;
+
+public class EmployeePageViewModel : PageViewModel
 {
-    public string Test { get; set; } = "employee";
+    public EmployeePageViewModel()
+    {
+        PageTitle = AppPageNames.Employees;
+    }
 }

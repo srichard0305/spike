@@ -9,7 +9,7 @@
     
     <Design.DataContext><vm:ClientPetViewModel></vm:ClientPetViewModel></Design.DataContext>
     
-    
+    Clients Pets
     
 </UserControl>
     

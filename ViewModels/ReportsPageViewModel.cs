@@ -1,6 +1,11 @@
-﻿namespace spike.ViewModels;
+﻿using spike.Data;
 
-public class ReportsPageViewModel : ViewModelBase
+namespace spike.ViewModels;
+
+public class ReportsPageViewModel : PageViewModel
 {
-    public string Test { get; set; } = "reports";
+    public ReportsPageViewModel()
+    {
+        PageTitle = AppPageNames.Reports;
+    }
 }

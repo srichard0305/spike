@@ -1,63 +1,50 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using spike.Data;
+using spike.Factories;
 
 namespace spike.ViewModels;
 
 //partial allows ObservableProperty to change the contents of class 
 public partial class MainWindowViewModel : ViewModelBase
 {
-
-    private const string buttonActiveClass = "active";
-    
+    private readonly PageFactory _pageFactory;
     //from toolkit, calls iNotifyPropertyChange adds public properties to /Dependencies/.Net9/Source Generators
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(HomePageActive))]
     [NotifyPropertyChangedFor(nameof(ClientPetPageActive))]
     [NotifyPropertyChangedFor(nameof(EmployeePageActive))]
     [NotifyPropertyChangedFor(nameof(ReportsPageActive))]
-    private ViewModelBase _currentPage;
-    
-    //create view models 
-    private readonly HomePageViewModel _homePage = new HomePageViewModel();
-    private readonly ClientPetViewModel _clientPetPage = new ClientPetViewModel();
-    private readonly EmployeePageViewModel _employeePage = new EmployeePageViewModel();
-    private readonly ReportsPageViewModel _reportsPage = new ReportsPageViewModel();
+    private PageViewModel? _currentPage;
     
     // CurrentPage is generated with observable property
-    public bool HomePageActive => CurrentPage == _homePage;
-    public bool ClientPetPageActive => CurrentPage == _clientPetPage;
-    public bool EmployeePageActive => CurrentPage == _employeePage;
-    public bool ReportsPageActive => CurrentPage == _reportsPage;
+    // used for page nav    
+    public bool HomePageActive => CurrentPage?.PageTitle == AppPageNames.Home;
+    public bool ClientPetPageActive => CurrentPage?.PageTitle == AppPageNames.ClientPet;
+    public bool EmployeePageActive => CurrentPage?.PageTitle == AppPageNames.Employees;
+    public bool ReportsPageActive => CurrentPage?.PageTitle == AppPageNames.Reports;
     
     //-------------------------------------------------------------------------------------------------------//
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(PageFactory pageFactory)
     {
-        _currentPage = _homePage;
+        _pageFactory = pageFactory;
+        NavigateToHomePage();
     }
 
     [RelayCommand]
-    private void NavigateToHomePage()
-    {
-        CurrentPage = _homePage;
-    }
+    private void NavigateToHomePage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Home);
     
     [RelayCommand]
-    private void NavigateToClientPetPage()
-    {
-        CurrentPage = _clientPetPage;
-    }
+    private void NavigateToClientPetPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.ClientPet);
+   
     
     [RelayCommand]
-    private void NavigateToEmployeePage()
-    {
-        CurrentPage = _employeePage;
-    }
+    private void NavigateToEmployeePage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Employees);
+ 
     
     [RelayCommand]
-    private void NavigateToReportsPage()
-    {
-        CurrentPage = _reportsPage;
-    }
+    private void NavigateToReportsPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Reports);
+
 
 }

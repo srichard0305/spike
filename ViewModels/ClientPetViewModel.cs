@@ -1,6 +1,11 @@
-﻿namespace spike.ViewModels;
+﻿using spike.Data;
 
-public partial class ClientPetViewModel: ViewModelBase
+namespace spike.ViewModels;
+
+public partial class ClientPetViewModel: PageViewModel
 {
-    public string Test { get; set; } = "Client Pet";
+   public ClientPetViewModel()
+   {
+      PageTitle = AppPageNames.ClientPet;
+   }
 }

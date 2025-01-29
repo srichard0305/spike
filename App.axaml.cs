@@ -1,9 +1,12 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
+using spike.Data;
+using spike.Factories;
 using spike.ViewModels;
 using spike.Views;
 
@@ -18,6 +21,30 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // dependency injection 
+        var collection = new ServiceCollection();
+        collection.AddSingleton<MainWindowViewModel>();
+        collection.AddTransient<HomePageViewModel>();
+        collection.AddTransient<ClientPetViewModel>();
+        collection.AddTransient<EmployeePageViewModel>();
+        collection.AddTransient<ReportsPageViewModel>();
+        
+        // used to get pageviewmodel name 
+        // will only be called pages are called and brought into memory dynamically 
+        // deletes page when user navigates away
+        collection.AddSingleton<Func<AppPageNames, PageViewModel>>(x => name => name switch
+        {
+            AppPageNames.Home => x.GetRequiredService<HomePageViewModel>(),
+            AppPageNames.ClientPet => x.GetRequiredService<ClientPetViewModel>(),
+            AppPageNames.Employees=> x.GetRequiredService<EmployeePageViewModel>(),
+            AppPageNames.Reports => x.GetRequiredService<ReportsPageViewModel>(),
+            _ => throw new InvalidOperationException(),
+        });
+        
+        collection.AddSingleton<PageFactory>();
+        
+        var serviceProvider = collection.BuildServiceProvider();
+        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -25,7 +52,7 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
             desktop.MainWindow = new MainWindowView
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
             };
         }
 
