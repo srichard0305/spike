@@ -25,7 +25,15 @@ public partial class MainWindowViewModel : ViewModelBase
     public bool ReportsPageActive => CurrentPage?.PageTitle == AppPageNames.Reports;
     
     //-------------------------------------------------------------------------------------------------------//
-
+    
+    // remove default constructor after dev
+    
+    public MainWindowViewModel()
+    {
+        CurrentPage = new HomePageViewModel();
+    }
+    
+    
     public MainWindowViewModel(PageFactory pageFactory)
     {
         _pageFactory = pageFactory;

@@ -2,12 +2,172 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="750"
              xmlns:vm="clr-namespace:spike.ViewModels"
+             Background="{DynamicResource PrimaryHomeBackground}"
              x:DataType="vm:HomePageViewModel"
              x:Class="spike.Views.HomePageView">
     
     <Design.DataContext><vm:HomePageViewModel></vm:HomePageViewModel></Design.DataContext>
     
-    Home
+    <Grid RowDefinitions="Auto, Auto, *, Auto" >
+        
+        <!-- top panel-->
+        <StackPanel Grid.Row="0" Background="Aqua" Height="50">
+                
+        </StackPanel>
+        
+        
+        <!-- Employee panel-->
+        <Grid Grid.Row="1" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *">
+            
+            <StackPanel Grid.Row="0" Grid.Column="0" Background="Black">
+            <Border Height="60" Width="82">
+                <Rectangle Fill="Gray" Width="3" Margin="81 0 0 0"></Rectangle>
+            </Border>
+            </StackPanel>
+            
+            <!-- Bottom Divider -->
+            <Border  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Rectangle Fill="Gray" Height="2"></Rectangle>
+            </Border>
+            
+            <ScrollViewer Grid.Row="0" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" 
+                          Offset="{Binding #MainScrollViewer.Offset}">
+            <StackPanel Orientation="Horizontal" Width="{Binding CanvasWidth}" Height="60" Background="Black">
+            <ItemsControl ItemsSource="{Binding Employees}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="300">
+                            <TextBlock Text="{Binding Name}" 
+                                       TextWrapping="Wrap" 
+                                       TextAlignment="Center" 
+                                       FontWeight="Black" 
+                                       FontSize="18"  
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="Azure"
+                                       />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        
+        <!-- middles panel of appointments -->
+        
+            
+        
+        <Grid Grid.Row="2" ColumnDefinitions="Auto, Auto, *" Background="Black">
+            
+            <!-- Times items control  -->
+            <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden"
+                          Offset="{Binding #MainScrollViewer.Offset}">
+                <StackPanel Orientation="Vertical">
+                    <ItemsControl ItemsSource="{Binding Times}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <Border Width="80" Height="100">
+                                    <TextBlock Text = "{Binding Time}"
+                                               TextWrapping="Wrap" 
+                                               TextAlignment="Center" 
+                                               HorizontalAlignment="Center"
+                                               Padding="0 5 0 0 "
+                                               FontWeight="Black"
+                                               Foreground="Azure"
+                                    />
+                                    </Border>
+                                    <Rectangle Fill="Gray" Height="2"></Rectangle>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+                
+                <!-- Vertical Divider -->
+            <Rectangle Grid.Column="1" Fill="Gray" Width="2"></Rectangle>
+                
+                <!-- appointments  -->
+            <ScrollViewer Grid.Column="2"  x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid Background="{DynamicResource PrimaryBackground}">
+                    <StackPanel Orientation="Vertical">
+                        <!-- horizontal dividers between times  -->
+                        <ItemsControl ItemsSource="{Binding Times}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <Border Width="80" Height="100">
+                                        </Border>
+                                        <Rectangle Fill="Gray" Height="2"></Rectangle>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    
+                    
+                        <!-- Vertical dividers between Employees  -->
+                        <ItemsControl ItemsSource="{Binding Employees}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="299" Height="2400">
+                                        </Border>
+                                        <Rectangle Fill="Gray" Width="1"></Rectangle>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        
+                    
+                    <!-- Draws appointment blocks  -->
+                    <ItemsControl ItemsSource="{Binding Appointments}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.Styles>
+                            <Style Selector="ContentPresenter"  x:DataType="vm:AppointmentViewModel">
+                                <Setter Property="Canvas.Left" Value="{Binding Column}"/>
+                                <Setter Property="Canvas.Top" Value="{Binding TopPosition}"/>
+                            </Style>
+                        </ItemsControl.Styles>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="Purple"
+                                        Width="{Binding Width}"
+                                        Height="{Binding Duration}"
+                                        CornerRadius="5"
+                                        >
+                                    <TextBlock Text="{Binding Client}"></TextBlock>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        
+        
+        <!-- bottom panel -->
+        <StackPanel Grid.Row="3" Background="Green" Height="50">
+                
+        </StackPanel>
+    </Grid>
+    
 </UserControl>

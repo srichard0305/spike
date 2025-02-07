@@ -17,6 +17,7 @@
     <Application.Resources>
         <SolidColorBrush x:Key="PrimaryText">#CFCFCF</SolidColorBrush>
         <SolidColorBrush x:Key="PrimaryBackground">#272727</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryHomeBackground">#D9D9D9</SolidColorBrush>
         <LinearGradientBrush x:Key="PrimaryBackGroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
             <GradientStop Offset="0" Color="#292929"></GradientStop>
             <GradientStop Offset="1" Color="#7C7C7C"></GradientStop>
@@ -27,10 +28,17 @@
             <GradientStop Offset="1" Color="#002BFF"></GradientStop>
         </LinearGradientBrush>
         
-        <SolidColorBrush x:Key="PrimaryHover">#829DF3</SolidColorBrush>
-        <SolidColorBrush x:Key="PrimaryHoverText">#1721ED</SolidColorBrush>
+        <SolidColorBrush x:Key="SidebarPrimaryHover">#829DF3</SolidColorBrush>
+        <SolidColorBrush x:Key="SidebarPrimaryHoverText">#EBEBEB</SolidColorBrush>
         
-        <SolidColorBrush x:Key="PrimaryActiveBackground">#6633dd</SolidColorBrush>
+        <LinearGradientBrush x:Key="BookAppointmentBackGroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
+            <GradientStop Offset="0" Color="#f5d742"></GradientStop>
+            <GradientStop Offset="1" Color="#DF6C1A"></GradientStop>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="BookAppointmentPrimaryHover">#f56042</SolidColorBrush>
+        <SolidColorBrush x:Key="BookAppointmentPrimaryHoverText">#EBEBEB</SolidColorBrush>
+        
+        <SolidColorBrush x:Key="PrimaryActiveBackground">#00996E</SolidColorBrush>
         
         <FontFamily x:Key="Raleway-Regular">/Assets/fonts/Raleway-Regular.ttf#Raleway</FontFamily>
         <FontFamily x:Key="Raleway-Bold">/Assets/fonts/Raleway-Bold.ttf#Raleway</FontFamily>
