@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
@@ -9,6 +10,7 @@ using spike.Data;
 using spike.Factories;
 using spike.ViewModels;
 using spike.Views;
+using spike.Database;
 
 namespace spike;
 
@@ -21,6 +23,10 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        
+        //create db connection
+        DatabaseConnection.InitializeDatabase();
+        
         // dependency injection 
         var collection = new ServiceCollection();
         collection.AddSingleton<MainWindowViewModel>();

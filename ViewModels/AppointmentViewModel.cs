@@ -6,9 +6,9 @@ public class AppointmentViewModel : ViewModelBase
 {
     public Appointment Appointment { get; }
 
-    public double TopPosition => (Appointment.StartTime.Hour * 60 + Appointment.StartTime.Minute);
+    public double TopPosition => (Appointment.StartTime.Hour * 100 + (Appointment.StartTime.Minute * 1.67)) - 300;
     
-    public double Duration => (Appointment.EndTime - Appointment.StartTime).TotalMinutes;
+    public double Duration => ((Appointment.EndTime - Appointment.StartTime).TotalMinutes * 1.67) - 4;
     
     public double Column { get; set; }
     public double Width { get; set;  }

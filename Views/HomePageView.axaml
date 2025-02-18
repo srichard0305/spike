@@ -10,41 +10,43 @@
     
     <Design.DataContext><vm:HomePageViewModel></vm:HomePageViewModel></Design.DataContext>
     
-    <Grid RowDefinitions="Auto, Auto, *, Auto" >
+    <Grid RowDefinitions="Auto, Auto, *" >
         
         <!-- top panel-->
-        <StackPanel Grid.Row="0" Background="Aqua" Height="50">
-                
-        </StackPanel>
+        <Grid Grid.Row="0" RowDefinitions = "*, Auto" Background="Black" Height="60">
+            <Grid ColumnDefinitions="Auto, *" Grid.Row="0">
+                <Button Grid.Column="0" Content="Calendar" Background="Azure" Foreground="Black" Margin="10 0 0 0"></Button>
+                <Label Grid.Column="1" Content="{Binding Date}" HorizontalContentAlignment="Center" VerticalAlignment="Center"
+                       FontWeight="Black" FontSize="20"></Label>
+            </Grid>
+            <Border Grid.Row="1">
+                <Rectangle Fill="Gray" Height="2"></Rectangle>
+            </Border>
+        </Grid>
         
         
         <!-- Employee panel-->
-        <Grid Grid.Row="1" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *">
+        <Grid Grid.Row="1" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *" Background="Black">
             
-            <StackPanel Grid.Row="0" Grid.Column="0" Background="Black">
+            <StackPanel Grid.Row="0" Grid.Column="0">
             <Border Height="60" Width="82">
                 <Rectangle Fill="Gray" Width="3" Margin="81 0 0 0"></Rectangle>
             </Border>
             </StackPanel>
             
-            <!-- Bottom Divider -->
-            <Border  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                <Rectangle Fill="Gray" Height="2"></Rectangle>
-            </Border>
-            
             <ScrollViewer Grid.Row="0" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" 
                           Offset="{Binding #MainScrollViewer.Offset}">
-            <StackPanel Orientation="Horizontal" Width="{Binding CanvasWidth}" Height="60" Background="Black">
-            <ItemsControl ItemsSource="{Binding Employees}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Width="300">
-                            <TextBlock Text="{Binding Name}" 
+                <StackPanel Orientation="Horizontal" Width="{Binding CanvasWidth}" Height="60" HorizontalAlignment="Left">
+                <ItemsControl ItemsSource="{Binding Employees}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Width="300">
+                                <TextBlock Text="{Binding Name}" 
                                        TextWrapping="Wrap" 
                                        TextAlignment="Center" 
                                        FontWeight="Black" 
@@ -53,18 +55,22 @@
                                        VerticalAlignment="Center"
                                        Foreground="Azure"
                                        />
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                </StackPanel>
             </ScrollViewer>
+            
+            <!-- Bottom Divider -->
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <Rectangle Fill="Gray" Height="2"></Rectangle>
+            </Border>
+            
         </Grid>
         
         <!-- middles panel of appointments -->
-        
-            
-        
+
         <Grid Grid.Row="2" ColumnDefinitions="Auto, Auto, *" Background="Black">
             
             <!-- Times items control  -->
@@ -75,7 +81,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
-                                    <Border Width="80" Height="100">
+                                    <Border Width="80" Height="98">
                                     <TextBlock Text = "{Binding Time}"
                                                TextWrapping="Wrap" 
                                                TextAlignment="Center" 
@@ -105,7 +111,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
-                                        <Border Width="80" Height="100">
+                                        <Border Width="80" Height="98">
                                         </Border>
                                         <Rectangle Fill="Gray" Height="2"></Rectangle>
                                     </StackPanel>
@@ -125,7 +131,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Border Width="299" Height="2400">
+                                        <Border Width="299" Height="1440">
                                         </Border>
                                         <Rectangle Fill="Gray" Width="1"></Rectangle>
                                     </StackPanel>
@@ -163,11 +169,6 @@
             </ScrollViewer>
         </Grid>
         
-        
-        <!-- bottom panel -->
-        <StackPanel Grid.Row="3" Background="Green" Height="50">
-                
-        </StackPanel>
     </Grid>
     
 </UserControl>

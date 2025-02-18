@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using spike.Data;
@@ -10,14 +9,16 @@ using spike.Models;
 namespace spike.ViewModels;
 
 public partial class HomePageViewModel : PageViewModel
-{
-    private readonly int _slotDuration= 5;  
-    private readonly int _startHour = 0;      
-    private readonly int _endHour = 24;
+{  
     private readonly int _employeeColumnWidth = 300;
     
     [ObservableProperty]
     private double _canvasWidth;
+    
+    private DateTime currentDate;
+    
+    [ObservableProperty]
+    private string _date;
     
     public ObservableCollection<Times> Times { get; } = new();
     public ObservableCollection<Employee> Employees { get; set; } = new();
@@ -36,6 +37,9 @@ public partial class HomePageViewModel : PageViewModel
         Employees.Add(new Employee("Employee5"));
         
         CanvasWidth = _employeeColumnWidth * Employees.Count;
+        
+        currentDate = DateTime.Now;
+        Date = currentDate.ToString("MMMM dd, yyyy");
         
         var appointments = new List<Appointment>
         {
