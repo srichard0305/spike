@@ -14,10 +14,14 @@
         
         <!-- top panel-->
         <Grid Grid.Row="0" RowDefinitions = "*, Auto" Background="Black" Height="60">
-            <Grid ColumnDefinitions="Auto, *" Grid.Row="0">
-                <Button Grid.Column="0" Content="Calendar" Background="Azure" Foreground="Black" Margin="10 0 0 0"></Button>
-                <Label Grid.Column="1" Content="{Binding Date}" HorizontalContentAlignment="Center" VerticalAlignment="Center"
-                       FontWeight="Black" FontSize="20"></Label>
+            <Grid ColumnDefinitions="Auto, *, Auto" Grid.Row="0">
+                
+                <AutoCompleteBox Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                 CornerRadius="20" Width="200" Watermark="Search" Margin="10 0 0 0">
+                </AutoCompleteBox>
+                
+                <DatePicker Grid.Column="2" Margin="0 0 10 0" CornerRadius="20" 
+                            SelectedDate="{Binding SelectedDate, Mode=TwoWay}"> </DatePicker>
             </Grid>
             <Border Grid.Row="1">
                 <Rectangle Fill="Gray" Height="2"></Rectangle>

@@ -13,5 +13,4 @@ public partial class HomePageView : UserControl
     {
         InitializeComponent();
     }
-    
 }

@@ -53,6 +53,9 @@ public partial class MainWindowViewModel : ViewModelBase
     
     [RelayCommand]
     private void NavigateToReportsPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Reports);
+    
+    [RelayCommand]
+    private void NavigateToBookAppointmentPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.BookAppointment);
 
 
 }

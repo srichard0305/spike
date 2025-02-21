@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using spike.Data;
 using spike.Models;
 
@@ -15,10 +17,9 @@ public partial class HomePageViewModel : PageViewModel
     [ObservableProperty]
     private double _canvasWidth;
     
-    private DateTime currentDate;
-    
-    [ObservableProperty]
-    private string _date;
+   
+    private DateTimeOffset? _selectedDate;
+    private DateTime _currentDate;
     
     public ObservableCollection<Times> Times { get; } = new();
     public ObservableCollection<Employee> Employees { get; set; } = new();
@@ -30,6 +31,9 @@ public partial class HomePageViewModel : PageViewModel
         
         InitTimes();
         
+        // set date to today
+        SelectedDate = DateTimeOffset.Now;
+        
         Employees.Add(new Employee("Employee1"));
         Employees.Add(new Employee("Employee2"));
         Employees.Add(new Employee("Employee3"));
@@ -37,9 +41,6 @@ public partial class HomePageViewModel : PageViewModel
         Employees.Add(new Employee("Employee5"));
         
         CanvasWidth = _employeeColumnWidth * Employees.Count;
-        
-        currentDate = DateTime.Now;
-        Date = currentDate.ToString("MMMM dd, yyyy");
         
         var appointments = new List<Appointment>
         {
@@ -136,6 +137,44 @@ public partial class HomePageViewModel : PageViewModel
         return result;
     }
     
+    // gets selected date from datepicker
+    public DateTimeOffset? SelectedDate
+    {
+        get => _selectedDate;
+        set
+        {
+            if (_selectedDate != value)
+            {
+                _selectedDate = value;
+                OnPropertyChanged(nameof(SelectedDate));
+                
+                _currentDate = _selectedDate?.Date ?? DateTime.Now;
+            }
+        }
+    }
+    
+    // assigns selected date from datepicker to datetime for querying db
+    public DateTime CurrentDate
+    {
+        get => _currentDate;
+        private set
+        {
+            if (_currentDate != value)
+            {
+                _currentDate = value;
+                OnPropertyChanged(nameof(CurrentDate));
+                
+                // todo 
+                // load appointments for current date
+            }
+        }
+    }
+    
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
     
 }
 

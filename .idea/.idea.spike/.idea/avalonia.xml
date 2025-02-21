@@ -5,6 +5,7 @@
       <map>
         <entry key="App.axaml" value="spike.csproj" />
         <entry key="Styles/AppDefaultStyles.axaml" value="spike.csproj" />
+        <entry key="Views/BookAppointmentView.axaml" value="spike.csproj" />
         <entry key="Views/ClientPetView.axaml" value="spike.csproj" />
         <entry key="Views/ClientsPetsView.axaml" value="spike.csproj" />
         <entry key="Views/EmployeePageView.axaml" value="spike.csproj" />
