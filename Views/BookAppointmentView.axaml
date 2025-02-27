@@ -2,7 +2,139 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:spike.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="{DynamicResource PrimaryBackground}"
              x:Class="spike.Views.BookAppointmentView">
-    Book Appointment
+    
+    <Design.DataContext><viewModels:BookAppointmentViewModel></viewModels:BookAppointmentViewModel></Design.DataContext>
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid RowDefinitions="Auto, Auto, *">
+            <StackPanel Grid.Row="0">
+                <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15">
+                    <TextBlock Text="Book Appointment" FontSize="40" FontWeight="Black" TextDecorations="Underline"></TextBlock>
+                </Border>
+            </StackPanel>
+            <Grid Grid.Row="1" ColumnDefinitions="Auto, *, Auto" >
+                <AutoCompleteBox Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                 CornerRadius="20" Width="200" Watermark="Search" Margin="15">
+                </AutoCompleteBox>
+                <Button Grid.Column="2" Classes="bookappointment" Margin="15" Background="Gray" >
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="SideBar" Content="&#xE3D4;"></Label>
+                        <Label Content="Client" Padding="0 2 10 0 "></Label>
+                    </StackPanel>
+                </Button>
+            </Grid>
+       
+            
+            <StackPanel Grid.Row="2">
+                <!-- Pets & Services block-->
+                <Label Content="Pet &amp; Services" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid RowDefinitions="Auto, Auto, Auto">
+                        <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto, * Auto" Margin="10">
+                            <Image Grid.Column="0" Source="../Assets/images/spike_logo.png" Width="50"></Image>
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <Label Content="Pet Name" Foreground="Azure">
+                                </Label>
+                                <Label Content="Breed" Foreground="Azure"></Label>
+                            </StackPanel>
+                            <Button Grid.Column="3" Content="Change" HorizontalAlignment="Right"></Button>
+                        </Grid>
+                        <Rectangle Grid.Row="1" Fill="Gray" Height="2" Margin="15 0 15 0"> </Rectangle>
+                        <Grid Grid.Row="2" ColumnDefinitions="Auto, *">
+                            <Grid Grid.Column="0" RowDefinitions="Auto, Auto, Auto, Auto" Margin="10">
+                                <Grid Grid.Row="0" ColumnDefinitions="Auto, *"  Margin="10">
+                                    <Label Grid.Column="0" Content="Service:" Foreground="Azure" FontSize="20"></Label>
+                                    <TextBox Grid.Column="1" Width="200" HorizontalAlignment="Right"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="1" ColumnDefinitions="Auto, *"  Margin="10">
+                                    <Label Grid.Column="0" Content="Cost:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                    <TextBox Grid.Column="1" Width="200" HorizontalAlignment="Right"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto"  Margin="10">
+                                    <Label Grid.Column="0" Content="Service Notes:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                    <Border Grid.Column="1" Width="50"></Border>
+                                    <TextBox Grid.Column="2" Width="200" Height="100" HorizontalAlignment="Right" TextWrapping="Wrap"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="3" ColumnDefinitions="Auto, *"  Margin="10">
+                                    <Label Grid.Column="0" Content="Last Appt:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                    <TextBlock Grid.Column="1" Width="200" HorizontalAlignment="Right"></TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+                
+                <!-- Customer Info block-->
+                <Label Content="Customer  Info" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid RowDefinitions="Auto, Auto, Auto">
+                       <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                           <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"> </Label>
+                           <Label Content="Customer Name" Foreground="Azure" FontSize="20"> </Label>
+                       </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+                            <Label Classes="SideBar" Content="&#xE3B8;" Foreground="Azure" FontSize="20"> </Label>
+                            <Label Content="Phone" Foreground="Azure" FontSize="20"> </Label>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+                            <Label Classes="SideBar" Content="&#xE316;" Foreground="Azure" FontSize="20"> </Label>
+                            <Label Content="address" Foreground="Azure" FontSize="20"> </Label>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                
+                <!-- start and end time block -->
+                <Label Content="Select Times" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Grid Grid.Column="0" RowDefinitions="Auto, Auto, Auto" Margin="10">
+                            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto"  Margin="10">
+                                <Label Grid.Column="0" Content="Select Date:" Foreground="Azure" FontSize="20"></Label>
+                                <Border Grid.Column="1" Width="50"></Border>
+                                <DatePicker Grid.Column="2" HorizontalAlignment="Right"></DatePicker>
+                            </Grid>
+                            <Grid Grid.Row="1" ColumnDefinitions="Auto, *"  Margin="10">
+                                <Label Grid.Column="0" Content="Start Time:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                <TimePicker Grid.Column="1" HorizontalAlignment="Right"></TimePicker>
+                            </Grid>
+                            <Grid Grid.Row="2" ColumnDefinitions="Auto, *"  Margin="10">
+                                <Label Grid.Column="0" Content="End Time:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                <TimePicker Grid.Column="1" HorizontalAlignment="Right"></TimePicker>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+                
+                <!-- Groomer Block -->
+                <Label Content="Pet Stylist" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Grid Grid.Column="0" RowDefinitions="Auto, Auto, Auto" Margin="10">
+                            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto"  Margin="10">
+                                <Label Grid.Column="0" Content="Stylist:" Foreground="Azure" FontSize="20"></Label>
+                                <Border Grid.Column="1" Width="50"></Border>
+                                <ComboBox Grid.Column="2" HorizontalAlignment="Right" Width="200"></ComboBox>
+                            </Grid>
+                            <Grid Grid.Row="1" ColumnDefinitions="Auto, *, Auto"  Margin="10">
+                                <Label Grid.Column="0" Content="Booked By:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                <Border Grid.Column="1" Width="50"></Border>
+                                <ComboBox Grid.Column="2" HorizontalAlignment="Right" Width="200"></ComboBox>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+                
+                <Button Classes="bookappointment" Content="Book Appointment!" Margin="20 0 0 0" Height="50" 
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Background="{DynamicResource BookAppointmentBackGroundGradient}"
+                        Foreground="Cornsilk"></Button>
+                
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

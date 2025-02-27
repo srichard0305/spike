@@ -90,6 +90,7 @@
         <Setter Property="Foreground" Value="{DynamicResource BookAppointmentPrimaryHoverText}"></Setter>
         <Setter Property="Background" Value="{DynamicResource BookAppointmentPrimaryHover}"></Setter>
     </Style>
+    
   
 </Styles>
 

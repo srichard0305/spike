@@ -32,7 +32,7 @@
         <SolidColorBrush x:Key="SidebarPrimaryHoverText">#EBEBEB</SolidColorBrush>
         
         <LinearGradientBrush x:Key="BookAppointmentBackGroundGradient" StartPoint="0%, 0%" EndPoint="100%, 0%">
-            <GradientStop Offset="0" Color="#f5d742"></GradientStop>
+            <GradientStop Offset="0" Color="#f5b042"></GradientStop>
             <GradientStop Offset="1" Color="#DF6C1A"></GradientStop>
         </LinearGradientBrush>
         <SolidColorBrush x:Key="BookAppointmentPrimaryHover">#f56042</SolidColorBrush>
