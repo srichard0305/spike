@@ -26,14 +26,6 @@ public partial class MainWindowViewModel : ViewModelBase
     
     //-------------------------------------------------------------------------------------------------------//
     
-    // remove default constructor after dev
-    
-    public MainWindowViewModel()
-    {
-        CurrentPage = new HomePageViewModel();
-    }
-    
-    
     public MainWindowViewModel(PageFactory pageFactory)
     {
         _pageFactory = pageFactory;
@@ -45,17 +37,14 @@ public partial class MainWindowViewModel : ViewModelBase
     
     [RelayCommand]
     private void NavigateToClientPetPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.ClientPet);
-   
     
     [RelayCommand]
     private void NavigateToEmployeePage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Employees);
- 
     
     [RelayCommand]
     private void NavigateToReportsPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Reports);
     
     [RelayCommand]
     private void NavigateToBookAppointmentPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.BookAppointment);
-
-
+    
 }

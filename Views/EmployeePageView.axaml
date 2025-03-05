@@ -2,7 +2,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:spike.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="spike.Views.EmployeePageView">
-    Employees
+             x:Class="spike.Views.EmployeePageView"
+             x:DataType="vm:EmployeePageViewModel"
+             Background="{DynamicResource PrimaryBackground}"
+             >
+    
+    <Design.DataContext><vm:EmployeePageViewModel></vm:EmployeePageViewModel></Design.DataContext>
+    
+    <Grid RowDefinitions="Auto, Auto">
+        <StackPanel Grid.Row="0">
+            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15">
+                <TextBlock Text="Employees" FontSize="40" FontWeight="Black" TextDecorations="Underline"></TextBlock>
+            </Border>
+        </StackPanel>
+        <TabControl Grid.Row="1" Margin="5">
+            <TabItem Header="Employees">
+                <!-- List of clients and pets -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Add Employee">
+                <!-- add Employee-->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
 </UserControl>

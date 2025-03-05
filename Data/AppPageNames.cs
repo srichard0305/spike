@@ -6,5 +6,6 @@ public enum AppPageNames
     ClientPet,
     Employees,
     Reports,
-    BookAppointment
+    BookAppointment,
+    AddClient
 }

@@ -79,7 +79,7 @@
             
             <!-- Times items control  -->
             <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden"
-                          Offset="{Binding #MainScrollViewer.Offset}">
+                          Offset="{Binding #MainScrollViewer.Offset, Mode=TwoWay}">
                 <StackPanel Orientation="Vertical">
                     <ItemsControl ItemsSource="{Binding Times}">
                         <ItemsControl.ItemTemplate>

@@ -9,7 +9,8 @@
         x:Class="spike.Views.MainWindowView"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/icons/spike_logo_ico.ico"
-        Title="spike">
+        Title="spike"
+        WindowStartupLocation="CenterScreen">
     
     <!-- updates design view when binding data only for dev -->
     <Design.DataContext><vm:MainWindowViewModel></vm:MainWindowViewModel></Design.DataContext>

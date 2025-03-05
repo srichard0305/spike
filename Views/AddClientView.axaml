@@ -1,0 +1,99 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:spike.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:AddClientViewModel"
+             Background="{DynamicResource PrimaryBackground}"
+             x:Class="spike.Views.AddClientView">
+    
+    <Design.DataContext><viewModels:AddClientViewModel></viewModels:AddClientViewModel></Design.DataContext>
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+       <StackPanel>
+            <Label Content="Client Info" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
+                    
+            <Border Background="Black" Margin="20" CornerRadius="10">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+                            <!-- first and last name-->
+                            <Grid Grid.Row="0" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10">
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                    <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"> </Label>
+                                    <Label Content="First Name:" Foreground="Azure" FontSize="20"> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                    <Border Width="40"></Border>
+                                    <Label Content="Last Name:" Foreground="Azure" FontSize="20"> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="1" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="50 0 0 0"></TextBox>
+                            </Grid>
+                            
+                            <!-- address-->
+                            <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10">
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                    <Label Classes="SideBar" Content="&#xE316;" Foreground="Azure" FontSize="20"> </Label>
+                                    <Label Content="Address:" Foreground="Azure" FontSize="20"> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                
+                                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                    <Border Width="40"></Border>
+                                    <Label Content="Apt/Suite/etc:" Foreground="Azure" FontSize="20"> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="1" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="50 0 0 0"></TextBox>
+                                
+                                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Margin="10">
+                                    <Label Content="City:" Foreground="Azure" FontSize="20" Margin="30 0 0 0 "> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="0" Grid.Row="3" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="10">
+                                    <Border Width="40"></Border>
+                                    <Label Content="Country:" Foreground="Azure" FontSize="20"> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="1" Grid.Row="3" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="50 0 0 0"></TextBox>
+                                
+                                <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" Margin="10">
+                                    <Label Content="Province:" Foreground="Azure" FontSize="20" Margin="30 0 0 0 "> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="0" Grid.Row="5" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" Margin="10">
+                                    <Border Width="40"></Border>
+                                    <Label Content="Postal Code:" Foreground="Azure" FontSize="20"> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="1" Grid.Row="5" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="50 0 0 0"></TextBox>
+                                
+                            </Grid>
+                            
+                            <!-- phone -->
+                            <Grid Grid.Row="2" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10">
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                    <Label Classes="SideBar" Content="&#xE3B8;" Foreground="Azure" FontSize="20"> </Label>
+                                    <Label Content="Phone:" Foreground="Azure" FontSize="20"> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                            </Grid>
+                            
+                            <!-- email -->
+                            <Grid Grid.Row="3" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10 0 0 20 ">
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                    <Label Classes="SideBar" Content="&#xE214;" Foreground="Azure" FontSize="20"> </Label>
+                                    <Label Content="Email:" Foreground="Azure" FontSize="20"> </Label>
+                                </StackPanel>
+                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                <Button Classes="bookappointment"
+                        Background="{DynamicResource BookAppointmentBackGroundGradient}"
+                        Foreground="Cornsilk"
+                        Margin="20 0 0 20 ">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="SideBar" Content="&#xE3D4;"></Label>
+                        <Label Content="Add Client" Padding="0 2 10 0 "></Label>
+                    </StackPanel>
+                </Button>
+       </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -2,14 +2,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:spike.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:spike.ViewModels"
              x:DataType="vm:ClientPetViewModel"
+             Background="{DynamicResource PrimaryBackground}"
              x:Class="spike.Views.ClientPetView">
     
     <Design.DataContext><vm:ClientPetViewModel></vm:ClientPetViewModel></Design.DataContext>
     
-    Clients Pets
+    <Grid RowDefinitions="Auto, *">
+        <StackPanel Grid.Row="0">
+            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15">
+                <TextBlock Text="Clients &amp; Pets" FontSize="40" FontWeight="Black" TextDecorations="Underline"></TextBlock>
+            </Border>
+        </StackPanel>
+        <TabControl Grid.Row="1" Margin="5">
+            <TabItem Header="Clients">
+                <!-- List of clients and pets -->
+                <local:ClientsView/>
+            </TabItem>
+            <TabItem Header="Add Client">
+                <!-- add client -->
+                <local:AddClientView />
+            </TabItem>
+            <TabItem Header="Add Pet">
+                <!-- add pet -->
+                <local:AddPetView/>
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
     
 </UserControl>
     
