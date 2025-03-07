@@ -22,12 +22,16 @@
                                     <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="First Name:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="40 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).FirstName}"></TextBox>
                                 <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
                                     <Border Width="40"></Border>
                                     <Label Content="Last Name:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="1" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="50 0 0 0"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="1" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="50 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).LastName}"></TextBox>
                             </Grid>
                             
                             <!-- address-->
@@ -36,33 +40,47 @@
                                     <Label Classes="SideBar" Content="&#xE316;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="Address:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="40 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).Address}"> </TextBox>
                                 
                                 <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
                                     <Border Width="40"></Border>
                                     <Label Content="Apt/Suite/etc:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="1" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="50 0 0 0"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="1" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="50 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).Etc}"></TextBox>
                                 
                                 <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Margin="10">
                                     <Label Content="City:" Foreground="Azure" FontSize="20" Margin="30 0 0 0 "> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="0" Grid.Row="3" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <TextBox Grid.Column="0" Grid.Row="3" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="40 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).City}"></TextBox>
+                                
                                 <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="10">
                                     <Border Width="40"></Border>
                                     <Label Content="Country:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="1" Grid.Row="3" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="50 0 0 0"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="3" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="50 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).Country}"></TextBox>
                                 
                                 <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" Margin="10">
                                     <Label Content="Province:" Foreground="Azure" FontSize="20" Margin="30 0 0 0 "> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="0" Grid.Row="5" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <TextBox Grid.Column="0" Grid.Row="5" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="40 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).Province}"></TextBox>
+                                
                                 <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" Margin="10">
                                     <Border Width="40"></Border>
                                     <Label Content="Postal Code:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="1" Grid.Row="5" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="50 0 0 0"></TextBox>
+                                <TextBox Grid.Column="1" Grid.Row="5" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="50 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).PostalCode}"></TextBox>
                                 
                             </Grid>
                             
@@ -72,7 +90,9 @@
                                     <Label Classes="SideBar" Content="&#xE3B8;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="Phone:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="40 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).Phone}"></TextBox>
                             </Grid>
                             
                             <!-- email -->
@@ -81,14 +101,17 @@
                                     <Label Classes="SideBar" Content="&#xE214;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="Email:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="40 0 0 0"></TextBox>
+                                <TextBox Grid.Column="0" Grid.Row="1" Width="200" TextWrapping="Wrap" 
+                                         HorizontalAlignment="Left" Margin="40 0 0 0"
+                                         Text="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).Email}"></TextBox>
                             </Grid>
                         </Grid>
                     </Border>
                 <Button Classes="bookappointment"
                         Background="{DynamicResource BookAppointmentBackGroundGradient}"
                         Foreground="Cornsilk"
-                        Margin="20 0 0 20 ">
+                        Margin="20 0 0 20 "
+                       Command="{Binding $parent.((viewModels:ClientPetViewModel)DataContext).AddClientCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Label Classes="SideBar" Content="&#xE3D4;"></Label>
                         <Label Content="Add Client" Padding="0 2 10 0 "></Label>

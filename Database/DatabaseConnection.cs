@@ -21,7 +21,7 @@ public class DatabaseConnection
                 CREATE TABLE IF NOT EXISTS Clients (
                     Client_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     First_Name TEXT NOT NULL,
-                    Last_Name TEXT NOT NULL,
+                    Last_Name TEXT NOT NULL
                 );
 
                 CREATE TABLE IF NOT EXISTS ClientAddress (
@@ -31,28 +31,28 @@ public class DatabaseConnection
                     City TEXT NOT NULL,
                     Country TEXT NOT NULL,
                     Province TEXT NOT NULL,
-                    PostalCode TEXT NOT NULL,
+                    Postal_Code TEXT NOT NULL,
                     Client_Id INTEGER NOT NULL,
-                    FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) ON DELETE CASCADE
+                    FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) 
                 );
 
                 CREATE TABLE IF NOT EXISTS ClientEmail (
                     ClientEmail_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Email TEXT NOT NULL,
                     Client_Id INTEGER NOT NULL,
-                    FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) ON DELETE CASCADE
+                    FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) 
                 );
                
                 CREATE TABLE IF NOT EXISTS ClientPhone (
                     ClientPhone_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Phone TEXT NOT NULL,
                     Client_Id INTEGER NOT NULL,
-                    FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) ON DELETE CASCADE
+                    FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) 
                 );
 
                 CREATE TABLE IF NOT EXISTS Pets (
-                    Pet_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    PetName TEXT NOT NULL,
+                    Pet_Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Pet_Name TEXT NOT NULL,
                     Breed TEXT NOT NULL,
                     Age INTEGER NOT NULL,
                     Birthday TEXT NOT NULL,
@@ -62,7 +62,7 @@ public class DatabaseConnection
                     Vet_Name TEXT,
                     Vet_Phone TEXT,
                     Vaccines TEXT,
-                    Client_Id INTEGER,
+                    Client_Id INTEGER NOT NULL,
                     FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id)
                 );
 
@@ -74,29 +74,29 @@ public class DatabaseConnection
                 );
 
                 CREATE TABLE IF NOT EXISTS EmployeeAddress (
-                    EmployeesAddress_Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    EmployeeAddress_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Address TEXT NOT NULL,
                     Etc TEXT NOT NULL,
                     City TEXT NOT NULL,
                     Country TEXT NOT NULL,
                     Province TEXT NOT NULL,
                     PostalCode TEXT NOT NULL,
-                    Client_Id INTEGER NOT NULL,
-                    FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) ON DELETE CASCADE
+                    Employee_Id INTEGER NOT NULL,
+                    FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) 
                 );
 
                 CREATE TABLE IF NOT EXISTS EmployeeEmail (
                     EmployeeEmail_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Email TEXT NOT NULL,
-                    Client_Id INTEGER NOT NULL,
-                    FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) ON DELETE CASCADE
+                    Employee_Id INTEGER NOT NULL,
+                    FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) 
                 );
                
                 CREATE TABLE IF NOT EXISTS EmployeePhone (
                     EmployeePhone_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Phone TEXT NOT NULL,
-                    Client_Id INTEGER NOT NULL,
-                    FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) ON DELETE CASCADE
+                    Employee_Id INTEGER NOT NULL,
+                    FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) 
                 );
 
                 CREATE TABLE IF NOT EXISTS Appointments (
@@ -110,8 +110,8 @@ public class DatabaseConnection
                     Cost REAL NOT NULL,
                     StartTime TEXT NOT NULL,
                     EndTime TEXT NOT NULL,
-                    CheckIn TEXT NOT NULL,
-                    CheckOut TEXT NOT NULL,
+                    CheckIn TEXT,
+                    CheckOut TEXT,
                     Cancelled TEXT,
                     NoShow TEXT,
                     BookedBy INTEGER NOT NULL,

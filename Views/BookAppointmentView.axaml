@@ -52,7 +52,7 @@
                                 <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto"  Margin="10">
                                     <Label Grid.Column="0" Content="Service Notes:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
                                     <Border Grid.Column="1" Width="50"></Border>
-                                    <TextBox Grid.Column="2" Width="200" Height="100" HorizontalAlignment="Right" TextWrapping="Wrap"></TextBox>
+                                    <TextBox Grid.Column="2" Width="200" Height="100" HorizontalAlignment="Right" TextWrapping="Wrap" AcceptsReturn="True"></TextBox>
                                 </Grid>
                                 <Grid Grid.Row="3" ColumnDefinitions="Auto, *"  Margin="10">
                                     <Label Grid.Column="0" Content="Last Appt:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>

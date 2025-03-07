@@ -1,6 +1,12 @@
-﻿namespace spike.ViewModels;
+﻿
 
-public class AddClientViewModel
+
+namespace spike.ViewModels;
+
+public class AddClientViewModel : ViewModelBase
 {
     
+    
+    
+
 }
