@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("spike")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+adb46850c9e920c245cc50f85deedb1361321e29")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+622dc894d972c463d87deefd12b0182fcc3983b1")]
 [assembly: System.Reflection.AssemblyProductAttribute("spike")]
 [assembly: System.Reflection.AssemblyTitleAttribute("spike")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
