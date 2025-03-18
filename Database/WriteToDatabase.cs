@@ -59,7 +59,7 @@ public class WriteToDatabase
                     VALUES (@Email, @Client_Id)
                     ";
                 using var insertEmail = new SqliteCommand(sqlStatement, connection, transaction);
-                insertEmail.Parameters.AddWithValue("@Email", client.Email);
+                insertEmail.Parameters.AddWithValue("@Email", client.ContactInfo.Email);
                 insertEmail.Parameters.AddWithValue("@Client_Id", clientId);
                 insertEmail.ExecuteNonQuery();
 
@@ -69,7 +69,7 @@ public class WriteToDatabase
                     VALUES (@Phone, @Client_Id)
                     ";
                 using var insertPhone = new SqliteCommand(sqlStatement, connection, transaction);
-                insertPhone.Parameters.AddWithValue("@Phone", client.Phone);
+                insertPhone.Parameters.AddWithValue("@Phone", client.ContactInfo.PrimaryPhone);
                 insertPhone.Parameters.AddWithValue("@Client_Id", clientId);
                 insertPhone.ExecuteNonQuery();
 
@@ -108,9 +108,9 @@ public class WriteToDatabase
         command.Parameters.AddWithValue("@Birthday", pet.Birthday.ToString(CultureInfo.InvariantCulture));
         command.Parameters.AddWithValue("@Gender", pet.Gender);
         command.Parameters.AddWithValue("@Health", pet.Health);
-        command.Parameters.AddWithValue("@Spayed_Neutered", pet.Spayed_Neutered);
-        command.Parameters.AddWithValue("@Vet_Name", pet.Vet_Name);
-        command.Parameters.AddWithValue("@Vet_Phone", pet.Vet_Phone);
+        command.Parameters.AddWithValue("@Spayed_Neutered", pet.SpayedNeutered);
+        command.Parameters.AddWithValue("@Vet_Name", pet.VetName);
+        command.Parameters.AddWithValue("@Vet_Phone", pet.VetPhone);
         command.Parameters.AddWithValue("@Vaccines", pet.Vaccines);
         command.ExecuteNonQuery();
     }

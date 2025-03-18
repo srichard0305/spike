@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:spike.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1161" d:DesignHeight="739"
              x:DataType="viewModels:AddClientViewModel"
              Background="{DynamicResource PrimaryBackground}"
              x:Class="spike.Views.AddClientView">
@@ -12,38 +12,34 @@
     
     <ScrollViewer VerticalScrollBarVisibility="Auto">
        <StackPanel>
-            <Label Content="Client Info" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
-                    
-            <Border Background="Black" Margin="20" CornerRadius="10">
-                <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+           <Label Content="Client Intake Form" FontSize="55" HorizontalAlignment="Center"></Label>
+           <Label Content="Client Info" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
+            <Border Background="Black" Margin="20" CornerRadius="10" Padding="10 0 0 20">
+                <Grid RowDefinitions="Auto, Auto" HorizontalAlignment="Center">
                             <!-- first and last name-->
                             <Grid Grid.Row="0" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10">
                                 <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
                                     <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="First Name:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                
                                 <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" Spacing="10">
-                                    <TextBox Width="200" TextWrapping="Wrap" 
+                                    <TextBox Width="400" TextWrapping="Wrap" 
                                              HorizontalAlignment="Left" Margin="40 0 0 0"
-                                             Text="{Binding FirstName}"></TextBox>
-                                    <TextBlock Text="{Binding FirstNameErrorMessage}" 
-                                               Foreground="Red" Margin="40 0 0 0"
-                                               IsVisible="{Binding FirstNameIsRequired}"></TextBlock>
+                                             Text="{Binding Client.FirstName}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[0]}" 
+                                               Foreground="Red" Margin="40 0 0 0"></TextBlock>
                                 </StackPanel>
                                 
                                 <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
                                     <Border Width="40"></Border>
                                     <Label Content="Last Name:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                
                                 <StackPanel Grid.Column="1" Grid.Row="1" Spacing="10">
-                                    <TextBox  Width="200" TextWrapping="Wrap" 
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
                                              HorizontalAlignment="Left" Margin="50 0 0 0"
-                                             Text="{Binding LastName}"></TextBox>
-                                    <TextBlock Text="{Binding LastNameErrorMessage}" 
-                                               Foreground="Red" Margin="50 0 0 0"
-                                               IsVisible="{Binding LastNameIsRequired}"></TextBlock>
+                                             Text="{Binding Client.LastName}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[1]}" 
+                                               Foreground="Red" Margin="50 0 0 0"></TextBlock>
                                 </StackPanel>
                                 
                             </Grid>
@@ -54,14 +50,12 @@
                                     <Label Classes="SideBar" Content="&#xE316;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="Address:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
-                                
                                 <StackPanel Grid.Column="0" Grid.Row="1" Spacing="10">
-                                    <TextBox  Width="200" TextWrapping="Wrap" 
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
                                              HorizontalAlignment="Left" Margin="40 0 0 0"
-                                             Text="{Binding Address}"> </TextBox>
-                                    <TextBlock Text="{Binding AddressErrorMessage}" 
-                                               Foreground="Red" Margin="40 0 0 0"
-                                               IsVisible="{Binding AddressIsRequired}"></TextBlock>
+                                             Text="{Binding Address.AddressLine}"> </TextBox>
+                                    <TextBlock Text="{Binding Errors[2]}" 
+                                               Foreground="Red" Margin="40 0 0 0"></TextBlock>
                                 </StackPanel>
                                 
                                 
@@ -70,9 +64,9 @@
                                     <Label Content="Apt/Suite/etc:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Grid.Row="1">
-                                    <TextBox  Width="200" TextWrapping="Wrap" 
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
                                               HorizontalAlignment="Left" Margin="50 0 0 0"
-                                              Text="{Binding Etc}"></TextBox>
+                                              Text="{Binding Address.Etc}"></TextBox>
                                 </StackPanel>
                                 
                                 
@@ -80,39 +74,36 @@
                                     <Label Content="City:" Foreground="Azure" FontSize="20" Margin="30 0 0 0 "> </Label>
                                 </StackPanel>
                                 <StackPanel Grid.Column="0" Grid.Row="3" Spacing="10">
-                                    <TextBox Width="200" TextWrapping="Wrap" 
+                                    <TextBox Width="400" TextWrapping="Wrap" 
                                              HorizontalAlignment="Left" Margin="40 0 0 0"
-                                             Text="{Binding City}"></TextBox>
-                                    <TextBlock Text="{Binding CityErrorMessage}" 
-                                               Foreground="Red" Margin="40 0 0 0"
-                                               IsVisible="{Binding CityIsRequired}"></TextBlock>
+                                             Text="{Binding Address.City}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[3]}" 
+                                               Foreground="Red" Margin="40 0 0 0"></TextBlock>
                                 </StackPanel>
                                 
                                 
                                 <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="10">
                                     <Border Width="40"></Border>
-                                    <Label Content="Country:" Foreground="Azure" FontSize="20"> </Label>
+                                    <Label Content="Province:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Grid.Row="3" Spacing="10">
-                                    <TextBox  Width="200" TextWrapping="Wrap" 
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
                                               HorizontalAlignment="Left" Margin="50 0 0 0"
-                                              Text="{Binding Country}"></TextBox>
-                                    <TextBlock Text="{Binding CountryErrorMessage}" 
-                                               Foreground="Red" Margin="50 0 0 0"
-                                               IsVisible="{Binding CountryIsRequired}"></TextBlock>
+                                              Text="{Binding Address.Province}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[4]}" 
+                                               Foreground="Red" Margin="50 0 0 0"></TextBlock>
                                 </StackPanel>
                                 
                                 
                                 <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" Margin="10">
-                                    <Label Content="Province:" Foreground="Azure" FontSize="20" Margin="30 0 0 0 "> </Label>
+                                    <Label Content="Country:" Foreground="Azure" FontSize="20" Margin="30 0 0 0 "> </Label>
                                 </StackPanel>
                                 <StackPanel Grid.Column="0" Grid.Row="5" Spacing="10">
-                                    <TextBox  Width="200" TextWrapping="Wrap" 
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
                                               HorizontalAlignment="Left" Margin="40 0 0 0"
-                                              Text="{Binding Province}"></TextBox>
-                                    <TextBlock Text="{Binding ProvinceErrorMessage}" 
-                                               Foreground="Red" Margin="40 0 0 0"
-                                               IsVisible="{Binding ProvinceIsRequired}"></TextBlock>
+                                              Text="{Binding Address.Country}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[5]}" 
+                                               Foreground="Red" Margin="40 0 0 0"></TextBlock>
                                 </StackPanel>
                                 
                                 
@@ -121,62 +112,241 @@
                                     <Label Content="Postal Code:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Grid.Row="5" Spacing="10">
-                                    <TextBox  Width="200" TextWrapping="Wrap" 
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
                                               HorizontalAlignment="Left" Margin="50 0 0 0"
-                                              Text="{Binding PostalCode}"></TextBox>
-                                    <TextBlock Text="{Binding PostalCodeErrorMessage}" 
-                                               Foreground="Red" Margin="50 0 0 0"
-                                               IsVisible="{Binding PostalCodeIsRequired}"></TextBlock>
+                                              Text="{Binding Address.PostalCode}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[6]}" 
+                                               Foreground="Red" Margin="50 0 0 0"></TextBlock>
                                 </StackPanel>
-                                
-                                
                             </Grid>
-                            
-                            <!-- phone -->
-                            <Grid Grid.Row="2" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10">
+                        </Grid>
+                    </Border>
+           
+           <!-- Contact Info -->
+           <Label Content="Contact Info" Margin="10 10 0 0" FontWeight="Black" FontSize="20"></Label>
+           <Border Background="Black" Margin="20" CornerRadius="10" Padding="10 0 0 10">
+               <Grid RowDefinitions="Auto, Auto" HorizontalAlignment="Center">
+                   <!-- phone -->
+                            <Grid Grid.Row="0" RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10">
                                 <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
                                     <Label Classes="SideBar" Content="&#xE3B8;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="Phone:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
                                 <StackPanel Grid.Column="0" Grid.Row="1" Spacing="10">
-                                    <TextBox  Width="200" TextWrapping="Wrap" 
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
                                               HorizontalAlignment="Left" Margin="40 0 0 0"
-                                              Text="{Binding Phone}"></TextBox>
-                                    <TextBlock Text="{Binding PhoneErrorMessage}" 
-                                               Foreground="Red" Margin="40 0 0 0"
-                                               IsVisible="{Binding PhoneIsRequired}"></TextBlock>
+                                              Text="{Binding ContactInfo.PrimaryPhone}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[7]}" 
+                                               Foreground="Red" Margin="40 0 0 0"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="10">
+                                    <Label Content="Work/Home Phone:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Grid.Row="1" Spacing="10">
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
+                                              HorizontalAlignment="Left" Margin="40 0 0 0"
+                                              Text="{Binding ContactInfo.SecondaryPhone}"></TextBox>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Margin="10">
+                                    <Label Content="Emergency:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                </StackPanel>
+                                <StackPanel Grid.Column="0" Grid.Row="3" Spacing="10">
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
+                                              HorizontalAlignment="Left" Margin="40 0 0 0"
+                                              Text="{Binding ContactInfo.EmergencyPhone}"></TextBox>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" Margin="10">
+                                    <Label Content="Emergency Name:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Grid.Row="3" Spacing="10">
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
+                                              HorizontalAlignment="Left" Margin="40 0 0 0"
+                                              Text="{Binding ContactInfo.EmergencyName}"></TextBox>
                                 </StackPanel>
                                 
                             </Grid>
                             
                             <!-- email -->
-                            <Grid Grid.Row="3" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10 0 0 20 ">
+                            <Grid Grid.Row="1" RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10 0 0 20 ">
                                 <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
                                     <Label Classes="SideBar" Content="&#xE214;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="Email:" Foreground="Azure" FontSize="20"> </Label>
                                 </StackPanel>
                                 <StackPanel Grid.Column="0" Grid.Row="1" Spacing="10">
-                                    <TextBox  Width="200" TextWrapping="Wrap" 
+                                    <TextBox  Width="400" TextWrapping="Wrap" 
                                               HorizontalAlignment="Left" Margin="40 0 0 0"
-                                              Text="{Binding Email}">
+                                              Text="{Binding ContactInfo.Email}">
                                     </TextBox>
-                                    <TextBlock Text="{Binding EmailErrorMessage}" 
-                                               Foreground="Red" Margin="40 0 0 0"
-                                               IsVisible="{Binding ValidEmailIsRequired}"></TextBlock>
+                                    <TextBlock Text="{Binding Errors[8]}" 
+                                               Foreground="Red" Margin="40 0 0 0"></TextBlock>
                                 </StackPanel>
                             </Grid>
-                        </Grid>
-                    </Border>
-                <Button Classes="bookappointment"
-                        Background="{DynamicResource BookAppointmentBackGroundGradient}"
-                        Foreground="Cornsilk"
-                        Margin="20 0 0 20 "
-                        Command="{Binding AddClientCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <Label Classes="SideBar" Content="&#xE3D4;"></Label>
-                        <Label Content="Add Client" Padding="0 2 10 0 "></Label>
-                    </StackPanel>
-                </Button>
+               </Grid>
+           </Border>
+           
+           <!-- Add Pets -->
+           <ItemsControl ItemsSource="{Binding Pets}">
+               <ItemsControl.ItemsPanel>
+                   <ItemsPanelTemplate>
+                       <StackPanel Orientation="Vertical" />
+                   </ItemsPanelTemplate>
+               </ItemsControl.ItemsPanel>
+               <ItemsControl.ItemTemplate>
+                   <DataTemplate>
+                       <StackPanel>
+                           <Grid ColumnDefinitions="Auto, *">
+                               <Label Grid.Column="0" Content="Pet Info" Margin="10 10 0 0" FontWeight="Black" FontSize="20"></Label>
+                               <Button Grid.Column="1" Content="Delete" FontSize="20" CornerRadius="20" HorizontalAlignment="Right" 
+                                       Margin="0 0 20 0" Background="DarkBlue"
+                                       CommandParameter="{Binding}"
+                                       Command="{Binding $parent[ItemsControl].((viewModels:AddClientViewModel)DataContext).DeletePetCommand}"></Button>
+                           </Grid>
+                           
+                           <Border  Background="Black" Margin="20" CornerRadius="10" Padding="10 0 0 10">
+                               <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, Auto" HorizontalAlignment="Center">
+                                   
+                                   <StackPanel Grid.Column="0" Grid.Row="0">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Classes="SideBar" Content="&#xe74a;" Foreground="Azure" FontSize="20"> </Label>
+                                           <Label Content="Pet Name:" Foreground="Azure" FontSize="20"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" TextWrapping="Wrap" 
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding Name}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="1" Grid.Row="0">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Breed:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" TextWrapping="Wrap" 
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding Breed}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="0" Grid.Row="1">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Age:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" TextWrapping="Wrap" 
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding Age}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="1" Grid.Row="1">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Birthday:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" TextWrapping="Wrap" 
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding Birthday}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="0" Grid.Row="2">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Gender:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" TextWrapping="Wrap" 
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding Gender}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="1" Grid.Row="2">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Spayed or Neutered:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" TextWrapping="Wrap" 
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding SpayedNeutered}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="0" Grid.Row="3">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Health Notes:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" Height="100" TextWrapping="Wrap" AcceptsReturn="True"
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding Gender}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="0" Grid.Row="4">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Vet Name:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" TextWrapping="Wrap" 
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding VetName}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="1" Grid.Row="4">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Vet Phone:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" TextWrapping="Wrap" 
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding VetPhone}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                                   <StackPanel Grid.Column="0" Grid.Row="5" Margin="0 0 0 20">
+                                       <StackPanel  Orientation="Horizontal" Margin="10">
+                                           <Label Content="Vaccines:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                       </StackPanel>
+                                       <TextBox  Width="400" Height="100" TextWrapping="Wrap" AcceptsReturn="True"
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
+                                                 Text="{Binding Vaccines}">
+                                       </TextBox>
+                                   </StackPanel>
+                                   
+                               </Grid>
+                           </Border>
+                       </StackPanel>
+                       
+                   </DataTemplate>
+               </ItemsControl.ItemTemplate>
+           </ItemsControl>
+           
+           <Label Content="Add Pet" FontSize="20" HorizontalAlignment="Center"></Label>
+           <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto, *">
+               <Rectangle Grid.Row="1"  Grid.Column="0" Height="2" Fill="Black" Margin="30 0 30 0"></Rectangle>
+               <Button Grid.Row="1" Grid.Column="1"
+                       Background="DarkBlue"
+                       Foreground="Cornsilk"
+                       Margin="0 20 0 20 "
+                       Command="{Binding AddPetCommand}">
+                       <Label Classes="SideBar" Content="&#xE3D4;" Margin="2 0 0 0"></Label>
+               </Button>
+               <Rectangle Grid.Row="1" Grid.Column="2" Height="2" Fill="Black" Margin="20 0 20 0"></Rectangle>
+           </Grid>
+           
+           <Grid ColumnDefinitions="Auto, *">
+               <Button Grid.Column="0" Classes="bookappointment"
+                       Background="{DynamicResource BookAppointmentBackGroundGradient}"
+                       Foreground="Cornsilk"
+                       Margin="20 0 0 20 "
+                       Command="{Binding AddClientCommand}">
+                   <StackPanel Orientation="Horizontal">
+                       <Label Classes="SideBar" Content="&#xE3D4;"></Label>
+                       <Label Content="Add Client" Padding="0 2 10 0 "></Label>
+                   </StackPanel>
+               </Button>
+               <TextBlock Grid.Column="1" 
+                          HorizontalAlignment="Right"
+                          FontSize="20"
+                          Foreground="Azure"
+                          Margin="0 0 20 0"></TextBlock>
+           </Grid>
+           
        </StackPanel>
     </ScrollViewer>
 </UserControl>
