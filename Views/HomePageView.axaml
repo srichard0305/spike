@@ -10,6 +10,7 @@
     
     <Design.DataContext><vm:HomePageViewModel></vm:HomePageViewModel></Design.DataContext>
     
+
     <Grid RowDefinitions="Auto, Auto, *" >
         
         <!-- top panel-->
@@ -50,7 +51,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Width="300">
-                                <TextBlock Text="{Binding Name}" 
+                                <TextBlock Text="{Binding FirstName}" 
                                        TextWrapping="Wrap" 
                                        TextAlignment="Center" 
                                        FontWeight="Black" 
@@ -108,7 +109,7 @@
                 
                 <!-- appointments  -->
             <ScrollViewer Grid.Column="2"  x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <Grid Background="{DynamicResource PrimaryBackground}">
+                <Grid >
                     <StackPanel Orientation="Vertical">
                         <!-- horizontal dividers between times  -->
                         <ItemsControl ItemsSource="{Binding Times}">
@@ -174,5 +175,4 @@
         </Grid>
         
     </Grid>
-    
 </UserControl>

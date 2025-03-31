@@ -4,7 +4,6 @@ namespace spike.Data;
 
 public enum RequiredFieldsEnum
 {
-    // TODO add pet validation
     ClientFirstName = 0,
     ClientLastName = 1,
     ClientAddress = 2,
@@ -14,4 +13,12 @@ public enum RequiredFieldsEnum
     ClientPostalCode = 6,
     ClientPhoneNumber = 7,
     ClientValidEmail = 8,
+    PetName = 9,
+    PetBreed = 10,
+    PetAge = 11,
+    PetGender = 12,
+    PetSpayedOrNeutered = 13,
+    ClientSecondaryPhone = 14,
+    ClientEmergPhone = 15,
+    PetVetPhone = 16,
 }

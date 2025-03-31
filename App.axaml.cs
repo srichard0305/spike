@@ -34,7 +34,6 @@ public partial class App : Application
         collection.AddTransient<EmployeePageViewModel>();
         collection.AddTransient<ReportsPageViewModel>();
         collection.AddTransient<BookAppointmentViewModel>();
-        collection.AddTransient<AddClientViewModel>();
         
         // used to get pageviewmodel name 
         // will only be called pages are called and brought into memory dynamically 
@@ -46,7 +45,6 @@ public partial class App : Application
             AppPageNames.Employees=> x.GetRequiredService<EmployeePageViewModel>(),
             AppPageNames.Reports => x.GetRequiredService<ReportsPageViewModel>(),
             AppPageNames.BookAppointment => x.GetRequiredService<BookAppointmentViewModel>(),
-            AppPageNames.AddClient => x.GetRequiredService<AddClientViewModel>(),
             _ => throw new InvalidOperationException(),
         });
         

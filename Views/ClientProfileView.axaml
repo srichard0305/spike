@@ -1,0 +1,132 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:spike.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:ClientProfileViewModel"
+             Background="{DynamicResource PrimaryBackground}"
+             x:Class="spike.Views.ClientProfileView">
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Grid ColumnDefinitions="*, Auto">
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
+                    <Label Content="{Binding Client.FirstName} " FontSize="55" ></Label>
+                    <Label Content="{Binding Client.LastName} " FontSize="55"></Label>
+                </StackPanel>
+                <Button Grid.Column="1" Classes="SecondaryButtons" Content="Edit" FontSize="20"
+                        Command="{Binding NavigateToEditProfileCommand}"
+                        HorizontalAlignment="Right" Margin="0 0 20 0"></Button>
+            </Grid>
+            
+            <Label Content="Address" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
+            <Border Background="Black" Margin="20" CornerRadius="10" Padding="20">
+                <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, Auto, Auto" Margin="20">
+                    <TextBlock Grid.Column="0" Grid.Row="0"  TextWrapping="Wrap" 
+                               Text="{Binding Client.Address.AddressLine}" FontSize="35"/>
+                    <Border Grid.Column="1" Grid.Row="0" Width="20"></Border>
+                    <TextBlock  Grid.Column="2" Grid.Row="0" TextWrapping="Wrap"
+                                Text="{Binding Client.Address.Etc}" FontSize="35"/>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" 
+                               Text="{Binding Client.Address.City}" FontSize="35"/>
+                    <Border Grid.Column="1" Grid.Row="1" Width="20"></Border>
+                    <TextBlock Grid.Column="2" Grid.Row="1" TextWrapping="Wrap"
+                               Text="{Binding Client.Address.Province}" FontSize="35" />
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" 
+                               Text="{Binding Client.Address.Country}" FontSize="35"/>
+                    <Border Grid.Column="1" Grid.Row="2" Width="20"></Border>
+                    <TextBlock Grid.Column="2" Grid.Row="2" TextWrapping="Wrap"
+                               Text="{Binding Client.Address.PostalCode}" FontSize="35"/>
+                </Grid>
+            </Border>
+            
+            <Label Content="Contact Info" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
+            <Border Background="Black" Margin="20" CornerRadius="10" Padding="20">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto" Margin="20">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8">
+                        <TextBlock  TextWrapping="Wrap" 
+                                   Text="Primary Phone:" FontSize="35"/>
+                        <TextBlock Text="{Binding Client.ContactInfo.PrimaryPhone}" FontSize="35"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8">
+                        <TextBlock  TextWrapping="Wrap" 
+                                    Text="Secondary Phone:" FontSize="35"/>
+                        <TextBlock Text="{Binding Client.ContactInfo.SecondaryPhone}" FontSize="35"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8">
+                        <TextBlock TextWrapping="Wrap" Text="Emergency:" FontSize="35"/>
+                        <TextBlock Text="{Binding Client.ContactInfo.EmergencyName}" FontSize="35"></TextBlock>
+                        <TextBlock Text="{Binding Client.ContactInfo.EmergencyPhone}" FontSize="35"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8">
+                        <TextBlock TextWrapping="Wrap" Text="Email:" FontSize="35"/>
+                        <TextBlock Text="{Binding Client.ContactInfo.Email}" FontSize="35"></TextBlock>
+                    </StackPanel>
+                    
+                </Grid>
+            </Border>
+            
+            <Label Content="Pets" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
+            
+                <ItemsControl ItemsSource="{Binding Client.Pets}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="Black" Margin="20" CornerRadius="10" Padding="20">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="Name:" FontSize="35"/>
+                                        <TextBlock Text="{Binding Name}" FontSize="35"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="Breed:" FontSize="35"/>
+                                        <TextBlock Text="{Binding Breed}" FontSize="35"/>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="Age: " FontSize="35"/>
+                                        <TextBlock Text="{Binding Age}" FontSize="35"/>
+                                        
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="Birthday: " FontSize="35"/>
+                                        <TextBlock Text="{Binding Birthday}" FontSize="35"/>
+                                    </StackPanel>
+                                    
+                                    <TextBlock Text="{Binding Gender}" FontSize="35"/>
+                                    
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="Spayed or Neutered: " FontSize="35"/>
+                                        <TextBlock Text="{Binding SpayedNeutered}" FontSize="35"/>
+                                    </StackPanel>
+                                    
+                                    <TextBlock Text="Health Notes:" FontSize="35"></TextBlock>
+                                    <TextBlock Text="{Binding Health}" FontSize="25" Height="100"/>
+                                    
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <TextBlock Text="Vet:" FontSize="35"></TextBlock>
+                                        <TextBlock Text="{Binding VetName}" FontSize="35"/>
+                                        <TextBlock Text="{Binding VetPhone}" FontSize="35"/>
+                                    </StackPanel>
+                                    
+                                    <TextBlock Text="Vaccines:" FontSize="35"></TextBlock>
+                                    <TextBlock Text="{Binding Vaccines}" FontSize="25" Height="100"/>
+                                    
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            
+            
+        </StackPanel>
+    </ScrollViewer>
+   
+</UserControl>

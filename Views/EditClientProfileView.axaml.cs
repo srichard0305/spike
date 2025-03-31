@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace spike.Views;
 
-public partial class AddPetView : UserControl
+public partial class EditClientProfileView : UserControl
 {
-    public AddPetView()
+    public EditClientProfileView()
     {
         InitializeComponent();
     }

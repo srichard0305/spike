@@ -38,6 +38,9 @@
         <SolidColorBrush x:Key="BookAppointmentPrimaryHover">#f56042</SolidColorBrush>
         <SolidColorBrush x:Key="BookAppointmentPrimaryHoverText">#EBEBEB</SolidColorBrush>
         
+        <SolidColorBrush x:Key="SecondaryButtonPrimaryHover">DarkRed</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryButtonPrimaryHoverText">#EBEBEB</SolidColorBrush>
+        
         <SolidColorBrush x:Key="PrimaryActiveBackground">#00996E</SolidColorBrush>
         
         <FontFamily x:Key="Raleway-Regular">/Assets/fonts/Raleway-Regular.ttf#Raleway</FontFamily>

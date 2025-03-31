@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace spike.Views;
 
-public partial class ClientsView : UserControl
+public partial class ClientProfileView : UserControl
 {
-    public ClientsView()
+    public ClientProfileView()
     {
         InitializeComponent();
     }

@@ -4,7 +4,7 @@ namespace spike.Models;
 
 public class Pet
 {
-    public int? Pet_id { get; set; }
+    public Int64? PetId { get; set; }
     public string? Name { get; set; }
     public string? Breed { get; set; }
     public string? Age { get; set; }
@@ -15,4 +15,5 @@ public class Pet
     public string? VetName { get; set; }
     public string? VetPhone { get; set; }
     public string? Vaccines { get; set; }
+    
 }

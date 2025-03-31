@@ -1,15 +1,18 @@
-﻿namespace spike.Models;
+﻿using System;
+
+namespace spike.Models;
 
 public class Employee
 {
-   // private string employeeId;
-    public string Name { get; set; }
-    //private string email;
-   // private string phone;
-   // private string address;
+    Int64 EmployeeId { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public Address? Address { get; set; }
+    public ContactInfo? ContactInfo { get; set; }
 
-   public Employee(string name)
-   {
-       this.Name = name;
-   }
+    public Employee(string employeeId)
+    {
+        FirstName = employeeId;
+    }
+   
 }

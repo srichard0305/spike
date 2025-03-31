@@ -4,7 +4,7 @@ using System.IO;
 
 namespace spike.Database;
 
-public class DatabaseConnection
+public static class DatabaseConnection
 {
     private static readonly string DbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "spikedb.db");
     private static readonly string ConnectionString = $"Data Source={DbPath}";
@@ -18,16 +18,16 @@ public class DatabaseConnection
             
             using var command = connection.CreateCommand();
             command.CommandText = @"
-                CREATE TABLE IF NOT EXISTS Clients (
+                CREATE TABLE Clients (
                     Client_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     First_Name TEXT NOT NULL,
                     Last_Name TEXT NOT NULL
                 );
 
-                CREATE TABLE IF NOT EXISTS ClientAddress (
+                CREATE TABLE ClientAddress (
                     ClientAddress_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Address TEXT NOT NULL,
-                    Etc TEXT NOT NULL,
+                    Etc TEXT NULL,
                     City TEXT NOT NULL,
                     Country TEXT NOT NULL,
                     Province TEXT NOT NULL,
@@ -36,47 +36,45 @@ public class DatabaseConnection
                     FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) 
                 );
 
-                CREATE TABLE IF NOT EXISTS ClientEmail (
+                CREATE TABLE ClientContact (
                     ClientEmail_Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Email TEXT NOT NULL,
+                    PrimaryPhone TEXT NOT NULL,
+                    SecondaryPhone TEXT NULL,
+                    EmergencyPhone TEXT NULL,
+                    EmergencyName TEXT NULL,
+                    Email TEXT NULL,
                     Client_Id INTEGER NOT NULL,
                     FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) 
                 );
                
-                CREATE TABLE IF NOT EXISTS ClientPhone (
-                    ClientPhone_Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Phone TEXT NOT NULL,
-                    Client_Id INTEGER NOT NULL,
-                    FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id) 
-                );
-
-                CREATE TABLE IF NOT EXISTS Pets (
+              
+                CREATE TABLE Pets (
                     Pet_Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Pet_Name TEXT NOT NULL,
+                    Name TEXT NOT NULL,
                     Breed TEXT NOT NULL,
-                    Age INTEGER NOT NULL,
-                    Birthday TEXT NOT NULL,
+                    Age TEXT NOT NULL,
+                    Birthday TEXT NULL,
                     Gender TEXT NOT NULL,
-                    Health TEXT NOT NULL,
+                    Health TEXT NULL,
                     Spayed_Neutered TEXT NOT NULL,
-                    Vet_Name TEXT,
-                    Vet_Phone TEXT,
-                    Vaccines TEXT,
+                    Vet_Name TEXT NULL,
+                    Vet_Phone TEXT NULL,
+                    Vaccines TEXT NULL,
                     Client_Id INTEGER NOT NULL,
                     FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id)
                 );
 
-                CREATE TABLE IF NOT EXISTS Employees (
+                CREATE TABLE Employees (
                     Employee_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     First_Name TEXT NOT NULL,
                     Last_Name TEXT NOT NULL,
                     Cardinality INTEGER
                 );
 
-                CREATE TABLE IF NOT EXISTS EmployeeAddress (
+                CREATE TABLE EmployeeAddress (
                     EmployeeAddress_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Address TEXT NOT NULL,
-                    Etc TEXT NOT NULL,
+                    Etc TEXT NULL,
                     City TEXT NOT NULL,
                     Country TEXT NOT NULL,
                     Province TEXT NOT NULL,
@@ -85,35 +83,32 @@ public class DatabaseConnection
                     FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) 
                 );
 
-                CREATE TABLE IF NOT EXISTS EmployeeEmail (
-                    EmployeeEmail_Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                CREATE TABLE EmployeeContact (
+                    EmployeePhone_Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    PrimaryPhone TEXT NOT NULL,
+                    SecondaryPhone TEXT NULL,
+                    EmergencyPhone TEXT NULL,
+                    EmergencyName TEXT NULL,
                     Email TEXT NOT NULL,
                     Employee_Id INTEGER NOT NULL,
                     FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) 
                 );
-               
-                CREATE TABLE IF NOT EXISTS EmployeePhone (
-                    EmployeePhone_Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Phone TEXT NOT NULL,
-                    Employee_Id INTEGER NOT NULL,
-                    FOREIGN KEY (Employee_Id) REFERENCES Employees (Employee_Id) 
-                );
 
-                CREATE TABLE IF NOT EXISTS Appointments (
+                CREATE TABLE Appointments (
                     Appointment_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Client_Id INTEGER NOT NULL,
                     Pet_Id INTEGER NOT NULL,
                     Employee_Id INTEGER NOT NULL,
-                    Pet_Notes TEXT,
+                    Pet_Notes TEXT NULL,
                     Service TEXT NOT NULL,
                     Service_Notes TEXT,
                     Cost REAL NOT NULL,
                     StartTime TEXT NOT NULL,
                     EndTime TEXT NOT NULL,
-                    CheckIn TEXT,
-                    CheckOut TEXT,
-                    Cancelled TEXT,
-                    NoShow TEXT,
+                    CheckIn TEXT NULL,
+                    CheckOut TEXT NULL,
+                    Cancelled TEXT NULL,
+                    NoShow TEXT NULL,
                     BookedBy INTEGER NOT NULL,
                     FOREIGN KEY(Client_Id) REFERENCES Clients(Client_Id),
                     FOREIGN KEY(Pet_Id) REFERENCES Pets(Pet_Id),

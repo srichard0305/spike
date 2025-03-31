@@ -8,27 +8,59 @@ using spike.Database;
 using spike.Models;
 using spike.Data;
 using spike.Factories;
+using spike.Views;
 
 namespace spike.ViewModels;
 
 public partial class ClientPetViewModel: PageViewModel
 {
-   private readonly PageFactory _pageFactory;
    
    [ObservableProperty]
-   private PageViewModel? _currentPage;
-   public ClientPetViewModel(PageFactory pageFactory) {
-      _pageFactory = pageFactory;
+   private ObservableCollection<Client>? _clients;
+
+   [ObservableProperty] 
+   private bool _showAddButton;
+
+   private readonly MainWindowViewModel _mainWindowViewModel;
+   
+   //default constructor for designer remove after dev 
+   public ClientPetViewModel()
+   {
       PageTitle = AppPageNames.ClientPet;
-      NavigateToAddClient();
+      Clients = new ObservableCollection<Client>();
+      ShowAddButton = true;
+      InitClientsList();
+   }
+   
+   public ClientPetViewModel(MainWindowViewModel mainWindowViewModel) {
+      _mainWindowViewModel = mainWindowViewModel;
+      PageTitle = AppPageNames.ClientPet;
+      Clients = new ObservableCollection<Client>();
+      ShowAddButton = true;
+      InitClientsList();
+   }
+   
+   private void InitClientsList()
+   {
+      Clients = ReadFromDatabase.GetAllClients();
    }
    
 
-   private ObservableCollection<Client> clients = new();
-   
-   
    [RelayCommand]
-   private void NavigateToAddClient() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.AddClient);
+   private void NavigateToAddClient()
+   {
+      ShowAddButton = false;
+      _mainWindowViewModel.CurrentPage = new AddClientViewModel();
+      
+   }
 
+   [RelayCommand]
+   private void NavigateToClientProfile(Client client)
+   {
+      ShowAddButton = false;
+      _mainWindowViewModel.CurrentPage = new ClientProfileViewModel(client, _mainWindowViewModel);
+   }
+   
+      
 
 }

@@ -19,6 +19,16 @@
                     </StackPanel>
                 </Button>
             </Border>
+            <Border Padding="20">
+                <Button Classes="SecondaryButtons">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="SideBar" FontFamily="{DynamicResource Phosphor}" Content="&#xe2c4;"></Label>
+                        <Label Content="Home"></Label>
+                    </StackPanel>
+                </Button>
+            </Border>
+            
+            <TextBox></TextBox>
         </StackPanel>
     </Design.PreviewWith>
 
@@ -44,6 +54,17 @@
     </Style>
     
     <Style Selector=":is(Button) /template/ ContentPresenter">
+        <Setter Property="RenderTransform" Value="scale(1)"></Setter>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Foreground" Duration="0:0:0.1"></BrushTransition>
+                <BrushTransition Property="Background" Duration="0:0:0.1"></BrushTransition>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.1"></TransformOperationsTransition>
+            </Transitions>
+        </Setter>
+    </Style>
+    
+    <Style Selector=":is(TextBox):pointerover /template/ ContentPresenter">
         <Setter Property="RenderTransform" Value="scale(1)"></Setter>
         <Setter Property="Transitions">
             <Transitions>
@@ -89,6 +110,22 @@
     <Style Selector=":is(Button).bookappointment:pointerover /template/ ContentPresenter">
         <Setter Property="Foreground" Value="{DynamicResource BookAppointmentPrimaryHoverText}"></Setter>
         <Setter Property="Background" Value="{DynamicResource BookAppointmentPrimaryHover}"></Setter>
+    </Style>
+    
+    <!-- Secondary button -->
+    
+    <Style Selector=":is(Button).SecondaryButtons"> 
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource PrimaryBackground}"></Setter>
+    </Style>
+    
+    <Style Selector=":is(Button).SecondaryButtons:pointerover Label">
+        <Setter Property="RenderTransform" Value="scale(1.1)"></Setter>
+    </Style>
+    
+    <Style Selector=":is(Button).SecondaryButtons:pointerover /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryButtonPrimaryHoverText}"></Setter>
+        <Setter Property="Background" Value="{DynamicResource SecondaryButtonPrimaryHover}"></Setter>
     </Style>
     
   

@@ -1,4 +1,6 @@
-﻿namespace spike.Models;
+﻿using System;
+
+namespace spike.Models;
 
 public class Address
 {
@@ -8,4 +10,6 @@ public class Address
     public string? Country { get; set; }
     public string? Province { get; set; }
     public string? PostalCode { get; set; }
+
+   
 }

@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 using spike.Models;
 
 namespace spike.Database;
 
-public class WriteToDatabase
+public static class WriteToDatabase
 {
     public static void AddAppointment(Appointment appointment)
     {
@@ -45,74 +47,115 @@ public class WriteToDatabase
                     ";
                 using var insertAddress = new SqliteCommand(sqlStatement, connection, transaction);
                 insertAddress.Parameters.AddWithValue("@Address", client.Address.AddressLine);
-                insertAddress.Parameters.AddWithValue("@Etc", client.Address.Etc);
+                insertAddress.Parameters.AddWithValue("@Etc", (object?)client.Address.Etc ?? DBNull.Value);
                 insertAddress.Parameters.AddWithValue("@City", client.Address.City);
                 insertAddress.Parameters.AddWithValue("@Country", client.Address.Country);
                 insertAddress.Parameters.AddWithValue("@Province", client.Address.Province);
                 insertAddress.Parameters.AddWithValue("@Postal_Code", client.Address.PostalCode);
                 insertAddress.Parameters.AddWithValue("@Client_Id", clientId);
                 insertAddress.ExecuteNonQuery();
-
-                //insert email
+                
+                //insert contact info
                 sqlStatement = @"
-                    INSERT INTO ClientEmail (Email, Client_Id)
-                    VALUES (@Email, @Client_Id)
+                    INSERT INTO ClientContact (PrimaryPhone, SecondaryPhone, EmergencyPhone, EmergencyName, Email, Client_Id)
+                    VALUES (@PrimaryPhone, @SecondaryPhone, @EmergencyPhone, @EmergencyName, @Email, @Client_Id)
                     ";
-                using var insertEmail = new SqliteCommand(sqlStatement, connection, transaction);
-                insertEmail.Parameters.AddWithValue("@Email", client.ContactInfo.Email);
-                insertEmail.Parameters.AddWithValue("@Client_Id", clientId);
-                insertEmail.ExecuteNonQuery();
-
-                //insert phone number 
-                sqlStatement = @"
-                    INSERT INTO ClientPhone (Phone, Client_Id)
-                    VALUES (@Phone, @Client_Id)
+                using var insertContactInfo = new SqliteCommand(sqlStatement, connection, transaction);
+                insertContactInfo.Parameters.AddWithValue("@PrimaryPhone", client.ContactInfo.PrimaryPhone);
+                insertContactInfo.Parameters.AddWithValue("@SecondaryPhone", (object?)client.ContactInfo.SecondaryPhone ?? DBNull.Value);
+                insertContactInfo.Parameters.AddWithValue("@EmergencyPhone", (object?)client.ContactInfo.EmergencyPhone ?? DBNull.Value);
+                insertContactInfo.Parameters.AddWithValue("@EmergencyName", (object?)client.ContactInfo.EmergencyName ?? DBNull.Value);
+                insertContactInfo.Parameters.AddWithValue("@Email", (object?)client.ContactInfo.Email ?? DBNull.Value);
+                insertContactInfo.Parameters.AddWithValue("@Client_Id", clientId);
+                insertContactInfo.ExecuteNonQuery();
+                
+                // insert each pet needs to be done with this transaction 
+                foreach (var pet in client.Pets)
+                {
+                    sqlStatement = @"
+                    INSERT INTO Pets (Name, Breed, Age, Birthday, Gender, Health, Spayed_Neutered, Vet_Name, Vet_Phone, Vaccines, Client_Id) 
+                    VALUES (@Name, @Breed, @Age, @Birthday, @Gender, @Health, @Spayed_Neutered, @Vet_Name, @Vet_Phone, @Vaccines, @Client_Id)
                     ";
-                using var insertPhone = new SqliteCommand(sqlStatement, connection, transaction);
-                insertPhone.Parameters.AddWithValue("@Phone", client.ContactInfo.PrimaryPhone);
-                insertPhone.Parameters.AddWithValue("@Client_Id", clientId);
-                insertPhone.ExecuteNonQuery();
-
+                    using var insertPet = new SqliteCommand(sqlStatement, connection, transaction);
+                    insertPet.Parameters.AddWithValue("@Name", pet.Name);
+                    insertPet.Parameters.AddWithValue("@Breed", pet.Breed);
+                    insertPet.Parameters.AddWithValue("@Age", pet.Age);
+                    insertPet.Parameters.AddWithValue("@Birthday", (object?)pet.Birthday ?? DBNull.Value);
+                    insertPet.Parameters.AddWithValue("@Gender", pet.Gender);
+                    insertPet.Parameters.AddWithValue("@Health", (object?)pet.Health ?? DBNull.Value);
+                    insertPet.Parameters.AddWithValue("@Spayed_Neutered", pet.SpayedNeutered);
+                    insertPet.Parameters.AddWithValue("@Vet_Name", (object?)pet.VetName ?? DBNull.Value);
+                    insertPet.Parameters.AddWithValue("@Vet_Phone", (object?)pet.VetPhone ?? DBNull.Value);
+                    insertPet.Parameters.AddWithValue("@Vaccines", (object?)pet.Vaccines ?? DBNull.Value);
+                    insertPet.Parameters.AddWithValue("@Client_Id", clientId);
+                    insertPet.ExecuteNonQuery();
+                }
 
                 transaction.Commit();
-
-                return true;
-
+                
             }
             catch (SqliteException e)
             {
                 transaction.Rollback();
-                Console.WriteLine(e.Message);
+                Debug.WriteLine(e.Message);
+                return false;
             }
         }
         catch (SqliteException e)
         {
-            Console.WriteLine(e.Message);
+            Debug.WriteLine(e.Message);
+            return false;
         }
-        
-        return false;
+        return true;
     }
 
-    public static void AddPet(Pet pet)
+    public static bool AddPet(Pet pet,  object clientId)
     {
-        using var connection = DatabaseConnection.GetConnection();
-        connection.Open();
-        using var command = connection.CreateCommand();
-        command.CommandText = @"
-            INSERT INTO Clients (Name, Breed, Age, Birthday, Gender, Health, Spayed_Neutered, Vet_Name, Vet_Phone, Vaccines) 
-            VALUES (@Name, @Breed, @Age, @Birthday, @Gender, @Health, @Spayed_Neutred, @Vet_Name, @Vet_Phone, @Vaccines)
-         ";
-        command.Parameters.AddWithValue("@Name", pet.Name);
-        command.Parameters.AddWithValue("@Breed", pet.Breed);
-        command.Parameters.AddWithValue("@Age", pet.Age);
-        command.Parameters.AddWithValue("@Birthday", pet.Birthday.ToString(CultureInfo.InvariantCulture));
-        command.Parameters.AddWithValue("@Gender", pet.Gender);
-        command.Parameters.AddWithValue("@Health", pet.Health);
-        command.Parameters.AddWithValue("@Spayed_Neutered", pet.SpayedNeutered);
-        command.Parameters.AddWithValue("@Vet_Name", pet.VetName);
-        command.Parameters.AddWithValue("@Vet_Phone", pet.VetPhone);
-        command.Parameters.AddWithValue("@Vaccines", pet.Vaccines);
-        command.ExecuteNonQuery();
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+        
+            using var transaction = connection.BeginTransaction();
+
+            try
+            {
+                
+                var sqlStatement = @"
+                    INSERT INTO Pets (Name, Breed, Age, Birthday, Gender, Health, Spayed_Neutered, Vet_Name, Vet_Phone, Vaccines, Client_Id) 
+                    VALUES (@Name, @Breed, @Age, @Birthday, @Gender, @Health, @Spayed_Neutered, @Vet_Name, @Vet_Phone, @Vaccines, @Client_Id)
+                    ";
+                using var insertPet = new SqliteCommand(sqlStatement, connection, transaction);
+                insertPet.Parameters.AddWithValue("@Name", pet.Name);
+                insertPet.Parameters.AddWithValue("@Breed", pet.Breed);
+                insertPet.Parameters.AddWithValue("@Age", pet.Age);
+                insertPet.Parameters.AddWithValue("@Birthday", (object?)pet.Birthday ?? DBNull.Value);
+                insertPet.Parameters.AddWithValue("@Gender", pet.Gender);
+                insertPet.Parameters.AddWithValue("@Health", (object?)pet.Health ?? DBNull.Value);
+                insertPet.Parameters.AddWithValue("@Spayed_Neutered", pet.SpayedNeutered);
+                insertPet.Parameters.AddWithValue("@Vet_Name", (object?)pet.VetName ?? DBNull.Value);
+                insertPet.Parameters.AddWithValue("@Vet_Phone", (object?)pet.VetPhone ?? DBNull.Value);
+                insertPet.Parameters.AddWithValue("@Vaccines", (object?)pet.Vaccines ?? DBNull.Value);
+                insertPet.Parameters.AddWithValue("@Client_Id", clientId);
+                insertPet.ExecuteNonQuery();
+                
+                transaction.Commit();
+                
+            }
+            catch (SqliteException e)
+            {
+                transaction.Rollback();
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+        }
+        
+        return true;
     }
 
     public static void AddEmployee(Employee employee)
