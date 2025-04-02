@@ -18,7 +18,8 @@ public static class ReadFromDatabase
             connection.Open();
 
             var sqlStatment = @"
-                SELECT * FROM Clients;
+                SELECT * FROM Clients
+                WHERE IsActive = True;
             ";
             
             // grab all clients from database
@@ -89,7 +90,8 @@ public static class ReadFromDatabase
                     // grab all pets
                     sqlStatment = @"
                         SELECT * FROM Pets
-                        WHERE Client_Id = @ClientId;
+                        WHERE Client_Id = @ClientId AND
+                        IsActive = True;
                     ";
                     
                     using var petsInfo = new SqliteCommand(sqlStatment, connection);
@@ -107,7 +109,7 @@ public static class ReadFromDatabase
                                 Name = (string)petsReader["Name"],
                                 Breed = (string)petsReader["Breed"],
                                 Age = (string)petsReader["Age"],
-                                Birthday = petsReader["Birthday"] == DBNull.Value ? "" : (string)petsReader["Pet_Birthday"],
+                                Birthday = petsReader["Birthday"] == DBNull.Value ? "" : (string)petsReader["Birthday"],
                                 Gender = (string)petsReader["Gender"],
                                 Health = petsReader["Health"] == DBNull.Value ? "" : (string)petsReader["Health"],
                                 SpayedNeutered = (string)petsReader["Spayed_Neutered"], 

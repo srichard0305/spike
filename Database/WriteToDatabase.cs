@@ -27,8 +27,8 @@ public static class WriteToDatabase
             {
                 // first insert client into table
                 var sqlStatement = @"
-                    INSERT INTO Clients (First_Name, Last_Name) 
-                    VALUES (@First_Name, @Last_Name)
+                    INSERT INTO Clients (First_Name, Last_Name, IsActive) 
+                    VALUES (@First_Name, @Last_Name, True)
                  ";
                 using var insertClient = new SqliteCommand(sqlStatement, connection, transaction);
                 insertClient.Parameters.AddWithValue("@First_Name", client.FirstName);
@@ -73,8 +73,8 @@ public static class WriteToDatabase
                 foreach (var pet in client.Pets)
                 {
                     sqlStatement = @"
-                    INSERT INTO Pets (Name, Breed, Age, Birthday, Gender, Health, Spayed_Neutered, Vet_Name, Vet_Phone, Vaccines, Client_Id) 
-                    VALUES (@Name, @Breed, @Age, @Birthday, @Gender, @Health, @Spayed_Neutered, @Vet_Name, @Vet_Phone, @Vaccines, @Client_Id)
+                    INSERT INTO Pets (Name, Breed, Age, Birthday, Gender, Health, Spayed_Neutered, Vet_Name, Vet_Phone, Vaccines, Client_Id, IsActive) 
+                    VALUES (@Name, @Breed, @Age, @Birthday, @Gender, @Health, @Spayed_Neutered, @Vet_Name, @Vet_Phone, @Vaccines, @Client_Id, True)
                     ";
                     using var insertPet = new SqliteCommand(sqlStatement, connection, transaction);
                     insertPet.Parameters.AddWithValue("@Name", pet.Name);
@@ -122,8 +122,8 @@ public static class WriteToDatabase
             {
                 
                 var sqlStatement = @"
-                    INSERT INTO Pets (Name, Breed, Age, Birthday, Gender, Health, Spayed_Neutered, Vet_Name, Vet_Phone, Vaccines, Client_Id) 
-                    VALUES (@Name, @Breed, @Age, @Birthday, @Gender, @Health, @Spayed_Neutered, @Vet_Name, @Vet_Phone, @Vaccines, @Client_Id)
+                    INSERT INTO Pets (Name, Breed, Age, Birthday, Gender, Health, Spayed_Neutered, Vet_Name, Vet_Phone, Vaccines, Client_Id, IsActive) 
+                    VALUES (@Name, @Breed, @Age, @Birthday, @Gender, @Health, @Spayed_Neutered, @Vet_Name, @Vet_Phone, @Vaccines, @Client_Id, True)
                     ";
                 using var insertPet = new SqliteCommand(sqlStatement, connection, transaction);
                 insertPet.Parameters.AddWithValue("@Name", pet.Name);

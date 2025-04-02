@@ -8,6 +8,7 @@ using spike.Database;
 using spike.Models;
 using spike.Data;
 using spike.Factories;
+using spike.Services;
 using spike.Views;
 
 namespace spike.ViewModels;
@@ -23,17 +24,11 @@ public partial class ClientPetViewModel: PageViewModel
 
    private readonly MainWindowViewModel _mainWindowViewModel;
    
-   //default constructor for designer remove after dev 
-   public ClientPetViewModel()
-   {
-      PageTitle = AppPageNames.ClientPet;
-      Clients = new ObservableCollection<Client>();
-      ShowAddButton = true;
-      InitClientsList();
-   }
+   private DialogService _dialogService;
    
-   public ClientPetViewModel(MainWindowViewModel mainWindowViewModel) {
+   public ClientPetViewModel(MainWindowViewModel mainWindowViewModel, DialogService dialogService) {
       _mainWindowViewModel = mainWindowViewModel;
+      _dialogService = dialogService;
       PageTitle = AppPageNames.ClientPet;
       Clients = new ObservableCollection<Client>();
       ShowAddButton = true;
@@ -50,7 +45,7 @@ public partial class ClientPetViewModel: PageViewModel
    private void NavigateToAddClient()
    {
       ShowAddButton = false;
-      _mainWindowViewModel.CurrentPage = new AddClientViewModel();
+      _mainWindowViewModel.CurrentPage = new AddClientViewModel(_mainWindowViewModel, _dialogService);
       
    }
 
@@ -58,7 +53,7 @@ public partial class ClientPetViewModel: PageViewModel
    private void NavigateToClientProfile(Client client)
    {
       ShowAddButton = false;
-      _mainWindowViewModel.CurrentPage = new ClientProfileViewModel(client, _mainWindowViewModel);
+      _mainWindowViewModel.CurrentPage = new ClientProfileViewModel(client, _mainWindowViewModel, _dialogService);
    }
    
       

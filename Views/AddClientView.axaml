@@ -256,10 +256,9 @@
                                        <StackPanel  Orientation="Horizontal" Margin="10">
                                            <Label Content="Birthday:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
                                        </StackPanel>
-                                       <TextBox  Width="400" TextWrapping="Wrap" Background="DarkGray"
-                                                 HorizontalAlignment="Left" Margin="40 0 0 0"
-                                                 Text="{Binding Birthday}">
-                                       </TextBox>
+                                       <DatePicker SelectedDate="{Binding Birthday}" Width="400" Background="DarkGray"
+                                                 HorizontalAlignment="Left" Margin="40 0 0 0">
+                                       </DatePicker>
                                    </StackPanel>
                                    
                                    <StackPanel Grid.Column="0" Grid.Row="2">
@@ -360,11 +359,14 @@
                        <Label Content="Add Client" Padding="0 2 10 0 "></Label>
                    </StackPanel>
                </Button>
-               <TextBlock Grid.Column="1" Text="{Binding AddedToDatabaseMessage}"
-                          HorizontalAlignment="Right"
-                          FontSize="20"
-                          Foreground="Azure"
-                          Margin="0 0 20 0"></TextBlock>
+               <Border Grid.Column="1">
+                       <TextBlock  Text="{Binding AddedToDatabaseMessage}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="20"
+                                   Foreground="Azure"
+                                   Margin="0 0 20 0">
+                       </TextBlock>
+               </Border>
            </Grid>
            
        </StackPanel>

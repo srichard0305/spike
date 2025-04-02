@@ -2,11 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using spike.Data;
 using spike.Factories;
+using spike.Interfaces;
 
 namespace spike.ViewModels;
 
 //partial allows ObservableProperty to change the contents of class 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ViewModelBase, IDialogProvider
 {
     private readonly PageFactory _pageFactory;
 
@@ -17,6 +18,9 @@ public partial class MainWindowViewModel : ViewModelBase
     [NotifyPropertyChangedFor(nameof(EmployeePageActive))]
     [NotifyPropertyChangedFor(nameof(ReportsPageActive))]
     private PageViewModel? _currentPage;
+    
+    [ObservableProperty]
+    private DialogViewModel? _dialog;
 
     // CurrentPage is generated with observable property
     // used for page nav    

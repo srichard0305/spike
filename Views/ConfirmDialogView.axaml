@@ -1,0 +1,46 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:spike.ViewModels"
+             x:DataType="vm:ConfirmDialogViewModel"
+             mc:Ignorable="d"
+             MinWidth="300"
+             Width="{Binding DialogWidth}"
+             Foreground="{DynamicResource PrimaryText}"
+             Background="Transparent"
+             x:Class="spike.Views.ConfirmDialogView">
+    
+    <Design.DataContext><vm:ConfirmDialogViewModel></vm:ConfirmDialogViewModel></Design.DataContext>
+    
+    <Border Background="Black" CornerRadius="20" Margin="10" BorderBrush="DarkBlue" BorderThickness="2">
+        <Border.Effect>
+            <DropShadowEffect Color="DarkSlateBlue"></DropShadowEffect>
+        </Border.Effect>
+        
+        <StackPanel>
+            <Border Background="{DynamicResource PrimaryTopPanelGradient}" CornerRadius="20 20 0 0">
+                <TextBlock Text="{Binding Title}"
+                           Padding="10"
+                           FontSize="20"
+                           FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+            </Border>
+            
+            <Border Padding="10">
+                <StackPanel Spacing="20" >
+                    <StackPanel Orientation="Horizontal">
+                        <Label Classes="SideBar" Content="&#xEE44;" FontSize="35"></Label>
+                        <TextBlock Text="{Binding Message}" FontSize="15" Margin="0 15 0 0" TextWrapping="Wrap"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                        <Button Foreground="Azure" Content="{Binding CancelText}" Command="{Binding CancelCommand}"/>
+                        <Button Foreground="Azure" 
+                                Content="{Binding ConfirmText}" Command="{Binding ConfirmCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            
+        </StackPanel>
+    </Border>
+   
+</UserControl>

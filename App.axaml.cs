@@ -10,6 +10,7 @@ using spike.Factories;
 using spike.ViewModels;
 using spike.Views;
 using spike.Database;
+using spike.Services;
 
 namespace spike;
 
@@ -49,6 +50,7 @@ public partial class App : Application
         });
         
         collection.AddSingleton<PageFactory>();
+        collection.AddSingleton<DialogService>();
         
         var serviceProvider = collection.BuildServiceProvider();
         

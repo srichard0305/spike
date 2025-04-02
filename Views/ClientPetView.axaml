@@ -23,20 +23,20 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="Black" Margin="20" CornerRadius="10" Padding="20" BoxShadow="5 5 10 0 DarkGray" >
+                        <Border Background="Black" Margin="20" CornerRadius="10" Padding="20" BoxShadow="5 5 10 0 DarkGray" Width="325">
                             <StackPanel>
                                <StackPanel Orientation="Horizontal" Spacing="8">
                                         <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"></Label>
-                                        <TextBlock Text="{Binding FirstName}" FontSize="25"></TextBlock>
-                                        <TextBlock Text="{Binding LastName}" FontSize="25"></TextBlock>
+                                        <TextBlock Text="{Binding FirstName}" FontSize="25" TextWrapping="Wrap" MaxWidth="150"></TextBlock>
+                                        <TextBlock Text="{Binding LastName}" FontSize="25" TextWrapping="Wrap" MaxWidth="150"></TextBlock>
                                </StackPanel>
                                 
                                 <Rectangle  Height="1" Fill="DarkBlue" Margin="10"></Rectangle>
                                 <StackPanel >
                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                         <Label Classes="SideBar" Content="&#xE3B8;" Foreground="Azure" FontSize="20"> </Label>
-                                        <TextBlock Text="{Binding ContactInfo.PrimaryPhone}" FontSize="15" Margin="0 5 0 0"></TextBlock>
-                                        <TextBlock Text="{Binding ContactInfo.SecondaryPhone}" FontSize="15" Margin="0 5 0 0"></TextBlock>
+                                        <TextBlock Text="{Binding ContactInfo.PrimaryPhone}" FontSize="15" Margin="0 5 0 0" TextWrapping="Wrap"></TextBlock>
+                                        <TextBlock Text="{Binding ContactInfo.SecondaryPhone}" FontSize="15" Margin="0 5 0 0" TextWrapping="Wrap"></TextBlock>
                                     </StackPanel>
                                 </StackPanel>
                                 
@@ -50,7 +50,7 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                                <TextBlock Text="{Binding Name}" FontSize="15" Margin="5"></TextBlock>
+                                                <TextBlock Text="{Binding Name}" FontSize="15" Margin="5" TextWrapping="Wrap"></TextBlock>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>

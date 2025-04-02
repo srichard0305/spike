@@ -21,7 +21,8 @@ public static class DatabaseConnection
                 CREATE TABLE Clients (
                     Client_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     First_Name TEXT NOT NULL,
-                    Last_Name TEXT NOT NULL
+                    Last_Name TEXT NOT NULL,
+                    IsActive TEXT NOT NULL
                 );
 
                 CREATE TABLE ClientAddress (
@@ -61,6 +62,7 @@ public static class DatabaseConnection
                     Vet_Phone TEXT NULL,
                     Vaccines TEXT NULL,
                     Client_Id INTEGER NOT NULL,
+                    IsActive TEXT NOT NULL,
                     FOREIGN KEY (Client_Id) REFERENCES Clients (Client_Id)
                 );
 
@@ -68,6 +70,7 @@ public static class DatabaseConnection
                     Employee_Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     First_Name TEXT NOT NULL,
                     Last_Name TEXT NOT NULL,
+                    IsActive TEXT NOT NULL,
                     Cardinality INTEGER
                 );
 

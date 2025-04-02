@@ -42,6 +42,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Dev/spike/Views/ClientProfileView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Dev/spike/Views/ConfirmDialogView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Dev/spike/Views/EditClientProfileView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

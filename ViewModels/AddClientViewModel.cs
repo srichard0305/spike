@@ -7,7 +7,7 @@ using spike.Data;
 using spike.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using spike.Database;
-
+using spike.Services;
 
 namespace spike.ViewModels;
 
@@ -43,7 +43,11 @@ public partial class AddClientViewModel : PageViewModel
     [ObservableProperty] 
     private string? _addedToDatabaseMessage;
     
-    public AddClientViewModel() 
+    private readonly MainWindowViewModel _mainWindowViewModel;
+
+    private DialogService _dialogService;
+    
+    public AddClientViewModel(MainWindowViewModel mainWindowViewModel, DialogService dialogService) 
     { 
         PageTitle = AppPageNames.AddClient;
         Client = new Client();
@@ -74,6 +78,9 @@ public partial class AddClientViewModel : PageViewModel
             "No"
         };
         InitErrors();
+        _addedToDatabaseMessage = "";
+        _mainWindowViewModel = mainWindowViewModel;
+        _dialogService = dialogService;
     }
 
     private void InitErrors()
@@ -195,7 +202,7 @@ public partial class AddClientViewModel : PageViewModel
     
     
    [RelayCommand]
-   private void AddClient()
+   private async Task AddClient()
    {
        if (!DataValidation())
            return;
@@ -207,7 +214,7 @@ public partial class AddClientViewModel : PageViewModel
        InitErrors();
 
        AddedToDatabaseMessage = WriteToDatabase.AddClient(Client) ? "Client added!" : "Client cannot be added!";
-       Task.Delay(2000);
+       await Task.Delay(2000);
        AddedToDatabaseMessage = "";
 
    }
@@ -219,9 +226,15 @@ public partial class AddClientViewModel : PageViewModel
    }
    
    [RelayCommand]
-   private void DeletePet(Pet pet)
+   private async Task DeletePet(Pet pet)
    {
-       Pets.Remove(pet);
+       var confirmDialog = new ConfirmDialogViewModel()
+       {
+           Message = "Are you sure you want to delete this pet?",
+       };
+       await _dialogService.ShowDialog(_mainWindowViewModel, confirmDialog);
+       if(confirmDialog.Confirmed) 
+           Pets.Remove(pet);
    }
    
 
