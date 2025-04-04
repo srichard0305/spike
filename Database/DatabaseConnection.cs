@@ -71,7 +71,7 @@ public static class DatabaseConnection
                     First_Name TEXT NOT NULL,
                     Last_Name TEXT NOT NULL,
                     IsActive TEXT NOT NULL,
-                    Cardinality INTEGER
+                    Cardinality INTEGER NULL
                 );
 
                 CREATE TABLE EmployeeAddress (

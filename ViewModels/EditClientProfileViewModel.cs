@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
@@ -18,6 +19,9 @@ public partial class EditClientProfileViewModel : PageViewModel
     
     [ObservableProperty]
     private ObservableCollection<Pet> _pets;
+    
+    [ObservableProperty]
+    private DateTimeOffset? _selectedBirthday;
     
     [ObservableProperty]
     private ObservableCollection<string> _provinces;
@@ -48,10 +52,13 @@ public partial class EditClientProfileViewModel : PageViewModel
     {
         PageTitle = AppPageNames.EditClientProfile;
         Client = client;
+        
         // if null create new collection 
         Client.Pets ??= new ObservableCollection<Pet>();
         Pets = Client.Pets;
+        
         Errors = new ObservableCollection<string>();
+        
         Provinces = new ObservableCollection<string>()
         {
             "AB", "BC", "MB", "NB", "NL", "NT",
@@ -75,10 +82,16 @@ public partial class EditClientProfileViewModel : PageViewModel
             "No"
         };
         InitErrors();
+        
+        // convert birthday string to DateTimeOffset 
+        if (client.Pets != null && client.Pets.Any())
+        {
+            ConvertBirthday(client.Pets);
+        }
+        
         _addedToDatabaseMessage = "";
         _mainWindowViewModel = mainWindowViewModel;
         _dialogService = dialogService;
-        
     }
     
     private void InitErrors()
@@ -195,6 +208,11 @@ public partial class EditClientProfileViewModel : PageViewModel
                     Errors[(int)RequiredFieldsEnum.PetVetPhone] = "Phone number is invalid";
             }
             
+            if (SelectedBirthday != null)
+            {
+                pet.Birthday = SelectedBirthday.ToString();
+            }
+            
         }
     }
     
@@ -210,7 +228,7 @@ public partial class EditClientProfileViewModel : PageViewModel
        Client.Pets = Pets;
 
        AddedToDatabaseMessage = UpdateDatabase.UpdateClient(Client) ? "Client Updated!" : "Client cannot be updated!";
-       await Task.Delay(2000);
+       await Task.Delay(1500);
        AddedToDatabaseMessage = "";
 
    }
@@ -224,7 +242,6 @@ public partial class EditClientProfileViewModel : PageViewModel
    [RelayCommand]
    private async Task DeletePet(Pet pet)
    {
-       //TODO remove from database as well
        var confirmDialog = new ConfirmDialogViewModel()
        {
            Message = "Are you sure you want to permanently delete this pet?",
@@ -235,7 +252,6 @@ public partial class EditClientProfileViewModel : PageViewModel
            UpdateDatabase.DeletePet(pet);
            Client.Pets.Remove(pet);
        }
-       
    }
 
    [RelayCommand]
@@ -251,18 +267,30 @@ public partial class EditClientProfileViewModel : PageViewModel
            if (UpdateDatabase.DeleteClient(Client))
            {
                AddedToDatabaseMessage = "Client Deleted!";
-               await Task.Delay(2000);
+               await Task.Delay(1500);
                AddedToDatabaseMessage = "";
                _mainWindowViewModel.CurrentPage = new ClientPetViewModel(_mainWindowViewModel, _dialogService);
            }
            else
            {
                AddedToDatabaseMessage = "Client cannot be deleted!";
-               await Task.Delay(2000);
+               await Task.Delay(15000);
                AddedToDatabaseMessage = "";
            }
            
        }
        
    }
+
+   private void ConvertBirthday(ObservableCollection<Pet> pets)
+   {
+       foreach (Pet pet in pets)
+       {
+           if (!string.IsNullOrEmpty(pet.Birthday))
+           {
+               SelectedBirthday = DateTimeOffset.Parse(pet.Birthday);
+           }
+       }
+   }
+   
 }

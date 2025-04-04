@@ -11,26 +11,53 @@
     
     <Design.DataContext><vm:EmployeePageViewModel></vm:EmployeePageViewModel></Design.DataContext>
     
-    <Grid RowDefinitions="Auto, Auto">
-        <StackPanel Grid.Row="0">
-            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15">
-                <TextBlock Text="Employees" FontSize="40" FontWeight="Black" TextDecorations="Underline"></TextBlock>
-            </Border>
-        </StackPanel>
-        <TabControl Grid.Row="1" Margin="5">
-            <TabItem Header="Employees">
-                <!-- List of clients and pets -->
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                
-                </ScrollViewer>
-            </TabItem>
-            <TabItem Header="Add Employee">
-                <!-- add Employee-->
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                
-                </ScrollViewer>
-            </TabItem>
-        </TabControl>
+    <Grid RowDefinitions="*, Auto">
+        <!-- Client pet view will disappear when navigating pages -->
+        <Grid Grid.Row="0" RowDefinitions="Auto, *">
+            <Label Grid.Row="0" Content="Employees" FontSize="55" HorizontalAlignment="Center"></Label>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"> 
+            <ItemsControl ItemsSource="{Binding Employees}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="Black" Margin="20" CornerRadius="10" Padding="20" BoxShadow="5 5 10 0 DarkGray" Width="325">
+                            <StackPanel>
+                               <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"></Label>
+                                        <TextBlock Text="{Binding FirstName}" FontSize="25" TextWrapping="Wrap" MaxWidth="150"></TextBlock>
+                                        <TextBlock Text="{Binding LastName}" FontSize="25" TextWrapping="Wrap" MaxWidth="150"></TextBlock>
+                               </StackPanel>
+                                
+                                <Rectangle  Height="1" Fill="DarkBlue" Margin="10"></Rectangle>
+                                
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Label Classes="SideBar" Content="&#xE3B8;" Foreground="Azure" FontSize="20"> </Label>
+                                    <TextBlock Text="{Binding ContactInfo.PrimaryPhone}" FontSize="15" Margin="0 5 0 0" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding ContactInfo.SecondaryPhone}" FontSize="15" Margin="0 5 0 0" TextWrapping="Wrap"/>
+                                </StackPanel>
+                               
+                                <Rectangle  Height="1" Fill="DarkBlue" Margin="10"></Rectangle>
+                                <TextBlock Text="{Binding ContactInfo.Email}" FontSize="15" Margin="0 5 0 0" TextWrapping="Wrap"/>
+                                <Button Classes="SecondaryButtons" Content="View Profile" FontSize="15" HorizontalAlignment="Center"
+                                        Command="{Binding $parent[ItemsControl].((vm:EmployeePageViewModel)DataContext).NavigateToEmployeeProfileCommand}"
+                                        CommandParameter="{Binding}" Margin="0 10 0 0"></Button>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            </ScrollViewer>
+        </Grid>
         
+        <Button Grid.Row="1" Classes="bookappointment" CornerRadius="50" Background="{DynamicResource PrimaryActiveBackground}"
+                HorizontalAlignment="Right" Margin="30" Command="{Binding NavigateToAddEmployeeCommand}"
+                IsVisible="{Binding ShowAddButton}">
+            <Label Classes="SideBar" Content="&#xE3D4;" Margin="0" FontSize="30"></Label>
+        </Button>
     </Grid>
+    
 </UserControl>

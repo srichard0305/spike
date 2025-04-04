@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using spike.Models;
 using CommunityToolkit.Mvvm.Input;
 using spike.Data;
@@ -10,6 +14,9 @@ public partial class ClientProfileViewModel : PageViewModel
 {
     [ObservableProperty]
     private Client _client;
+    
+    [ObservableProperty]
+    private string? _birthday;
 
     private readonly MainWindowViewModel _mainWindowViewModel;
     
@@ -18,8 +25,14 @@ public partial class ClientProfileViewModel : PageViewModel
     public ClientProfileViewModel(Client client, MainWindowViewModel mainWindowViewModel, DialogService dialogService)
     {
         PageTitle = AppPageNames.ClientProfile;
+        
         Client = client;
+        
+        if(client.Pets != null && client.Pets.Any())
+            FormatBirthday(client.Pets);
+        
         _mainWindowViewModel = mainWindowViewModel;
+        
         _dialogService = dialogService;
     }
     
@@ -28,6 +41,19 @@ public partial class ClientProfileViewModel : PageViewModel
     {
         _mainWindowViewModel.CurrentPage = new EditClientProfileViewModel(Client, _mainWindowViewModel, _dialogService);
         
+    }
+
+    private void FormatBirthday(ObservableCollection<Pet> pets)
+    {
+        foreach (Pet pet in pets)
+        {
+            if (pet.Birthday != null)
+            {
+                var birthdayDateTimeOffset = DateTimeOffset.Parse(pet.Birthday);
+                Birthday = birthdayDateTimeOffset.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);
+            }
+            
+        }
     }
 
 }

@@ -244,7 +244,8 @@
                                        <StackPanel  Orientation="Horizontal" Margin="10">
                                            <Label Content="Age:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
                                        </StackPanel>
-                                       <ComboBox ItemsSource="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).Ages}" SelectedItem="{Binding Age}"
+                                       <ComboBox ItemsSource="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).Ages}" 
+                                                 SelectedItem="{Binding Age, Mode=TwoWay}"
                                                  Margin="40 0 0 0" Width="250" Background="DarkGray" MaxDropDownHeight="165">
                                            
                                        </ComboBox>
@@ -256,7 +257,8 @@
                                        <StackPanel  Orientation="Horizontal" Margin="10">
                                            <Label Content="Birthday:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
                                        </StackPanel>
-                                       <DatePicker SelectedDate="{Binding Birthday}" Width="400" Background="DarkGray"
+                                       <DatePicker SelectedDate="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).SelectedBirthday}" 
+                                                   Width="400" Background="DarkGray"
                                                  HorizontalAlignment="Left" Margin="40 0 0 0">
                                        </DatePicker>
                                    </StackPanel>
@@ -265,7 +267,8 @@
                                        <StackPanel  Orientation="Horizontal" Margin="10">
                                            <Label Content="Gender:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
                                        </StackPanel>
-                                       <ComboBox ItemsSource="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).Genders}" SelectedItem="{Binding Gender}"
+                                       <ComboBox ItemsSource="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).Genders}" 
+                                                 SelectedItem="{Binding Gender, Mode=TwoWay}"
                                                  Margin="40 0 0 0" Width="250" Background="DarkGray" MaxDropDownHeight="165">
                                        </ComboBox>
                                        <TextBlock Text="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).Errors[12]}" 
@@ -276,7 +279,8 @@
                                        <StackPanel  Orientation="Horizontal" Margin="10">
                                            <Label Content="Spayed or Neutered:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
                                        </StackPanel>
-                                       <ComboBox ItemsSource="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).YesNo}" SelectedItem="{Binding SpayedNeutered}"
+                                       <ComboBox ItemsSource="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).YesNo}" 
+                                                 SelectedItem="{Binding SpayedNeutered, Mode=TwoWay}"
                                                  Margin="40 0 0 0" Width="250" Background="DarkGray" MaxDropDownHeight="165">
                                        </ComboBox>
                                        <TextBlock Text="{Binding $parent[ItemsControl].((viewModels:EditClientProfileViewModel)DataContext).Errors[13]}" 

@@ -97,7 +97,7 @@
                                     
                                     <StackPanel Orientation="Horizontal" Spacing="10">
                                         <TextBlock Text="Birthday: " FontSize="35"/>
-                                        <TextBlock Text="{Binding Birthday}" FontSize="35"/>
+                                        <TextBlock Text="{Binding $parent[ItemsControl].((viewModels:ClientProfileViewModel)DataContext).Birthday}" FontSize="35"/>
                                     </StackPanel>
                                     
                                     <TextBlock Text="{Binding Gender}" FontSize="35"/>

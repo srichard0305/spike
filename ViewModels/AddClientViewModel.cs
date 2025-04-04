@@ -21,6 +21,8 @@ public partial class AddClientViewModel : PageViewModel
     private ContactInfo _contactInfo;
     [ObservableProperty]
     private ObservableCollection<Pet> _pets;
+    [ObservableProperty]
+    private DateTimeOffset? _selectedBirthday;
     
     [ObservableProperty]
     private ObservableCollection<string> _provinces;
@@ -196,6 +198,11 @@ public partial class AddClientViewModel : PageViewModel
                 if (!Regex.Match(pet.VetPhone, @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}").Success)
                     Errors[(int)RequiredFieldsEnum.PetVetPhone] = "Phone number is invalid";
             }
+
+            if (SelectedBirthday != null)
+            {
+                pet.Birthday = SelectedBirthday.ToString();
+            }
             
         }
     }
@@ -214,7 +221,7 @@ public partial class AddClientViewModel : PageViewModel
        InitErrors();
 
        AddedToDatabaseMessage = WriteToDatabase.AddClient(Client) ? "Client added!" : "Client cannot be added!";
-       await Task.Delay(2000);
+       await Task.Delay(1500);
        AddedToDatabaseMessage = "";
 
    }

@@ -158,8 +158,78 @@ public static class WriteToDatabase
         return true;
     }
 
-    public static void AddEmployee(Employee employee)
+    public static bool AddEmployee(Employee employee)
     {
         
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+        
+            using var transaction = connection.BeginTransaction();
+
+            try
+            {
+                // first insert employee into table
+                var sqlStatement = @"
+                    INSERT INTO Employees (First_Name, Last_Name, IsActive, Cardinality) 
+                    VALUES (@First_Name, @Last_Name, True, @Cardinality)
+                 ";
+                using var insertEmployee = new SqliteCommand(sqlStatement, connection, transaction);
+                insertEmployee.Parameters.AddWithValue("@First_Name", employee.FirstName);
+                insertEmployee.Parameters.AddWithValue("@Last_Name", employee.LastName);
+                insertEmployee.Parameters.AddWithValue("@Cardinality", (object?)employee.Cardinality ?? DBNull.Value);
+                insertEmployee.ExecuteNonQuery();
+
+                //grab last inserted row for the auto incremented id
+                sqlStatement = @"SELECT last_insert_rowid()";
+                using var lastRow = new SqliteCommand(sqlStatement, connection, transaction);
+                var employeeId = lastRow.ExecuteScalar();
+
+                //insert address
+                sqlStatement = @"
+                    INSERT INTO EmployeeAddress (Address, Etc, City, Country, Province, PostalCode, Employee_Id)
+                    VALUES (@Address, @Etc, @City, @Country, @Province, @Postal_Code, @Employee_Id)
+                    ";
+                using var insertAddress = new SqliteCommand(sqlStatement, connection, transaction);
+                insertAddress.Parameters.AddWithValue("@Address", employee.Address.AddressLine);
+                insertAddress.Parameters.AddWithValue("@Etc", (object?)employee.Address.Etc ?? DBNull.Value);
+                insertAddress.Parameters.AddWithValue("@City", employee.Address.City);
+                insertAddress.Parameters.AddWithValue("@Country", employee.Address.Country);
+                insertAddress.Parameters.AddWithValue("@Province", employee.Address.Province);
+                insertAddress.Parameters.AddWithValue("@Postal_Code", employee.Address.PostalCode);
+                insertAddress.Parameters.AddWithValue("@Employee_Id", employeeId);
+                insertAddress.ExecuteNonQuery();
+                
+                //insert contact info
+                sqlStatement = @"
+                    INSERT INTO EmployeeContact (PrimaryPhone, SecondaryPhone, EmergencyPhone, EmergencyName, Email, Employee_Id)
+                    VALUES (@PrimaryPhone, @SecondaryPhone, @EmergencyPhone, @EmergencyName, @Email, @Employee_Id)
+                    ";
+                using var insertContactInfo = new SqliteCommand(sqlStatement, connection, transaction);
+                insertContactInfo.Parameters.AddWithValue("@PrimaryPhone", employee.ContactInfo.PrimaryPhone);
+                insertContactInfo.Parameters.AddWithValue("@SecondaryPhone", (object?)employee.ContactInfo.SecondaryPhone ?? DBNull.Value);
+                insertContactInfo.Parameters.AddWithValue("@EmergencyPhone", (object?)employee.ContactInfo.EmergencyPhone ?? DBNull.Value);
+                insertContactInfo.Parameters.AddWithValue("@EmergencyName", (object?)employee.ContactInfo.EmergencyName ?? DBNull.Value);
+                insertContactInfo.Parameters.AddWithValue("@Email", (object?)employee.ContactInfo.Email ?? DBNull.Value);
+                insertContactInfo.Parameters.AddWithValue("@Employee_Id", employeeId);
+                insertContactInfo.ExecuteNonQuery();
+                
+                transaction.Commit();
+                
+            }
+            catch (SqliteException e)
+            {
+                transaction.Rollback();
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+        }
+        return true;
     }
 }

@@ -4,15 +4,14 @@ namespace spike.Models;
 
 public class Employee
 {
-    Int64 EmployeeId { get; set; }
+    public Int64 EmployeeId { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public Address? Address { get; set; }
     public ContactInfo? ContactInfo { get; set; }
+    
+    public string? Cardinality { get; set; }
+    
+    //TODO Grooming shit to add?
 
-    public Employee(string employeeId)
-    {
-        FirstName = employeeId;
-    }
-   
 }

@@ -29,7 +29,7 @@ public static class UpdateDatabase
                             SET Name = @Name, Breed = @Breed, Age = @Age, Birthday = @Birthday, Gender = @Gender, Health = @Health, 
                                 Spayed_Neutered = @Spayed_Neutered, Vet_Name = @Vet_Name, Vet_Phone = @Vet_Phone, 
                                 Vaccines = @Vaccines, IsActive = True    
-                                WHERE Pet_Id = @PetsId;
+                                WHERE Pet_Id = @PetId;
                         ";
                         using var petUpdate = new SqliteCommand(sqlStatement, connection, transaction);
                         petUpdate.Parameters.AddWithValue("@Name", pet.Name);
@@ -91,26 +91,26 @@ public static class UpdateDatabase
                         Province = @Province,  Postal_Code = @Postal_Code
                     WHERE Client_Id = @ClientId;
                     ";
-                using var insertAddress = new SqliteCommand(sqlStatement, connection, transaction);
-                insertAddress.Parameters.AddWithValue("@Address", client.Address.AddressLine);
-                insertAddress.Parameters.AddWithValue("@Etc", (object?)client.Address.Etc ?? DBNull.Value);
-                insertAddress.Parameters.AddWithValue("@City", client.Address.City);
-                insertAddress.Parameters.AddWithValue("@Country", client.Address.Country);
-                insertAddress.Parameters.AddWithValue("@Province", client.Address.Province);
-                insertAddress.Parameters.AddWithValue("@Postal_Code", client.Address.PostalCode);
-                insertAddress.Parameters.AddWithValue("@ClientId", client.ClientId);
-                insertAddress.ExecuteNonQuery();
+                using var updateAddress = new SqliteCommand(sqlStatement, connection, transaction);
+                updateAddress.Parameters.AddWithValue("@Address", client.Address.AddressLine);
+                updateAddress.Parameters.AddWithValue("@Etc", (object?)client.Address.Etc ?? DBNull.Value);
+                updateAddress.Parameters.AddWithValue("@City", client.Address.City);
+                updateAddress.Parameters.AddWithValue("@Country", client.Address.Country);
+                updateAddress.Parameters.AddWithValue("@Province", client.Address.Province);
+                updateAddress.Parameters.AddWithValue("@Postal_Code", client.Address.PostalCode);
+                updateAddress.Parameters.AddWithValue("@ClientId", client.ClientId);
+                updateAddress.ExecuteNonQuery();
 
                 sqlStatement = @"
                     UPDATE Clients
                     SET First_Name = @First_Name, Last_Name = @Last_Name, IsActive = True
                     WHERE Client_Id = @ClientId;
                  ";
-                using var insertClient = new SqliteCommand(sqlStatement, connection, transaction);
-                insertClient.Parameters.AddWithValue("@First_Name", client.FirstName);
-                insertClient.Parameters.AddWithValue("@Last_Name", client.LastName);
-                insertClient.Parameters.AddWithValue("@ClientId", client.ClientId);
-                insertClient.ExecuteNonQuery();
+                using var updateClient = new SqliteCommand(sqlStatement, connection, transaction);
+                updateClient.Parameters.AddWithValue("@First_Name", client.FirstName);
+                updateClient.Parameters.AddWithValue("@Last_Name", client.LastName);
+                updateClient.Parameters.AddWithValue("@ClientId", client.ClientId);
+                updateClient.ExecuteNonQuery();
                 
                 transaction.Commit();
 
@@ -240,6 +240,136 @@ public static class UpdateDatabase
             return false;
         }
         
+        return true;
+    }
+
+    public static bool UpdateEmployee(Employee employee)
+    {
+         try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+            
+            using var transaction = connection.BeginTransaction();
+            try
+            {
+                var sqlStatement = @"";
+                
+                //update rest of client info
+                sqlStatement = @"
+                    UPDATE EmployeeContact 
+                    SET PrimaryPhone = @PrimaryPhone, SecondaryPhone = @SecondaryPhone, 
+                        EmergencyPhone = @EmergencyPhone, EmergencyName = @EmergencyName, Email = @Email
+                    WHERE Employee_Id = @EmployeeId;
+                ";
+                using var updateContactInfo = new SqliteCommand(sqlStatement, connection, transaction);
+                updateContactInfo.Parameters.AddWithValue("@PrimaryPhone", employee.ContactInfo.PrimaryPhone);
+                updateContactInfo.Parameters.AddWithValue("@SecondaryPhone", (object?)employee.ContactInfo.SecondaryPhone ?? DBNull.Value);
+                updateContactInfo.Parameters.AddWithValue("@EmergencyPhone", (object?)employee.ContactInfo.EmergencyPhone ?? DBNull.Value);
+                updateContactInfo.Parameters.AddWithValue("@EmergencyName", (object?)employee.ContactInfo.EmergencyName ?? DBNull.Value);
+                updateContactInfo.Parameters.AddWithValue("@Email", (object?)employee.ContactInfo.Email ?? DBNull.Value);
+                updateContactInfo.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                updateContactInfo.ExecuteNonQuery();
+                
+                sqlStatement = @"
+                    UPDATE EmployeeAddress
+                    SET Address = @Address, Etc = @Etc, City = @City, Country = @Country, 
+                        Province = @Province,  PostalCode = @Postal_Code
+                    WHERE Employee_Id = @EmployeeId;
+                    ";
+                using var updateAddress = new SqliteCommand(sqlStatement, connection, transaction);
+                updateAddress.Parameters.AddWithValue("@Address", employee.Address.AddressLine);
+                updateAddress.Parameters.AddWithValue("@Etc", (object?)employee.Address.Etc ?? DBNull.Value);
+                updateAddress.Parameters.AddWithValue("@City", employee.Address.City);
+                updateAddress.Parameters.AddWithValue("@Country", employee.Address.Country);
+                updateAddress.Parameters.AddWithValue("@Province", employee.Address.Province);
+                updateAddress.Parameters.AddWithValue("@Postal_Code", employee.Address.PostalCode);
+                updateAddress.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                updateAddress.ExecuteNonQuery();
+
+                sqlStatement = @"
+                    UPDATE Employees
+                    SET First_Name = @First_Name, Last_Name = @Last_Name, IsActive = True, Cardinality = @Cardinality
+                    WHERE Employee_Id = @EmployeeId;
+                 ";
+                using var updateEmployee = new SqliteCommand(sqlStatement, connection, transaction);
+                updateEmployee.Parameters.AddWithValue("@First_Name", employee.FirstName);
+                updateEmployee.Parameters.AddWithValue("@Last_Name", employee.LastName);
+                updateEmployee.Parameters.AddWithValue("@Cardinality", (object?)employee.Cardinality ?? DBNull.Value);
+                updateEmployee.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                updateEmployee.ExecuteNonQuery();
+                
+                transaction.Commit();
+
+            }catch (SqliteException e)
+            {
+                transaction.Rollback();
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+                
+        }
+        
+        return true;
+    }
+    
+    public static bool DeleteEmployee(Employee employee)
+    {
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+            
+            using var transaction = connection.BeginTransaction();
+            
+            try
+            {
+                var sqlStatement = @"
+                    DELETE FROM EmployeeContact
+                    WHERE Employee_Id = @EmployeeId;
+                ";
+                using var contactInfo = new SqliteCommand(sqlStatement, connection, transaction);
+                contactInfo.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                contactInfo.ExecuteNonQuery();
+                
+                sqlStatement = @"
+                    DELETE FROM EmployeeAddress
+                    WHERE Employee_Id = @EmployeeId;
+                ";
+                using var contactAddress = new SqliteCommand(sqlStatement, connection, transaction);
+                contactAddress.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                contactAddress.ExecuteNonQuery();
+                
+                
+                sqlStatement = @"
+                    UPDATE Employees
+                    SET IsActive = False 
+                    WHERE Employee_Id = @EmployeeId;
+                ";
+            
+                using var employeeInfo = new SqliteCommand(sqlStatement, connection, transaction);
+                employeeInfo.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                employeeInfo.ExecuteNonQuery();
+                
+                transaction.Commit();
+            }
+            catch (SqliteException e)
+            {
+                transaction.Rollback();
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+        }
+
         return true;
     }
 }

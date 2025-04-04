@@ -135,4 +135,95 @@ public static class ReadFromDatabase
 
         return clients;
     }
+    
+    public static ObservableCollection<Employee> GetAllEmployees()
+    {
+        ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
+
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+
+            var sqlStatment = @"
+                SELECT * FROM Employees
+                WHERE IsActive = True;
+            ";
+            
+            // grab all clients from database
+            using var employeeInfo = new SqliteCommand(sqlStatment, connection);
+
+            using var employeeReader = employeeInfo.ExecuteReader();
+            if (employeeReader.HasRows)
+            {
+                while (employeeReader.Read())
+                {
+                    Employee employee = new()
+                    {
+                        EmployeeId = (Int64)employeeReader["Employee_Id"],
+                        FirstName = (string)employeeReader["First_Name"],
+                        LastName = (string)employeeReader["Last_Name"]
+                    };
+                    
+                    // grab the address for each employee
+                    sqlStatment = @"
+                        SELECT Address, Etc, City, Country, Province, PostalCode
+                        FROM EmployeeAddress
+                        WHERE Employee_Id = @EmployeeId;
+                    ";
+                    
+                    using var addressInfo = new SqliteCommand(sqlStatment, connection);
+                    addressInfo.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                    using var addressReader = addressInfo.ExecuteReader();
+                    
+                    employee.Address = new Address();
+                    
+                    if (addressReader.HasRows)
+                    {
+                        while (addressReader.Read()){
+                            employee.Address.AddressLine = (string)addressReader["Address"];
+                            employee.Address.Etc =  addressReader["Etc"] == DBNull.Value ? "" : (string)addressReader["Etc"];
+                            employee.Address.City = (string)addressReader["City"];
+                            employee.Address.Country = (string)addressReader["Country"];
+                            employee.Address.Province = (string)addressReader["Province"];
+                            employee.Address.PostalCode = (string)addressReader["PostalCode"];
+                        }
+                    }
+                    
+                    //grab contact info
+                    sqlStatment = @"
+                        SELECT PrimaryPhone, SecondaryPhone, EmergencyPhone, EmergencyName, Email
+                        FROM EmployeeContact
+                        WHERE Employee_Id = @EmployeeId;
+                    ";
+                    
+                    using var contactInfo = new SqliteCommand(sqlStatment, connection);
+                    contactInfo.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
+                    using var contactReader = contactInfo.ExecuteReader();
+                    
+                    employee.ContactInfo = new ContactInfo();
+
+                    if (contactReader.HasRows)
+                    {
+                        while (contactReader.Read())
+                        {
+                            employee.ContactInfo.PrimaryPhone = (string)contactReader["PrimaryPhone"];
+                            employee.ContactInfo.SecondaryPhone = contactReader["SecondaryPhone"] == DBNull.Value ? "" : (string)contactReader["SecondaryPhone"];
+                            employee.ContactInfo.EmergencyPhone = contactReader["EmergencyPhone"] == DBNull.Value ? "" : (string)contactReader["EmergencyPhone"];
+                            employee.ContactInfo.EmergencyName = contactReader["EmergencyName"] == DBNull.Value ? "" : (string)contactReader["EmergencyName"]; 
+                            employee.ContactInfo.Email = contactReader["Email"] == DBNull.Value ? "" : (string)contactReader["Email"];
+                        }
+                    }
+                    employees.Add(employee);
+                }
+            }
+            
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+        }
+
+        return employees;
+    }
 }

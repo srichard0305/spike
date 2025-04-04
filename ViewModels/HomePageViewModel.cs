@@ -34,11 +34,13 @@ public partial class HomePageViewModel : PageViewModel
         // set date to today
         SelectedDate = DateTimeOffset.Now;
         
+        /*
         Employees.Add(new Employee("Employee1"));
         Employees.Add(new Employee("Employee2"));
         Employees.Add(new Employee("Employee3"));
         Employees.Add(new Employee("Employee4"));
         Employees.Add(new Employee("Employee5"));
+        */
         
         CanvasWidth = _employeeColumnWidth * Employees.Count;
         

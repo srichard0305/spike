@@ -1,0 +1,76 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:spike.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:EmployeeProfileViewModel"
+             Background="{DynamicResource PrimaryBackground}"
+             x:Class="spike.Views.EmployeeProfileView">
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Grid ColumnDefinitions="*, Auto">
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="8">
+                    <Label Content="{Binding Employee.FirstName} " FontSize="55" ></Label>
+                    <Label Content="{Binding Employee.LastName} " FontSize="55"></Label>
+                </StackPanel>
+                <Button Grid.Column="1" Classes="SecondaryButtons" Content="Edit" FontSize="20"
+                        Command="{Binding NavigateToEditProfileCommand}"
+                        HorizontalAlignment="Right" Margin="0 0 20 0"></Button>
+            </Grid>
+            
+            <Label Content="Address" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
+            <Border Background="Black" Margin="20" CornerRadius="10" Padding="20">
+                <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, Auto, Auto" Margin="20">
+                    <TextBlock Grid.Column="0" Grid.Row="0"  TextWrapping="Wrap" 
+                               Text="{Binding Employee.Address.AddressLine}" FontSize="35"/>
+                    <Border Grid.Column="1" Grid.Row="0" Width="20"></Border>
+                    <TextBlock  Grid.Column="2" Grid.Row="0" TextWrapping="Wrap"
+                                Text="{Binding Employee.Address.Etc}" FontSize="35"/>
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" 
+                               Text="{Binding Employee.Address.City}" FontSize="35"/>
+                    <Border Grid.Column="1" Grid.Row="1" Width="20"></Border>
+                    <TextBlock Grid.Column="2" Grid.Row="1" TextWrapping="Wrap"
+                               Text="{Binding Employee.Address.Province}" FontSize="35" />
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" 
+                               Text="{Binding Employee.Address.Country}" FontSize="35"/>
+                    <Border Grid.Column="1" Grid.Row="2" Width="20"></Border>
+                    <TextBlock Grid.Column="2" Grid.Row="2" TextWrapping="Wrap"
+                               Text="{Binding Employee.Address.PostalCode}" FontSize="35"/>
+                </Grid>
+            </Border>
+            
+            <Label Content="Contact Info" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
+            <Border Background="Black" Margin="20" CornerRadius="10" Padding="20">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto" Margin="20">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8">
+                        <TextBlock  TextWrapping="Wrap" 
+                                   Text="Primary Phone:" FontSize="35"/>
+                        <TextBlock Text="{Binding Employee.ContactInfo.PrimaryPhone}" FontSize="35"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8">
+                        <TextBlock  TextWrapping="Wrap" 
+                                    Text="Secondary Phone:" FontSize="35"/>
+                        <TextBlock Text="{Binding Employee.ContactInfo.SecondaryPhone}" FontSize="35"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8">
+                        <TextBlock TextWrapping="Wrap" Text="Emergency:" FontSize="35"/>
+                        <TextBlock Text="{Binding Employee.ContactInfo.EmergencyName}" FontSize="35"></TextBlock>
+                        <TextBlock Text="{Binding Employee.ContactInfo.EmergencyPhone}" FontSize="35"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8">
+                        <TextBlock TextWrapping="Wrap" Text="Email:" FontSize="35"/>
+                        <TextBlock Text="{Binding Employee.ContactInfo.Email}" FontSize="35"></TextBlock>
+                    </StackPanel>
+                    
+                </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
