@@ -104,6 +104,7 @@ public partial class EditClientProfileViewModel : PageViewModel
     
      private bool DataValidation()
     {
+        InitErrors();
         ValidateClientInfo();
         ValidateContactInfo(); 
         ValidatePetInfo();

@@ -17,7 +17,7 @@
             <Border Background="Black" Margin="20" CornerRadius="10" Padding="20">
                 <Grid RowDefinitions="Auto, Auto" HorizontalAlignment="Center">
                             <!-- first and last name-->
-                            <Grid Grid.Row="0" RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10">
+                            <Grid Grid.Row="0" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="10">
                                 <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="10">
                                     <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"> </Label>
                                     <Label Content="First Name:" Foreground="Azure" FontSize="20"> </Label>
@@ -41,19 +41,36 @@
                                     <TextBlock Text="{Binding Errors[1]}" 
                                                Foreground="Red" Margin="50 0 0 0"></TextBlock>
                                 </StackPanel>
-                                
                                 <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Margin="10">
-                                    <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"> </Label>
-                                    <Label Content="Cardinality:" Foreground="Azure" FontSize="20"> </Label>
+                                    <Label Content="Cardinality:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
                                 </StackPanel>
                                 <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical" Spacing="10">
                                     <TextBox Width="400" TextWrapping="Wrap" Background="DarkGray"
                                              HorizontalAlignment="Left" Margin="40 0 0 0"
                                              Text="{Binding Employee.Cardinality}"></TextBox>
-                                    <TextBlock Text="{Binding Errors[0]}" 
+                                    <TextBlock Text="{Binding Errors[17]}" 
                                                Foreground="Red" Margin="40 0 0 0"></TextBlock>
                                 </StackPanel>
-                                
+                                <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" Margin="10">
+                                    <Label Content="Commission Rate:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                </StackPanel>
+                                <StackPanel Grid.Column="0" Grid.Row="5" Orientation="Vertical" Spacing="10">
+                                    <TextBox Width="400" TextWrapping="Wrap" Background="DarkGray"
+                                             HorizontalAlignment="Left" Margin="40 0 0 0"
+                                             Text="{Binding Employee.Commission}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[18]}" 
+                                               Foreground="Red" Margin="40 0 0 0"></TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="0" Grid.Row="6" Orientation="Horizontal" Margin="10">
+                                    <Label Content="Base Rate:" Foreground="Azure" FontSize="20" Margin="30 0 0 0"> </Label>
+                                </StackPanel>
+                                <StackPanel Grid.Column="0" Grid.Row="7" Orientation="Vertical" Spacing="10">
+                                    <TextBox Width="400" TextWrapping="Wrap" Background="DarkGray"
+                                             HorizontalAlignment="Left" Margin="40 0 0 0"
+                                             Text="{Binding Employee.BasePay}"></TextBox>
+                                    <TextBlock Text="{Binding Errors[19]}" 
+                                               Foreground="Red" Margin="40 0 0 0"></TextBlock>
+                                </StackPanel>
                             </Grid>
                             
                             <!-- address-->

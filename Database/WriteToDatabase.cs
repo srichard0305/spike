@@ -172,13 +172,15 @@ public static class WriteToDatabase
             {
                 // first insert employee into table
                 var sqlStatement = @"
-                    INSERT INTO Employees (First_Name, Last_Name, IsActive, Cardinality) 
-                    VALUES (@First_Name, @Last_Name, True, @Cardinality)
+                    INSERT INTO Employees (First_Name, Last_Name, IsActive, Cardinality, Commission, Base_Pay) 
+                    VALUES (@First_Name, @Last_Name, True, @Cardinality, @Commission, @BasePay)
                  ";
                 using var insertEmployee = new SqliteCommand(sqlStatement, connection, transaction);
                 insertEmployee.Parameters.AddWithValue("@First_Name", employee.FirstName);
                 insertEmployee.Parameters.AddWithValue("@Last_Name", employee.LastName);
                 insertEmployee.Parameters.AddWithValue("@Cardinality", (object?)employee.Cardinality ?? DBNull.Value);
+                insertEmployee.Parameters.AddWithValue("@Commission", (object?)employee.Commission ?? DBNull.Value);
+                insertEmployee.Parameters.AddWithValue("@BasePay", (object?)employee.BasePay ?? DBNull.Value);
                 insertEmployee.ExecuteNonQuery();
 
                 //grab last inserted row for the auto incremented id

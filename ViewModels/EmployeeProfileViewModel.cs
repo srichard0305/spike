@@ -21,7 +21,7 @@ public partial class EmployeeProfileViewModel : PageViewModel
 
     public EmployeeProfileViewModel(Employee employee, MainWindowViewModel mainWindowViewModel, DialogService dialogService)
     {
-        PageTitle = AppPageNames.ClientProfile;
+        PageTitle = AppPageNames.EmployeeProfile;
         
         Employee = employee;
         

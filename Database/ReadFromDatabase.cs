@@ -162,7 +162,10 @@ public static class ReadFromDatabase
                     {
                         EmployeeId = (Int64)employeeReader["Employee_Id"],
                         FirstName = (string)employeeReader["First_Name"],
-                        LastName = (string)employeeReader["Last_Name"]
+                        LastName = (string)employeeReader["Last_Name"],
+                        Cardinality =  employeeReader["Cardinality"] == DBNull.Value ? "" : (string)employeeReader["Cardinality"],
+                        Commission =  employeeReader["Commission"] == DBNull.Value ? "" : (string)employeeReader["Commission"],
+                        BasePay = employeeReader["Base_Pay"] == DBNull.Value ? "" : (string)employeeReader["Base_Pay"]
                     };
                     
                     // grab the address for each employee

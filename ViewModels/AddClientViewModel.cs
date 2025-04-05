@@ -95,6 +95,7 @@ public partial class AddClientViewModel : PageViewModel
     
     private bool DataValidation()
     {
+        InitErrors();
         ValidateClientInfo();
         ValidateContactInfo(); 
         ValidatePetInfo();

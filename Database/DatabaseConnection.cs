@@ -71,7 +71,9 @@ public static class DatabaseConnection
                     First_Name TEXT NOT NULL,
                     Last_Name TEXT NOT NULL,
                     IsActive TEXT NOT NULL,
-                    Cardinality INTEGER NULL
+                    Cardinality TEXT NULL,
+                    Commission TEXT NULL,
+                    Base_Pay TEXT NULL
                 );
 
                 CREATE TABLE EmployeeAddress (

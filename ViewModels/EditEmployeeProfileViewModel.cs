@@ -35,7 +35,7 @@ public partial class EditEmployeeProfileViewModel : PageViewModel
     
     public EditEmployeeProfileViewModel(Employee employee, MainWindowViewModel mainWindowViewModel, DialogService dialogService)
     {
-        PageTitle = AppPageNames.EditClientProfile;
+        PageTitle = AppPageNames.EditEmployeeProfile;
         Employee = employee;
         
         Errors = new ObservableCollection<string>();
@@ -64,7 +64,9 @@ public partial class EditEmployeeProfileViewModel : PageViewModel
     
      private bool DataValidation()
     {
-        ValidateClientInfo();
+        InitErrors();
+        ValidateEmployeeInfo();
+        ValidateAddressInfo();
         ValidateContactInfo(); 
         
         foreach (var message in Errors)
@@ -74,7 +76,7 @@ public partial class EditEmployeeProfileViewModel : PageViewModel
         return true;
     }
 
-    private void ValidateClientInfo()
+    private void ValidateEmployeeInfo()
     {
         if (string.IsNullOrEmpty(Employee.FirstName))
             Errors[(int)RequiredFieldsEnum.ClientFirstName] = "First name is required";
@@ -86,6 +88,28 @@ public partial class EditEmployeeProfileViewModel : PageViewModel
         else if(Employee.LastName.Length > 50)
             Errors[(int)RequiredFieldsEnum.ClientLastName] = "Last name is too long";
         
+        if (!string.IsNullOrEmpty(Employee.Cardinality))
+        {
+            if(Employee.Cardinality.Length > 50)
+                Errors[(int)RequiredFieldsEnum.Cardinality] = "Invalid";
+        }
+        
+        if (!string.IsNullOrEmpty(Employee.Commission))
+        {
+            if(Employee.Commission.Length > 50)
+                Errors[(int)RequiredFieldsEnum.Commission] = "Invalid";
+        }
+        
+        if (!string.IsNullOrEmpty(Employee.BasePay))
+        {
+            if(Employee.BasePay.Length > 50)
+                Errors[(int)RequiredFieldsEnum.BasePay] = "Invalid";
+        }
+        
+    }
+    
+    private void ValidateAddressInfo()
+    {
         if (string.IsNullOrEmpty(Employee.Address.AddressLine))
             Errors[(int)RequiredFieldsEnum.ClientAddress] = "Address is required";
         else if(Employee.Address.AddressLine.Length > 150)
@@ -108,7 +132,6 @@ public partial class EditEmployeeProfileViewModel : PageViewModel
             Errors[(int)RequiredFieldsEnum.ClientPostalCode] = "Postal Code is required";
         else if(Employee.Address.PostalCode.Length > 10)
             Errors[(int)RequiredFieldsEnum.ClientPostalCode] = "Postal Code is too long";
-        
     }
 
     private void ValidateContactInfo()
@@ -130,12 +153,13 @@ public partial class EditEmployeeProfileViewModel : PageViewModel
             if (!Regex.Match(Employee.ContactInfo.EmergencyPhone, @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}").Success)
                 Errors[(int)RequiredFieldsEnum.ClientEmergPhone] = "Phone number is invalid";
         }
-
-        if (!string.IsNullOrEmpty(Employee.ContactInfo.Email))
+        
+        if (string.IsNullOrEmpty(Employee.ContactInfo.Email))
         {
-            if (!Regex.Match(Employee.ContactInfo.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase).Success)
-                Errors[(int)RequiredFieldsEnum.ClientValidEmail] = "Email is invalid";
+            Errors[(int)RequiredFieldsEnum.ClientValidEmail] = "Email is required";
         }
+        else if(!Regex.Match(Employee.ContactInfo.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase).Success)
+            Errors[(int)RequiredFieldsEnum.ClientValidEmail] = "Email is invalid";
     }
     
    [RelayCommand]

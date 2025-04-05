@@ -21,4 +21,7 @@ public enum RequiredFieldsEnum
     ClientSecondaryPhone = 14,
     ClientEmergPhone = 15,
     PetVetPhone = 16,
+    Cardinality = 17,
+    Commission = 18,
+    BasePay = 19,
 }

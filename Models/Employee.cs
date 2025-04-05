@@ -9,9 +9,10 @@ public class Employee
     public string? LastName { get; set; }
     public Address? Address { get; set; }
     public ContactInfo? ContactInfo { get; set; }
-    
     public string? Cardinality { get; set; }
+    public string? Commission { get; set; }
+    public string? BasePay { get; set; }
     
-    //TODO Grooming shit to add?
+    
 
 }

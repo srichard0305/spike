@@ -289,13 +289,15 @@ public static class UpdateDatabase
 
                 sqlStatement = @"
                     UPDATE Employees
-                    SET First_Name = @First_Name, Last_Name = @Last_Name, IsActive = True, Cardinality = @Cardinality
+                    SET First_Name = @First_Name, Last_Name = @Last_Name, IsActive = True, Cardinality = @Cardinality, Commission = @Commission, Base_Pay = @BasePay
                     WHERE Employee_Id = @EmployeeId;
                  ";
                 using var updateEmployee = new SqliteCommand(sqlStatement, connection, transaction);
                 updateEmployee.Parameters.AddWithValue("@First_Name", employee.FirstName);
                 updateEmployee.Parameters.AddWithValue("@Last_Name", employee.LastName);
                 updateEmployee.Parameters.AddWithValue("@Cardinality", (object?)employee.Cardinality ?? DBNull.Value);
+                updateEmployee.Parameters.AddWithValue("@Commission", (object?)employee.Commission ?? DBNull.Value);
+                updateEmployee.Parameters.AddWithValue("@BasePay", (object?)employee.BasePay ?? DBNull.Value);
                 updateEmployee.Parameters.AddWithValue("@EmployeeId", employee.EmployeeId);
                 updateEmployee.ExecuteNonQuery();
                 

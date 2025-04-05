@@ -22,25 +22,29 @@
             
             <Label Content="Address" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
             <Border Background="Black" Margin="20" CornerRadius="10" Padding="20">
-                <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, Auto, Auto" Margin="20">
-                    <TextBlock Grid.Column="0" Grid.Row="0"  TextWrapping="Wrap" 
-                               Text="{Binding Client.Address.AddressLine}" FontSize="35"/>
-                    <Border Grid.Column="1" Grid.Row="0" Width="20"></Border>
-                    <TextBlock  Grid.Column="2" Grid.Row="0" TextWrapping="Wrap"
-                                Text="{Binding Client.Address.Etc}" FontSize="35"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock TextWrapping="Wrap" 
+                                   Text="{Binding Client.Address.AddressLine}" FontSize="35"/>
+                        <Border Width="10"></Border>
+                        <TextBlock  TextWrapping="Wrap"
+                                    Text="{Binding Client.Address.Etc}" FontSize="35"/>
+                    </StackPanel>
                     
-                    <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" 
-                               Text="{Binding Client.Address.City}" FontSize="35"/>
-                    <Border Grid.Column="1" Grid.Row="1" Width="20"></Border>
-                    <TextBlock Grid.Column="2" Grid.Row="1" TextWrapping="Wrap"
-                               Text="{Binding Client.Address.Province}" FontSize="35" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock TextWrapping="Wrap" 
+                                   Text="{Binding Client.Address.City}" FontSize="35"/>
+                        <TextBlock Text="," FontSize="35"></TextBlock>
+                        <Border Width="10"></Border>
+                        <TextBlock TextWrapping="Wrap"
+                                   Text="{Binding Client.Address.Province}" FontSize="35" />
+                    </StackPanel>
                     
-                    <TextBlock Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" 
+                    <TextBlock TextWrapping="Wrap" 
                                Text="{Binding Client.Address.Country}" FontSize="35"/>
-                    <Border Grid.Column="1" Grid.Row="2" Width="20"></Border>
-                    <TextBlock Grid.Column="2" Grid.Row="2" TextWrapping="Wrap"
+                    <TextBlock TextWrapping="Wrap"
                                Text="{Binding Client.Address.PostalCode}" FontSize="35"/>
-                </Grid>
+                </StackPanel>
             </Border>
             
             <Label Content="Contact Info" Margin="10 20 0 0" FontWeight="Black" FontSize="20"></Label>
