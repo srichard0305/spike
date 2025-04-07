@@ -11,15 +11,15 @@
     
     <Design.DataContext><vm:EmployeePageViewModel></vm:EmployeePageViewModel></Design.DataContext>
     
-    <Grid RowDefinitions="*, Auto">
+    <Grid>
         <!-- Client pet view will disappear when navigating pages -->
-        <Grid Grid.Row="0" RowDefinitions="Auto, *">
+        <Grid RowDefinitions="Auto, *">
             <Label Grid.Row="0" Content="Employees" FontSize="55" HorizontalAlignment="Center"></Label>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"> 
             <ItemsControl ItemsSource="{Binding Employees}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel></WrapPanel>
+                        <WrapPanel HorizontalAlignment="Center"></WrapPanel>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -28,8 +28,11 @@
                             <StackPanel>
                                <StackPanel Orientation="Horizontal" Spacing="8">
                                         <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"></Label>
-                                        <TextBlock Text="{Binding FirstName}" FontSize="25" TextWrapping="Wrap" MaxWidth="150"></TextBlock>
-                                        <TextBlock Text="{Binding LastName}" FontSize="25" TextWrapping="Wrap" MaxWidth="150"></TextBlock>
+                                        <TextBlock FontSize="25" TextWrapping="Wrap" MaxWidth="250">
+                                            <Run Text="{Binding FirstName}"></Run>
+                                            <Run Text="{Binding LastName}"></Run> 
+                                        </TextBlock>
+                                        
                                </StackPanel>
                                 
                                 <Rectangle  Height="1" Fill="DarkBlue" Margin="10"></Rectangle>
@@ -53,8 +56,8 @@
             </ScrollViewer>
         </Grid>
         
-        <Button Grid.Row="1" Classes="bookappointment" CornerRadius="50" Background="{DynamicResource PrimaryActiveBackground}"
-                HorizontalAlignment="Right" Margin="30" Command="{Binding NavigateToAddEmployeeCommand}"
+        <Button Classes="bookappointment" CornerRadius="50" Background="{DynamicResource PrimaryActiveBackground}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="30" Command="{Binding NavigateToAddEmployeeCommand}"
                 IsVisible="{Binding ShowAddButton}">
             <Label Classes="SideBar" Content="&#xE3D4;" Margin="0" FontSize="30"></Label>
         </Button>

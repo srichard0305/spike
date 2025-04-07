@@ -101,10 +101,17 @@ public partial class EditClientProfileViewModel : PageViewModel
             Errors.Add(string.Empty);
         }
     }
+    private void ResetErrors()
+    {
+        foreach (RequiredFieldsEnum field in Enum.GetValues(typeof(RequiredFieldsEnum)))
+        {
+            Errors[(int)field] = string.Empty;
+        }
+    }
     
      private bool DataValidation()
     {
-        InitErrors();
+        ResetErrors();
         ValidateClientInfo();
         ValidateContactInfo(); 
         ValidatePetInfo();
@@ -224,7 +231,7 @@ public partial class EditClientProfileViewModel : PageViewModel
        if (!DataValidation())
            return;
        
-       InitErrors();
+       ResetErrors();
 
        Client.Pets = Pets;
 

@@ -18,7 +18,7 @@ public partial class ClientPetViewModel: PageViewModel
    
    [ObservableProperty]
    private ObservableCollection<Client>? _clients;
-
+   
    [ObservableProperty] 
    private bool _showAddButton;
 

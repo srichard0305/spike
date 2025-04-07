@@ -47,7 +47,7 @@ public partial class ClientProfileViewModel : PageViewModel
     {
         foreach (Pet pet in pets)
         {
-            if (pet.Birthday != null)
+            if (pet.Birthday != "")
             {
                 var birthdayDateTimeOffset = DateTimeOffset.Parse(pet.Birthday);
                 Birthday = birthdayDateTimeOffset.ToString("MMMM dd, yyyy", CultureInfo.InvariantCulture);

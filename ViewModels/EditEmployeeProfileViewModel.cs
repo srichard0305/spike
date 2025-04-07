@@ -62,9 +62,17 @@ public partial class EditEmployeeProfileViewModel : PageViewModel
         }
     }
     
+    private void ResetErrors()
+    {
+        foreach (RequiredFieldsEnum field in Enum.GetValues(typeof(RequiredFieldsEnum)))
+        {
+            Errors[(int)field] = string.Empty;
+        }
+    }
+    
      private bool DataValidation()
     {
-        InitErrors();
+        ResetErrors();
         ValidateEmployeeInfo();
         ValidateAddressInfo();
         ValidateContactInfo(); 
@@ -168,7 +176,7 @@ public partial class EditEmployeeProfileViewModel : PageViewModel
        if (!DataValidation())
            return;
        
-       InitErrors();
+       ResetErrors();
        
        AddedToDatabaseMessage = UpdateDatabase.UpdateEmployee(Employee) ? "Employee Updated!" : "Employee cannot be updated!";
        await Task.Delay(1500);

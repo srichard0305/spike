@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
@@ -55,8 +56,8 @@ public partial class AddClientViewModel : PageViewModel
         Client = new Client();
         Address = new Address();
         ContactInfo = new ContactInfo();
-        Errors = new ObservableCollection<string>();
         Pets = new ObservableCollection<Pet>();
+        Errors = new ObservableCollection<string>();
         Provinces = new ObservableCollection<string>()
         {
             "AB", "BC", "MB", "NB", "NL", "NT",
@@ -92,17 +93,29 @@ public partial class AddClientViewModel : PageViewModel
             Errors.Add(string.Empty);
         }
     }
+
+    private void ResetErrors()
+    {
+        foreach (RequiredFieldsEnum field in Enum.GetValues(typeof(RequiredFieldsEnum)))
+        {
+            Errors[(int)field] = string.Empty;
+        }
+    }
     
     private bool DataValidation()
     {
-        InitErrors();
+        ResetErrors();
         ValidateClientInfo();
         ValidateContactInfo(); 
         ValidatePetInfo();
         
         foreach (var message in Errors)
             if (message != string.Empty)
+            {
+                Debug.WriteLine(message);
                 return false;
+            }
+                
         
         return true;
     }
@@ -219,12 +232,25 @@ public partial class AddClientViewModel : PageViewModel
        Client.ContactInfo = ContactInfo;
        Client.Pets = Pets;
        
-       InitErrors();
+       ResetErrors();
 
-       AddedToDatabaseMessage = WriteToDatabase.AddClient(Client) ? "Client added!" : "Client cannot be added!";
-       await Task.Delay(1500);
-       AddedToDatabaseMessage = "";
-
+       if (WriteToDatabase.AddClient(Client))
+       {
+           AddedToDatabaseMessage = "Client added!";
+           await Task.Delay(1500);
+           AddedToDatabaseMessage = "";
+           Client = new Client();
+           Address = new Address();
+           ContactInfo = new ContactInfo();
+           Pets = new ObservableCollection<Pet>();
+       }
+       else
+       {
+           AddedToDatabaseMessage = "Client cannot be added!";
+           await Task.Delay(1500);
+           AddedToDatabaseMessage = "";
+       }
+       
    }
 
    [RelayCommand]
