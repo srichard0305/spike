@@ -1,0 +1,78 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:spike.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:SelectedPetDialogViewModel"
+             Foreground="{DynamicResource PrimaryText}"
+             Background="Transparent"
+             x:Class="spike.Views.SelectedPetDialogView">
+    
+    <Design.DataContext><vm:SelectedPetDialogViewModel></vm:SelectedPetDialogViewModel></Design.DataContext>
+    
+    <Border Background="Black" CornerRadius="20" Margin="10" BorderBrush="DarkBlue" BorderThickness="2">
+        <Border.Effect>
+            <DropShadowEffect Color="DarkGray"></DropShadowEffect>
+        </Border.Effect>
+        
+        <StackPanel>
+            <Border Background="{DynamicResource PrimaryTopPanelGradient}" CornerRadius="20 20 0 0">
+                <Grid>
+                    <TextBlock  Text="{Binding Title}"
+                               Padding="10"
+                               FontSize="20"
+                               FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+                    <Button Classes="SecondaryButtons"  HorizontalAlignment="Right" Margin="5" Background="Transparent"
+                            Command="{Binding CancelCommand}">
+                        <Label Classes="SideBar" Content="&#xE4F6;" Foreground="Azure"></Label>
+                    </Button>
+                </Grid>
+                
+            </Border>
+            
+            <Border Padding="10">
+                <StackPanel Spacing="20" >
+                   
+                    <TextBlock Text="{Binding Message}" FontSize="15" Margin="0 15 0 0" TextWrapping="Wrap"
+                               HorizontalAlignment="Center"></TextBlock>
+                    
+                    <Grid RowDefinitions="Auto, *">
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"> 
+                            <ItemsControl ItemsSource="{Binding Pets}" HorizontalAlignment="Center">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel ></WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="Black" Margin="20" CornerRadius="10" Padding="20" BoxShadow="5 5 10 0 DarkGray" Width="325">
+                                            <StackPanel>
+                                               <StackPanel Orientation="Horizontal" Spacing="8">
+                                                        <Label Classes="SideBar" Content="&#xe74a;" Foreground="Azure" FontSize="20"></Label>
+                                                        <TextBlock FontSize="20" TextWrapping="Wrap" MaxWidth="250">
+                                                            <Run Text="{Binding Name}"></Run>
+                                                            <Run Text="{Binding Breed}"></Run> 
+                                                        </TextBlock>
+                                               </StackPanel>
+                                                
+                                                <Rectangle  Height="1" Fill="DarkBlue" Margin="10"></Rectangle>
+                                                
+                                                <Button Classes="bookappointment" Content="Select" FontSize="15" HorizontalAlignment="Center"
+                                                        Command="{Binding $parent[ItemsControl].((vm:SelectedPetDialogViewModel)DataContext).SelectPetCommand}"
+                                                        CommandParameter="{Binding}"></Button>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            </ScrollViewer>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            
+        </StackPanel>
+    </Border>
+    
+</UserControl>

@@ -13,6 +13,9 @@ public class Employee
     public string? Commission { get; set; }
     public string? BasePay { get; set; }
     
-    
+    public override string ToString()
+    {
+        return $"{FirstName} {LastName}";
+    }
 
 }

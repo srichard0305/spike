@@ -51,7 +51,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Width="300">
-                                <TextBlock Text="{Binding FirstName}" 
+                                <TextBlock
                                        TextWrapping="Wrap" 
                                        TextAlignment="Center" 
                                        FontWeight="Black" 
@@ -59,7 +59,10 @@
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Foreground="Azure"
-                                       />
+                                       >
+                                    <Run Text="{Binding FirstName}"></Run>
+                                    <Run Text="{Binding LastName}"></Run> 
+                                </TextBlock>
                                 </Border>
                             </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -165,7 +168,7 @@
                                         Height="{Binding Duration}"
                                         CornerRadius="5"
                                         >
-                                    <TextBlock Text="{Binding Client}"></TextBlock>
+                                    <TextBlock></TextBlock>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

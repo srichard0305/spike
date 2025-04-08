@@ -9,9 +9,43 @@ namespace spike.Database;
 
 public static class WriteToDatabase
 {
-    public static void AddAppointment(Appointment appointment)
+    public static bool AddAppointment(Appointment appointment)
     {
-        
+         try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+           
+            // first insert appon into table
+            var sqlStatement = @"
+                   INSERT INTO Appointments (Client_Id, Pet_Id, Employee_Id, Pet_Notes, Service, Service_Notes, Cost, StartTime, EndTime,
+                                              CheckIn, CheckOut, Cancelled, NoShow, BookedBy) 
+                   VALUES (@ClientId, @PetId, @EmployeeId, @Pet_Notes, @Service, @Service_Notes, @Cost, @StartTime, @EndTime,
+                           @CheckIn, @CheckOut, @Cancelled, @NoShow, @BookedBy)
+              ";
+            using var insertAppointment = new SqliteCommand(sqlStatement, connection);
+            insertAppointment.Parameters.AddWithValue("@ClientId", appointment.Client.ClientId);
+            insertAppointment.Parameters.AddWithValue("@PetId", appointment.Pet.PetId); 
+            insertAppointment.Parameters.AddWithValue("@EmployeeId", appointment.EmployeeStylists.EmployeeId);
+            insertAppointment.Parameters.AddWithValue("@Pet_Notes", (object?)appointment.PetNotes ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@Service", appointment.Service);
+            insertAppointment.Parameters.AddWithValue("@Service_Notes", (object?)appointment.ServiceNotes ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@Cost", double.TryParse(appointment.Cost, NumberStyles.Any, CultureInfo.InvariantCulture, out var cost));
+            insertAppointment.Parameters.AddWithValue("@StartTime", appointment.StartTime);
+            insertAppointment.Parameters.AddWithValue("@EndTime", appointment.EndTime);
+            insertAppointment.Parameters.AddWithValue("@CheckIn", (object?)appointment.CheckIn ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@CheckOut", (object?)appointment.CheckOut ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@Cancelled", (object?)appointment.Cancelled ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@NoShow", (object?)appointment.NoShow ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@BookedBy", appointment.EmployeeBookedBy.EmployeeId);
+            insertAppointment.ExecuteNonQuery();
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+        }
+        return true;
     }
 
     public static bool AddClient(Client client)

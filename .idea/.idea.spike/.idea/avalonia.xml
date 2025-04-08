@@ -24,6 +24,7 @@
         <entry key="Views/MainWindow.axaml" value="spike.csproj" />
         <entry key="Views/MainWindowView.axaml" value="spike.csproj" />
         <entry key="Views/ReportsPageView.axaml" value="spike.csproj" />
+        <entry key="Views/SelectedPetDialogView.axaml" value="spike.csproj" />
         <entry key="Views/UpdateClientView.axaml" value="spike.csproj" />
         <entry key="Views/UpdateEmployeeView.axaml" value="spike.csproj" />
       </map>

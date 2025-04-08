@@ -117,7 +117,7 @@ public static class DatabaseConnection
                     BookedBy INTEGER NOT NULL,
                     FOREIGN KEY(Client_Id) REFERENCES Clients(Client_Id),
                     FOREIGN KEY(Pet_Id) REFERENCES Pets(Pet_Id),
-                    FOREIGN KEY(Employee_Id) REFERENCES Employees(Employee_Id)
+                    FOREIGN KEY(Employee_Id) REFERENCES Employees(Employee_Id),
                     FOREIGN KEY(BookedBy) REFERENCES Employees(Employee_Id)
                 );
             ";

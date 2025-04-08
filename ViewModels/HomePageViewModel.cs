@@ -6,6 +6,7 @@ using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using spike.Data;
+using spike.Database;
 using spike.Models;
 
 namespace spike.ViewModels;
@@ -17,51 +18,41 @@ public partial class HomePageViewModel : PageViewModel
     [ObservableProperty]
     private double _canvasWidth;
     
-   
     private DateTimeOffset? _selectedDate;
     private DateTime _currentDate;
     
-    public ObservableCollection<Times> Times { get; } = new();
-    public ObservableCollection<Employee> Employees { get; set; } = new();
-    public ObservableCollection<AppointmentViewModel> Appointments { get; set; }
+    [ObservableProperty]
+    private ObservableCollection<Times> _times;
+    
+    [ObservableProperty]
+    private ObservableCollection<Employee> _employees;
+    [ObservableProperty]
+    private ObservableCollection<AppointmentViewModel> _appointments;
 
     public HomePageViewModel()
     {
         PageTitle = AppPageNames.Home;
         
+        Times = new ObservableCollection<Times>();
         InitTimes();
+        
+        Employees = new ObservableCollection<Employee>();
+        InitEmployees();
+        
+        Appointments = new ObservableCollection<AppointmentViewModel>();
+        InitAppointments();
         
         // set date to today
         SelectedDate = DateTimeOffset.Now;
         
-        /*
-        Employees.Add(new Employee("Employee1"));
-        Employees.Add(new Employee("Employee2"));
-        Employees.Add(new Employee("Employee3"));
-        Employees.Add(new Employee("Employee4"));
-        Employees.Add(new Employee("Employee5"));
-        */
-        
         CanvasWidth = _employeeColumnWidth * Employees.Count;
         
-        var appointments = new List<Appointment>
-        {
-            new Appointment { client = "Rover", Employee = "Employee1", StartTime = DateTime.Today.AddHours(9), EndTime = DateTime.Today.AddHours(10) },
-            new Appointment { client = "Frank", Employee = "Employee1", StartTime = DateTime.Today.AddHours(9.5), EndTime = DateTime.Today.AddHours(11) },
-            new Appointment { client = "Rover", Employee = "Employee2", StartTime = DateTime.Today.AddHours(10), EndTime = DateTime.Today.AddHours(12) },
-            new Appointment { client = "Rover", Employee = "Employee3", StartTime = DateTime.Today.AddHours(8), EndTime = DateTime.Today.AddHours(11) },
-            new Appointment { client = "Rover", Employee = "Employee4", StartTime = DateTime.Today.AddHours(11), EndTime = DateTime.Today.AddHours(13) },
-            new Appointment { client = "Rover", Employee = "Employee5", StartTime = DateTime.Today.AddHours(7), EndTime = DateTime.Today.AddHours(9.5) },
-        };
-        
-        Appointments = new ObservableCollection<AppointmentViewModel>(CalculatePositions(appointments));
+        //Appointments = new ObservableCollection<AppointmentViewModel>(CalculatePositions(appointments));
     }
 
     private void InitTimes()
     {
         
-        Times.Add(new Times("3:00 am"));
-        Times.Add(new Times("4:00 am"));
         Times.Add(new Times("5:00 am"));
         Times.Add(new Times("6:00 am"));
         Times.Add(new Times("7:00 am"));
@@ -84,13 +75,26 @@ public partial class HomePageViewModel : PageViewModel
         Times.Add(new Times("12:00 am"));
         Times.Add(new Times("1:00 am"));
         Times.Add(new Times("2:00 am"));
+        Times.Add(new Times("3:00 am"));
+        Times.Add(new Times("4:00 am"));
+        
+    }
+    
+    private void InitEmployees()
+    {
+        Employees = ReadFromDatabase.GetAllEmployees();
+    }
+
+    private void InitAppointments()
+    {
+        
     }
 
     // calculates the position and width of each appointment block
     private List<AppointmentViewModel> CalculatePositions(List<Appointment> appointments)
     {
         // group all appointments by employee
-        var groupedAppointments = appointments.GroupBy(a => a.Employee);
+        var groupedAppointments = appointments.GroupBy(a => a.EmployeeStylists);
         var result = new List<AppointmentViewModel>();
         int employeeColumn = 0;
         
@@ -105,13 +109,17 @@ public partial class HomePageViewModel : PageViewModel
                 bool placed = false;
                 foreach (var column in columns)
                 {
+                    //TODO change string to timespan and datetime for processing 
+                    
+                    /*
                     // get all appointments that are within half and hour of starting and a add to the same column
-                    if (column.Any(a => a.StartTime <= appointment.StartTime && a.StartTime.Minute + 30 <= appointment.StartTime.Minute))
+                    if (column.Any(a => a.StartTime <= appointment.StartTime && a.StartTime.Minutes + 30 <= appointment.StartTime.Minutes))
                     {
                         column.Add(appointment);
                         placed = true;
                         break;
                     }
+                    */
                 }
 
                 if (!placed)
@@ -177,6 +185,8 @@ public partial class HomePageViewModel : PageViewModel
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    
+    
     
 }
 

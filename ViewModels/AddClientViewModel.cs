@@ -111,11 +111,7 @@ public partial class AddClientViewModel : PageViewModel
         
         foreach (var message in Errors)
             if (message != string.Empty)
-            {
-                Debug.WriteLine(message);
                 return false;
-            }
-                
         
         return true;
     }
