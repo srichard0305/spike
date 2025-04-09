@@ -18,9 +18,9 @@ public static class WriteToDatabase
            
             // first insert appon into table
             var sqlStatement = @"
-                   INSERT INTO Appointments (Client_Id, Pet_Id, Employee_Id, Pet_Notes, Service, Service_Notes, Cost, StartTime, EndTime,
-                                              CheckIn, CheckOut, Cancelled, NoShow, BookedBy) 
-                   VALUES (@ClientId, @PetId, @EmployeeId, @Pet_Notes, @Service, @Service_Notes, @Cost, @StartTime, @EndTime,
+                   INSERT INTO Appointments (Client_Id, Pet_Id, Employee_Id, Pet_Notes, Service, Service_Notes, Cost, 
+                                             Date, StartTime, EndTime, CheckIn, CheckOut, Cancelled, NoShow, BookedBy) 
+                   VALUES (@ClientId, @PetId, @EmployeeId, @Pet_Notes, @Service, @Service_Notes, @Cost, @Date, @StartTime, @EndTime,
                            @CheckIn, @CheckOut, @Cancelled, @NoShow, @BookedBy)
               ";
             using var insertAppointment = new SqliteCommand(sqlStatement, connection);
@@ -30,11 +30,12 @@ public static class WriteToDatabase
             insertAppointment.Parameters.AddWithValue("@Pet_Notes", (object?)appointment.PetNotes ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@Service", appointment.Service);
             insertAppointment.Parameters.AddWithValue("@Service_Notes", (object?)appointment.ServiceNotes ?? DBNull.Value);
-            insertAppointment.Parameters.AddWithValue("@Cost", double.TryParse(appointment.Cost, NumberStyles.Any, CultureInfo.InvariantCulture, out var cost));
-            insertAppointment.Parameters.AddWithValue("@StartTime", appointment.StartTime);
-            insertAppointment.Parameters.AddWithValue("@EndTime", appointment.EndTime);
-            insertAppointment.Parameters.AddWithValue("@CheckIn", (object?)appointment.CheckIn ?? DBNull.Value);
-            insertAppointment.Parameters.AddWithValue("@CheckOut", (object?)appointment.CheckOut ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@Cost", appointment.Cost);
+            insertAppointment.Parameters.AddWithValue("@Date", appointment.Date?.ToString("yyyy/MM/dd"));
+            insertAppointment.Parameters.AddWithValue("@StartTime", appointment.StartTime.ToString());
+            insertAppointment.Parameters.AddWithValue("@EndTime", appointment.EndTime.ToString());
+            insertAppointment.Parameters.AddWithValue("@CheckIn", (object?)appointment.CheckIn.ToString() ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@CheckOut", (object?)appointment.CheckOut.ToString() ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@Cancelled", (object?)appointment.Cancelled ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@NoShow", (object?)appointment.NoShow ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@BookedBy", appointment.EmployeeBookedBy.EmployeeId);
@@ -142,56 +143,7 @@ public static class WriteToDatabase
         }
         return true;
     }
-
-    public static bool AddPet(Pet pet,  object clientId)
-    {
-        try
-        {
-            using var connection = DatabaseConnection.GetConnection();
-            connection.Open();
-        
-            using var transaction = connection.BeginTransaction();
-
-            try
-            {
-                
-                var sqlStatement = @"
-                    INSERT INTO Pets (Name, Breed, Age, Birthday, Gender, Health, Spayed_Neutered, Vet_Name, Vet_Phone, Vaccines, Client_Id, IsActive) 
-                    VALUES (@Name, @Breed, @Age, @Birthday, @Gender, @Health, @Spayed_Neutered, @Vet_Name, @Vet_Phone, @Vaccines, @Client_Id, True)
-                    ";
-                using var insertPet = new SqliteCommand(sqlStatement, connection, transaction);
-                insertPet.Parameters.AddWithValue("@Name", pet.Name);
-                insertPet.Parameters.AddWithValue("@Breed", pet.Breed);
-                insertPet.Parameters.AddWithValue("@Age", pet.Age);
-                insertPet.Parameters.AddWithValue("@Birthday", (object?)pet.Birthday ?? DBNull.Value);
-                insertPet.Parameters.AddWithValue("@Gender", pet.Gender);
-                insertPet.Parameters.AddWithValue("@Health", (object?)pet.Health ?? DBNull.Value);
-                insertPet.Parameters.AddWithValue("@Spayed_Neutered", pet.SpayedNeutered);
-                insertPet.Parameters.AddWithValue("@Vet_Name", (object?)pet.VetName ?? DBNull.Value);
-                insertPet.Parameters.AddWithValue("@Vet_Phone", (object?)pet.VetPhone ?? DBNull.Value);
-                insertPet.Parameters.AddWithValue("@Vaccines", (object?)pet.Vaccines ?? DBNull.Value);
-                insertPet.Parameters.AddWithValue("@Client_Id", clientId);
-                insertPet.ExecuteNonQuery();
-                
-                transaction.Commit();
-                
-            }
-            catch (SqliteException e)
-            {
-                transaction.Rollback();
-                Debug.WriteLine(e.Message);
-                return false;
-            }
-        }
-        catch (SqliteException e)
-        {
-            Debug.WriteLine(e.Message);
-            return false;
-        }
-        
-        return true;
-    }
-
+    
     public static bool AddEmployee(Employee employee)
     {
         

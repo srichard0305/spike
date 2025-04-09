@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -18,20 +19,27 @@ public partial class HomePageViewModel : PageViewModel
     [ObservableProperty]
     private double _canvasWidth;
     
+    [ObservableProperty]
     private DateTimeOffset? _selectedDate;
-    private DateTime _currentDate;
     
     [ObservableProperty]
     private ObservableCollection<Times> _times;
     
     [ObservableProperty]
     private ObservableCollection<Employee> _employees;
+    
     [ObservableProperty]
-    private ObservableCollection<AppointmentViewModel> _appointments;
+    private ObservableCollection<Appointment> _appointments;
+    
+    [ObservableProperty]
+    private ObservableCollection<AppointmentViewModel> _appointmentViewModels;
 
     public HomePageViewModel()
     {
         PageTitle = AppPageNames.Home;
+        
+        // set date to today
+        SelectedDate = DateTimeOffset.Now;
         
         Times = new ObservableCollection<Times>();
         InitTimes();
@@ -39,15 +47,11 @@ public partial class HomePageViewModel : PageViewModel
         Employees = new ObservableCollection<Employee>();
         InitEmployees();
         
-        Appointments = new ObservableCollection<AppointmentViewModel>();
-        InitAppointments();
-        
-        // set date to today
-        SelectedDate = DateTimeOffset.Now;
+        Appointments = new ObservableCollection<Appointment>();
+        InitAppointments(SelectedDate);
         
         CanvasWidth = _employeeColumnWidth * Employees.Count;
         
-        //Appointments = new ObservableCollection<AppointmentViewModel>(CalculatePositions(appointments));
     }
 
     private void InitTimes()
@@ -85,46 +89,52 @@ public partial class HomePageViewModel : PageViewModel
         Employees = ReadFromDatabase.GetAllEmployees();
     }
 
-    private void InitAppointments()
+    private void InitAppointments(DateTimeOffset? date)
     {
-        
+        Appointments = ReadFromDatabase.GetAppointments(date);
+        AppointmentViewModels = CalculatePositions(Appointments);
+    }
+    
+    partial void OnSelectedDateChanged(DateTimeOffset? value)
+    {
+        if (value != null)
+        {
+            InitAppointments(value);
+        }
     }
 
     // calculates the position and width of each appointment block
-    private List<AppointmentViewModel> CalculatePositions(List<Appointment> appointments)
+    private ObservableCollection<AppointmentViewModel> CalculatePositions(ObservableCollection<Appointment> appointments)
     {
         // group all appointments by employee
         var groupedAppointments = appointments.GroupBy(a => a.EmployeeStylists);
-        var result = new List<AppointmentViewModel>();
+        var result = new ObservableCollection<AppointmentViewModel>();
         int employeeColumn = 0;
         
         foreach(var group in groupedAppointments)
         {
             // sort appointments by start time 
             var sortedAppointments = group.OrderBy(a => a.StartTime);
-            var columns = new List<List<Appointment>>();
+            var columns = new ObservableCollection<ObservableCollection<Appointment>>();
 
             foreach (var appointment in sortedAppointments)
             {
                 bool placed = false;
                 foreach (var column in columns)
                 {
-                    //TODO change string to timespan and datetime for processing 
-                    
-                    /*
-                    // get all appointments that are within half and hour of starting and a add to the same column
-                    if (column.Any(a => a.StartTime <= appointment.StartTime && a.StartTime.Minutes + 30 <= appointment.StartTime.Minutes))
+                    // get all appointments that are within half an hour of starting and add to the same column
+                    if (column.Any(a => a.StartTime <= appointment.StartTime 
+                                        && a.StartTime.Value.Minutes + 30 <= appointment.StartTime.Value.Minutes))
                     {
                         column.Add(appointment);
                         placed = true;
                         break;
                     }
-                    */
                 }
 
                 if (!placed)
                 {
-                    columns.Add(new List<Appointment>{appointment});
+                    columns.Add(new ObservableCollection<Appointment>{appointment});
                 }
             }
 
@@ -145,45 +155,6 @@ public partial class HomePageViewModel : PageViewModel
         }
         
         return result;
-    }
-    
-    // gets selected date from datepicker
-    public DateTimeOffset? SelectedDate
-    {
-        get => _selectedDate;
-        set
-        {
-            if (_selectedDate != value)
-            {
-                _selectedDate = value;
-                OnPropertyChanged(nameof(SelectedDate));
-                
-                _currentDate = _selectedDate?.Date ?? DateTime.Now;
-            }
-        }
-    }
-    
-    // assigns selected date from datepicker to datetime for querying db
-    public DateTime CurrentDate
-    {
-        get => _currentDate;
-        private set
-        {
-            if (_currentDate != value)
-            {
-                _currentDate = value;
-                OnPropertyChanged(nameof(CurrentDate));
-                
-                // todo 
-                // load appointments for current date
-            }
-        }
-    }
-    
-    public event PropertyChangedEventHandler? PropertyChanged;
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     
     

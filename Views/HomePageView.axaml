@@ -147,9 +147,8 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                         
-                    
-                    <!-- Draws appointment blocks  -->
-                    <ItemsControl ItemsSource="{Binding Appointments}">
+                    <!-- Draws appointment blocks -->
+                    <ItemsControl ItemsSource="{Binding AppointmentViewModels}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <Canvas />
@@ -168,7 +167,7 @@
                                         Height="{Binding Duration}"
                                         CornerRadius="5"
                                         >
-                                    <TextBlock></TextBlock>
+                                    <TextBlock Text="{Binding Appointment.Pet.Name}"></TextBlock>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

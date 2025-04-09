@@ -11,14 +11,14 @@ public class Appointment
     public string? Service { get; set; }
     public string? ServiceNotes { get; set; }
     public string? Cost  { get; set; }
-    public string? Comment { get; set; }
-    public string? StartTime { get; set; }
-    public string? EndTime { get; set; }
-    public string? CheckIn { get; set; }
-    public string? CheckOut { get; set; }
+    public string? CommentFromLastApponitmnet { get; set; }
+    public TimeSpan? StartTime { get; set; }
+    public TimeSpan? EndTime { get; set; }
+    public TimeSpan? CheckIn { get; set; }
+    public TimeSpan? CheckOut { get; set; }
     public string? Cancelled { get; set; }
     public string? NoShow { get; set; }
-    public string? Day { get; set; }
+    public DateTimeOffset? Date { get; set; }
     public Employee? EmployeeStylists { get; set; }
     public Employee? EmployeeBookedBy { get; set; }
     

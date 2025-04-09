@@ -122,7 +122,7 @@ public partial class BookAppointmentViewModel: PageViewModel
             Errors[(int)RequiredAppointmentFields.EndTime] = "End Time is required";
 
         if (SelectedDate == null)
-            Errors[(int)RequiredAppointmentFields.Day] = "Date is required";
+            Errors[(int)RequiredAppointmentFields.Date] = "Date is required";
         
         if(Appointment.EmployeeStylists == null)
             Errors[(int)RequiredAppointmentFields.EmployeeStylists] = "Stylist is required";
@@ -176,9 +176,9 @@ public partial class BookAppointmentViewModel: PageViewModel
         
         Appointment.Client = SelectedClient;
         Appointment.Pet = SelectedPet;
-        Appointment.Day = SelectedDate.ToString();
-        Appointment.StartTime = SelectedStartTime.ToString();
-        Appointment.EndTime = SelectedEndTime.ToString();
+        Appointment.Date = SelectedDate;
+        Appointment.StartTime = SelectedStartTime;
+        Appointment.EndTime = SelectedEndTime;
         
         ResetErrors();
 

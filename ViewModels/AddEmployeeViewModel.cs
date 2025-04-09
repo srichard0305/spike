@@ -182,10 +182,22 @@ public partial class AddEmployeeViewModel : PageViewModel
        
        ResetErrors();
 
-       AddedToDatabaseMessage = WriteToDatabase.AddEmployee(Employee) ? "Employee added!" : "Employee cannot be added!";
-       await Task.Delay(1500);
-       AddedToDatabaseMessage = "";
-
+       if (WriteToDatabase.AddEmployee(Employee))
+       {
+           AddedToDatabaseMessage = "Employee added!";
+           await Task.Delay(1500);
+           AddedToDatabaseMessage = "";
+           Employee = new Employee();
+           Address = new Address();
+           ContactInfo = new ContactInfo();
+       }
+       else
+       {
+           AddedToDatabaseMessage = "Employee cannot be added!";
+           await Task.Delay(1500);
+           AddedToDatabaseMessage = "";
+       }
+       
    }
    
 }

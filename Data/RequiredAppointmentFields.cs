@@ -6,7 +6,7 @@ public enum RequiredAppointmentFields
     Cost = 1,
     StartTime = 2,
     EndTime = 3,
-    Day = 4,
+    Date = 4,
     EmployeeStylists = 5,
     EmployeeBookedBy = 6,
 }
