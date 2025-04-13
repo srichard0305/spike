@@ -230,7 +230,7 @@
                        Command="{Binding UpdateEmployeeCommand}">
                    <StackPanel Orientation="Horizontal">
                        <Label Classes="SideBar" Content="&#xE3D4;"></Label>
-                       <Label Content="Update Client" Padding="0 2 10 0 "></Label>
+                       <Label Content="Update" Padding="0 2 10 0 "></Label>
                    </StackPanel>
                </Button>
                <Button Grid.Column="1" Classes="SecondaryButtons"
@@ -240,7 +240,7 @@
                        Command="{Binding DeleteEmployeeCommand}">
                    <StackPanel Orientation="Horizontal">
                        <Label Classes="SideBar" Content="&#xE32A;"></Label>
-                       <Label Content="Delete Client" Padding="0 2 10 0 "></Label>
+                       <Label Content="Delete" Padding="0 2 10 0 "></Label>
                    </StackPanel>
                </Button>
                <TextBlock Grid.Column="2" Text="{Binding AddedToDatabaseMessage}"

@@ -1,0 +1,190 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:spike.ViewModels"
+             Background="{DynamicResource PrimaryBackground}"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:EditAppointmentViewModel"
+             x:Class="spike.Views.EditAppointmentView">
+    
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid RowDefinitions="Auto, Auto, *">
+            <StackPanel Grid.Row="0">
+                <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15">
+                    <TextBlock Text="Edit Appointment" FontSize="40" FontWeight="Black" TextDecorations="Underline"></TextBlock>
+                </Border>
+            </StackPanel>
+            
+            <StackPanel Grid.Row="2" >
+                <!-- Pets & Services block-->
+                <Label Content="Pet &amp; Services" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid RowDefinitions="Auto, Auto, Auto">
+                        <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto" Margin="10">
+                            <Image Grid.Column="0" Source="../Assets/images/spike_logo.png" Width="100"></Image>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10">
+                                <TextBlock Text="{Binding Appointment.Pet.Name}" FontSize="25"></TextBlock>
+                                <TextBlock Text="{Binding Appointment.Pet.Breed}" FontSize="25"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                        <Rectangle Grid.Row="1" Fill="Gray" Height="2" Margin="15 0 15 0"> </Rectangle>
+                        <Grid Grid.Row="2" ColumnDefinitions="Auto, *">
+                            <Grid Grid.Column="0" RowDefinitions="Auto, Auto, Auto, Auto" Margin="10">
+                                <Grid Grid.Row="0" ColumnDefinitions="Auto, *"  Margin="10">
+                                    <Label Grid.Column="0" Content="Service:" Foreground="Azure" FontSize="20"></Label>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBox  Width="200" HorizontalAlignment="Right" Background="DarkGray"
+                                                  Text="{Binding Appointment.Service}"></TextBox>
+                                        <TextBlock HorizontalAlignment="Center" Text="{Binding Errors[0]}" 
+                                                   Foreground="Red" Margin="40 5 0 0"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="1" ColumnDefinitions="Auto, *"  Margin="10">
+                                    <Label Grid.Column="0" Content="Cost:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBox  Width="200" HorizontalAlignment="Right" Background="DarkGray"
+                                                 Text="{Binding Appointment.Cost}"></TextBox>
+                                        <TextBlock HorizontalAlignment="Center" Text="{Binding Errors[1]}" 
+                                                   Foreground="Red" Margin="40 5 0 0"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto"  Margin="10">
+                                    <Label Grid.Column="0" Content="Service Notes:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                    <Border Grid.Column="1" Width="50"></Border>
+                                    <TextBox Grid.Column="2" Width="200" Height="100" HorizontalAlignment="Right" 
+                                             TextWrapping="Wrap" AcceptsReturn="True"  Background="DarkGray"
+                                             Text="{Binding Appointment.ServiceNotes}"></TextBox>
+                                </Grid>
+                                <Grid Grid.Row="3" ColumnDefinitions="Auto, *"  Margin="10">
+                                    <Label Grid.Column="0" Content="Last Appt:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                    <TextBlock Grid.Column="1" Width="200" HorizontalAlignment="Right"
+                                               Text="{Binding Appointment.CommentFromLastApponitmnet}"></TextBlock>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+                
+                <!-- Customer Info block-->
+                <Label Content="Customer  Info" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid RowDefinitions="Auto, Auto">
+                       <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                           <Label Classes="SideBar" Content="&#xE4C2;" Foreground="Azure" FontSize="20"> </Label>
+                           <TextBlock Foreground="Azure">
+                               <Run Text="{Binding Appointment.Client.FirstName}" Foreground="Azure" FontSize="20"/>
+                               <Run Text="{Binding Appointment.Client.LastName}" FontSize="20"/>
+                           </TextBlock>
+                       </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+                            <Label Classes="SideBar" Content="&#xE3B8;" Foreground="Azure" FontSize="20"> </Label>
+                            <TextBlock Text="{Binding Appointment.Client.ContactInfo.PrimaryPhone}" Foreground="Azure" FontSize="20"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                
+                <!-- start and end time block -->
+                <Label Content="Select Times" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Grid Grid.Column="0" RowDefinitions="Auto, Auto, Auto" Margin="10">
+                            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto"  Margin="10">
+                                <Label Grid.Column="0" Content="Select Date:" Foreground="Azure" FontSize="20"></Label>
+                                <Border Grid.Column="1" Width="50"></Border>
+                                <StackPanel Grid.Column="2">
+                                    <DatePicker  HorizontalAlignment="Right"
+                                                 SelectedDate="{Binding SelectedDate}"></DatePicker>
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding Errors[4]}" 
+                                               Foreground="Red" Margin="5"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1" ColumnDefinitions="Auto, *"  Margin="10">
+                                <Label Grid.Column="0" Content="Start Time:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                <StackPanel Grid.Column="1">
+                                    <TimePicker HorizontalAlignment="Right"
+                                                SelectedTime="{Binding SelectedStartTime}"></TimePicker>
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding Errors[2]}" 
+                                               Foreground="Red" Margin="5"></TextBlock>
+                                </StackPanel>
+                                
+                            </Grid>
+                            <Grid Grid.Row="2" ColumnDefinitions="Auto, *"  Margin="10">
+                                <Label Grid.Column="0" Content="End Time:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                <StackPanel Grid.Column="1">
+                                    <TimePicker  HorizontalAlignment="Right"
+                                                 SelectedTime="{Binding SelectedEndTime}"></TimePicker>
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding Errors[3]}" 
+                                               Foreground="Red" Margin="5"></TextBlock>
+                                </StackPanel>
+                                
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+                
+                <!-- Stylist Block -->
+                <Label Content="Pet Stylist" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Grid Grid.Column="0" RowDefinitions="Auto, Auto, Auto" Margin="10">
+                            <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto"  Margin="10">
+                                <Label Grid.Column="0" Content="Stylist:" Foreground="Azure" FontSize="20"></Label>
+                                <Border Grid.Column="1" Width="50"></Border>
+                                <StackPanel Grid.Column="2">
+                                    <ComboBox HorizontalAlignment="Right" Width="200"
+                                              ItemsSource="{Binding Employees}"
+                                              SelectedItem="{Binding Appointment.EmployeeStylists}"></ComboBox>
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding Errors[5]}" 
+                                               Foreground="Red" Margin="5"></TextBlock>
+                                </StackPanel>
+                                
+                            </Grid>
+                            <Grid Grid.Row="1" ColumnDefinitions="Auto, *, Auto"  Margin="10">
+                                <Label Grid.Column="0" Content="Booked By:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                <Border Grid.Column="1" Width="50"></Border>
+                                <StackPanel Grid.Column="2">
+                                    <ComboBox  HorizontalAlignment="Right" Width="200"
+                                               ItemsSource="{Binding Employees}"
+                                               SelectedItem="{Binding Appointment.EmployeeBookedBy}"></ComboBox>
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding Errors[6]}" 
+                                               Foreground="Red" Margin="5"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+                
+                <Grid ColumnDefinitions="Auto, Auto, *">
+                    <Button Grid.Column="0" Classes="bookappointment"
+                            Background="{DynamicResource BookAppointmentBackGroundGradient}"
+                            Foreground="Cornsilk"
+                            Margin="20 0 0 20 "
+                            Command="{Binding UpdateAppointmentCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xE3D4;"></Label>
+                            <Label Content="Update" Padding="0 2 10 0 "></Label>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="1" Classes="SecondaryButtons"
+                            Background="{DynamicResource BookAppointmentBackGroundGradient}"
+                            Foreground="Cornsilk"
+                            Margin="20 0 0 20 "
+                            Command="{Binding DeleteAppointmentCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="SideBar" Content="&#xE32A;"></Label>
+                            <Label Content="Delete" Padding="0 2 10 0 "></Label>
+                        </StackPanel>
+                    </Button>
+                    <TextBlock Grid.Column="2" Text="{Binding AddedToDatabaseMessage}"
+                               HorizontalAlignment="Right"
+                               FontSize="20"
+                               Foreground="Azure"
+                               Margin="0 0 20 0"></TextBlock>
+                </Grid>
+                
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

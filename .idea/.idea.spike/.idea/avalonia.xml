@@ -16,10 +16,12 @@
         <entry key="Views/ClientsPetsView.axaml" value="spike.csproj" />
         <entry key="Views/ClientsView.axaml" value="spike.csproj" />
         <entry key="Views/ConfirmDialogView.axaml" value="spike.csproj" />
+        <entry key="Views/EditAppointmentView.axaml" value="spike.csproj" />
         <entry key="Views/EditClientProfileView.axaml" value="spike.csproj" />
         <entry key="Views/EditEmployeeProfileView.axaml" value="spike.csproj" />
         <entry key="Views/EmployeePageView.axaml" value="spike.csproj" />
         <entry key="Views/EmployeeProfileView.axaml" value="spike.csproj" />
+        <entry key="Views/FullAppointmentView.axaml" value="spike.csproj" />
         <entry key="Views/HomePageView.axaml" value="spike.csproj" />
         <entry key="Views/MainWindow.axaml" value="spike.csproj" />
         <entry key="Views/MainWindowView.axaml" value="spike.csproj" />

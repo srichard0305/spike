@@ -21,5 +21,9 @@ public class Appointment
     public DateTimeOffset? Date { get; set; }
     public Employee? EmployeeStylists { get; set; }
     public Employee? EmployeeBookedBy { get; set; }
-    
+    public string FormattedStartTime => DateTime.Today.Add(StartTime.GetValueOrDefault()).ToString("hh:mm tt").ToLower();
+    public string FormattedEndTime => DateTime.Today.Add(EndTime.GetValueOrDefault()).ToString("hh:mm tt").ToLower();
+    public string FormattedDate => Date?.ToString("dddd, MMMM dd yyyy");
+
 }
+    

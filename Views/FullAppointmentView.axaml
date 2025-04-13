@@ -1,0 +1,137 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:spike.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="{DynamicResource PrimaryBackground}"
+             x:DataType="vm:FullAppointmentViewModel"
+             x:Class="spike.Views.FullAppointmentView">
+    
+    <Design.DataContext><vm:FullAppointmentViewModel></vm:FullAppointmentViewModel></Design.DataContext>
+    
+    <ScrollViewer>
+     <Grid RowDefinitions="Auto, Auto, *">
+            <Grid Grid.Row="0" ColumnDefinitions="*, Auto">
+                <Border Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15">
+                    <TextBlock Text="Appointment Info" FontSize="40" FontWeight="Black" TextDecorations="Underline"></TextBlock>
+                </Border>
+                <Button Grid.Column="1" Classes="SecondaryButtons" Content="Edit" HorizontalAlignment="Right" Margin="0 0 20 0"
+                        Command="{Binding NavigateToEditAppointmentCommand}"></Button>
+            </Grid>
+         
+            <StackPanel Grid.Row="1" >
+                <!-- Pets & Services block-->
+                <Label Content="Pet &amp; Services" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid RowDefinitions="Auto, Auto, Auto">
+                        <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto, Auto" Margin="10">
+                            <Image Grid.Column="0" Source="../Assets/images/spike_logo.png" Width="100"></Image>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10">
+                                <TextBlock Text="{Binding Appointment.Pet.Name}" FontSize="25"></TextBlock>
+                                <TextBlock Text="{Binding Appointment.Pet.Breed}" FontSize="25"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="10"> 
+                                <TextBlock Text="{Binding Appointment.Pet.Age}" FontSize="25"></TextBlock>
+                                <TextBlock Text="{Binding Appointment.Pet.Gender}" FontSize="25"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                        <Rectangle Grid.Row="1" Fill="Gray" Height="2" Margin="15 0 15 0"> </Rectangle>
+                        <StackPanel Grid.Row="2" Spacing="10" Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Service: " Foreground="Azure" FontSize="20"></Label>
+                                <TextBlock FontSize="20" VerticalAlignment="Center"
+                                            Text="{Binding Appointment.Service}"></TextBlock>
+                            </StackPanel>
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Cost: " Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                                <TextBlock FontSize="20" VerticalAlignment="Center"
+                                            Text="{Binding Appointment.Cost}"></TextBlock>
+                            </StackPanel>
+                            
+                            <Label Content="Service Notes:" Foreground="Azure" FontSize="20"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock Width="200" Height="100" HorizontalAlignment="Right" 
+                                       TextWrapping="Wrap" FontSize="20"
+                                       Text="{Binding Appointment.ServiceNotes}"></TextBlock>
+                            </ScrollViewer>
+                            
+                            <Label Content="Last Appt:" Foreground="Azure" FontSize="20"></Label>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <TextBlock Width="200" Height="100" TextWrapping="Wrap"  FontSize="20"
+                                           Text="{Binding Appointment.CommentFromLastApponitmnet}"></TextBlock>
+                            </ScrollViewer>
+                            
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                
+                <!-- Customer Info block-->
+                <Label Content="Customer  Info" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <Grid RowDefinitions="Auto, Auto">
+                       <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                           <Label Classes="SideBar" Content="&#xE4C2; " Foreground="Azure" FontSize="20"> </Label>
+                           <TextBlock Foreground="Azure">
+                               <Run Text="{Binding Appointment.Client.FirstName}" Foreground="Azure" FontSize="20"/>
+                               <Run Text="{Binding Appointment.Client.LastName}" FontSize="20"/>
+                           </TextBlock>
+                       </StackPanel>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+                            <Label Classes="SideBar" Content="&#xE3B8; " Foreground="Azure" FontSize="20"> </Label>
+                            <TextBlock Text="{Binding Appointment.Client.ContactInfo.PrimaryPhone}"
+                                       Foreground="Azure" FontSize="20"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                
+                <!-- start and end time block -->
+                <Label Content="Appointment Times" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                    <StackPanel>
+                        <TextBlock FontSize="20"
+                                   Text="{Binding Appointment.FormattedDate}"
+                                   VerticalAlignment="Center" Margin="10"></TextBlock>
+                        
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="Start Time: " Foreground="Azure" FontSize="20"></Label>
+                            <TextBlock Text="{Binding Appointment.FormattedStartTime}"
+                                       Foreground="Azure" FontSize="20"
+                                       VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <Label Content="End Time: " Foreground="Azure" FontSize="20"></Label>
+                            <TextBlock VerticalAlignment="Center" FontSize="20"
+                                       Text="{Binding Appointment.FormattedEndTime}"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Stylist Block -->
+                <Label Content="Pet Stylist" Margin="10 0 0 0" FontWeight="Black" FontSize="20"></Label>
+                <Border Background="Black" Margin="20" CornerRadius="10">
+                   <StackPanel  Margin="10">
+                       <StackPanel Orientation="Horizontal" Spacing="10"  Margin="10">
+                           <Label Content="Stylist: " Foreground="Azure" FontSize="20"></Label>
+                           <TextBlock VerticalAlignment="Center" FontSize="20"
+                                      Text="{Binding Appointment.EmployeeStylists.FirstName}"></TextBlock>
+                           <TextBlock VerticalAlignment="Center" FontSize="20"
+                                      Text="{Binding Appointment.EmployeeStylists.LastName}"></TextBlock>
+                       </StackPanel>
+    
+                       <StackPanel Orientation="Horizontal" Spacing="10" Margin="10">
+                           <Label Content="Booked By: " Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                           <TextBlock FontSize="20" VerticalAlignment="Center"
+                                      Text="{Binding Appointment.EmployeeBookedBy.FirstName}"></TextBlock>
+                           <TextBlock FontSize="20" VerticalAlignment="Center"
+                                      Text="{Binding Appointment.EmployeeBookedBy.LastName}"></TextBlock>
+                       </StackPanel>
+                   </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+    
+</UserControl>

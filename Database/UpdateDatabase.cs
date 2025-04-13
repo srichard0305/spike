@@ -374,4 +374,77 @@ public static class UpdateDatabase
 
         return true;
     }
+    
+    public static bool UpdateAppointment(Appointment appointment)
+    {
+         try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+            
+            using var transaction = connection.BeginTransaction();
+            try
+            {
+                var sqlStatement = @"
+                    UPDATE Appointments 
+                    SET Employee_Id = @EmployeeId, Service = @Service, Cost = @Cost, StartTime = @StartTime, EndTime = @EndTime, Date = @Date,
+                        CheckIn = @CheckIn, CheckOut = @CheckOut, Cancelled = @Cancelled, NoShow = @NoShow, BookedBy = @BookedBy
+                    WHERE Appointment_Id = @AppointmentId;
+                ";
+                using var updateAppointmentInfo = new SqliteCommand(sqlStatement, connection, transaction);
+                updateAppointmentInfo.Parameters.AddWithValue("@AppointmentId", appointment.AppointmentId);
+                updateAppointmentInfo.Parameters.AddWithValue("@EmployeeId", appointment.EmployeeStylists.EmployeeId);
+                updateAppointmentInfo.Parameters.AddWithValue("@Service", appointment.Service);
+                updateAppointmentInfo.Parameters.AddWithValue("@Cost", appointment.Cost);
+                updateAppointmentInfo.Parameters.AddWithValue("@Date", appointment.Date?.ToString("yyyy/MM/dd"));
+                updateAppointmentInfo.Parameters.AddWithValue("@StartTime", appointment.StartTime.ToString());
+                updateAppointmentInfo.Parameters.AddWithValue("@EndTime", appointment.EndTime.ToString());
+                updateAppointmentInfo.Parameters.AddWithValue("@CheckIn", (object?)appointment.CheckIn.ToString() ?? DBNull.Value);
+                updateAppointmentInfo.Parameters.AddWithValue("@CheckOut", (object?)appointment.CheckOut.ToString() ?? DBNull.Value);
+                updateAppointmentInfo.Parameters.AddWithValue("@Cancelled", (object?)appointment.Cancelled ?? DBNull.Value);
+                updateAppointmentInfo.Parameters.AddWithValue("@NoShow", (object?)appointment.NoShow ?? DBNull.Value);
+                updateAppointmentInfo.Parameters.AddWithValue("@BookedBy", appointment.EmployeeBookedBy.EmployeeId);
+                updateAppointmentInfo.ExecuteNonQuery();
+                
+                transaction.Commit();
+
+            }catch (SqliteException e)
+            {
+                transaction.Rollback();
+                Debug.WriteLine(e.Message);
+                return false;
+            }
+        }catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+                
+        }
+        
+        return true;
+    }
+
+    public static bool DeleteAppointment(Appointment appointment)
+    {
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+            
+            var sqlStatement = @"
+                    DELETE FROM Appointments
+                    WHERE Appointment_Id = @AppointmentId;
+                ";
+            using var appointmentInfo = new SqliteCommand(sqlStatement, connection);
+            appointmentInfo.Parameters.AddWithValue("@AppointmentId", appointment.AppointmentId);
+            appointmentInfo.ExecuteNonQuery();
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+        }
+
+        return true;
+    }
 }

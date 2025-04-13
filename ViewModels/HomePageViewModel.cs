@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using spike.Data;
 using spike.Database;
 using spike.Models;
+using spike.Services;
 
 namespace spike.ViewModels;
 
@@ -33,9 +33,14 @@ public partial class HomePageViewModel : PageViewModel
     
     [ObservableProperty]
     private ObservableCollection<AppointmentViewModel> _appointmentViewModels;
+    
+    private readonly MainWindowViewModel _mainWindowViewModel;
 
-    public HomePageViewModel()
+    private DialogService _dialogService;
+    
+    public HomePageViewModel(MainWindowViewModel mainWindowViewModel, DialogService dialogService)
     {
+        
         PageTitle = AppPageNames.Home;
         
         // set date to today
@@ -48,10 +53,14 @@ public partial class HomePageViewModel : PageViewModel
         InitEmployees();
         
         Appointments = new ObservableCollection<Appointment>();
-        InitAppointments(SelectedDate);
+        //InitAppointments(SelectedDate);
         
         CanvasWidth = _employeeColumnWidth * Employees.Count;
+
+        _mainWindowViewModel = mainWindowViewModel;
         
+        _dialogService = dialogService;
+    
     }
 
     private void InitTimes()
@@ -106,27 +115,26 @@ public partial class HomePageViewModel : PageViewModel
     // calculates the position and width of each appointment block
     private ObservableCollection<AppointmentViewModel> CalculatePositions(ObservableCollection<Appointment> appointments)
     {
-        // group all appointments by employee
-        var groupedAppointments = appointments.GroupBy(a => a.EmployeeStylists);
+        // group all appointments by employee in hashmap
+        var groupedAppointments = appointments.GroupBy(a => a.EmployeeStylists.EmployeeId);
         var result = new ObservableCollection<AppointmentViewModel>();
         int employeeColumn = 0;
         
         foreach(var group in groupedAppointments)
         {
             // sort appointments by start time 
-            var sortedAppointments = group.OrderBy(a => a.StartTime);
-            var columns = new ObservableCollection<ObservableCollection<Appointment>>();
+            var sortedAppointments = group.OrderBy(a => a.StartTime.Value.Hours);
+            var rows = new List<List<Appointment>>();
 
             foreach (var appointment in sortedAppointments)
             {
                 bool placed = false;
-                foreach (var column in columns)
+                foreach (var row in rows)
                 {
-                    // get all appointments that are within half an hour of starting and add to the same column
-                    if (column.Any(a => a.StartTime <= appointment.StartTime 
-                                        && a.StartTime.Value.Minutes + 30 <= appointment.StartTime.Value.Minutes))
+                    // get all appointments that are within three hours of starting and add to the same row
+                    if (row.Any(a => a.StartTime.Value.Hours + 3 >= appointment.StartTime.Value.Hours))
                     {
-                        column.Add(appointment);
+                        row.Add(appointment);
                         placed = true;
                         break;
                     }
@@ -134,18 +142,18 @@ public partial class HomePageViewModel : PageViewModel
 
                 if (!placed)
                 {
-                    columns.Add(new ObservableCollection<Appointment>{appointment});
+                    rows.Add(new List<Appointment>{appointment});
                 }
             }
 
-            for (int i = 0; i < columns.Count; i++)
+            for (int i = 0; i < rows.Count; i++)
             {
                 int appointmentIndex = 0;
-                foreach (var appointment in columns[i])
+                foreach (var appointment in rows[i])
                 {
                     double column = (employeeColumn * _employeeColumnWidth) +
-                                    (appointmentIndex * _employeeColumnWidth / columns[i].Count);
-                    double width = _employeeColumnWidth/columns[i].Count - 4;
+                                    (appointmentIndex * _employeeColumnWidth / rows[i].Count);
+                    double width = (_employeeColumnWidth/rows[i].Count) - 4;
                     result.Add(new AppointmentViewModel(appointment, column, width));
                     appointmentIndex++;
                 }
@@ -156,8 +164,11 @@ public partial class HomePageViewModel : PageViewModel
         
         return result;
     }
-    
-    
-    
+
+    [RelayCommand]
+    private void NavigateToAppointment(AppointmentViewModel appointment)
+    {
+        _mainWindowViewModel.CurrentPage = new FullAppointmentViewModel(appointment, _mainWindowViewModel, _dialogService);
+    }
 }
 

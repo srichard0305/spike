@@ -162,12 +162,33 @@
                         </ItemsControl.Styles>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="Purple"
+                                <Border BorderThickness="2" Background="MediumPurple"
                                         Width="{Binding Width}"
                                         Height="{Binding Duration}"
                                         CornerRadius="5"
-                                        >
-                                    <TextBlock Text="{Binding Appointment.Pet.Name}"></TextBlock>
+                                >
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="DarkOrchid"></DropShadowEffect>
+                                    </Border.Effect>
+                                    
+                                    <StackPanel>
+                                        <Border Background="Purple" CornerRadius="5 5 0 0">
+                                            <Grid ColumnDefinitions="Auto, Auto, *" Margin="5">
+                                                <TextBlock Grid.Column="0" Text="{Binding Appointment.Pet.Name}"
+                                                           FontWeight="Bold"
+                                                           VerticalAlignment="Center"
+                                                           TextWrapping="WrapWithOverflow"></TextBlock>
+                                                <TextBlock Grid.Column="1" Text="{Binding Appointment.Pet.Breed}" 
+                                                           VerticalAlignment="Center"
+                                                           TextWrapping="WrapWithOverflow"></TextBlock>
+                                                <Button Grid.Column="2" HorizontalAlignment="Right" Classes="bookappointment" Background="Transparent"
+                                                        Command="{Binding $parent[ItemsControl].((vm:HomePageViewModel)DataContext).NavigateToAppointmentCommand}"
+                                                        CommandParameter="{Binding}">
+                                                    <Label Classes="SideBar" Content="&#xE3D4;" FontSize="10"></Label>
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
