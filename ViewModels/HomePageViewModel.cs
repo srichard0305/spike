@@ -43,17 +43,14 @@ public partial class HomePageViewModel : PageViewModel
         
         PageTitle = AppPageNames.Home;
         
-        // set date to today
-        SelectedDate = DateTimeOffset.Now;
-        
         Times = new ObservableCollection<Times>();
         InitTimes();
         
         Employees = new ObservableCollection<Employee>();
         InitEmployees();
         
-        Appointments = new ObservableCollection<Appointment>();
-        //InitAppointments(SelectedDate);
+        // set date to today
+        SelectedDate = DateTimeOffset.Now;
         
         CanvasWidth = _employeeColumnWidth * Employees.Count;
 
@@ -118,10 +115,12 @@ public partial class HomePageViewModel : PageViewModel
         // group all appointments by employee in hashmap
         var groupedAppointments = appointments.GroupBy(a => a.EmployeeStylists.EmployeeId);
         var result = new ObservableCollection<AppointmentViewModel>();
-        int employeeColumn = 0;
+        
         
         foreach(var group in groupedAppointments)
         {
+            //TODO get index of employee in employee list to make sure it is the correct column 
+            int employeeColumn = GetEmployeeIndex(group.Key);
             // sort appointments by start time 
             var sortedAppointments = group.OrderBy(a => a.StartTime.Value.Hours);
             var rows = new List<List<Appointment>>();
@@ -158,11 +157,22 @@ public partial class HomePageViewModel : PageViewModel
                     appointmentIndex++;
                 }
             }
-
-            employeeColumn++;
         }
         
         return result;
+    }
+
+    private int GetEmployeeIndex(Int64 employeeId)
+    {
+        int index = 0;
+        foreach (var employee in Employees)
+        {
+            if (employee.EmployeeId == employeeId)
+                return index;
+            index++;
+        }
+
+        return -1;
     }
 
     [RelayCommand]

@@ -18,24 +18,23 @@ public static class WriteToDatabase
            
             // first insert appon into table
             var sqlStatement = @"
-                   INSERT INTO Appointments (Client_Id, Pet_Id, Employee_Id, Pet_Notes, Service, Service_Notes, Cost, 
+                   INSERT INTO Appointments (Client_Id, Pet_Id, Employee_Id, Service, Service_Notes, Cost, 
                                              Date, StartTime, EndTime, CheckIn, CheckOut, Cancelled, NoShow, BookedBy) 
-                   VALUES (@ClientId, @PetId, @EmployeeId, @Pet_Notes, @Service, @Service_Notes, @Cost, @Date, @StartTime, @EndTime,
+                   VALUES (@ClientId, @PetId, @EmployeeId, @Service, @Service_Notes, @Cost, @Date, @StartTime, @EndTime,
                            @CheckIn, @CheckOut, @Cancelled, @NoShow, @BookedBy)
               ";
             using var insertAppointment = new SqliteCommand(sqlStatement, connection);
             insertAppointment.Parameters.AddWithValue("@ClientId", appointment.Client.ClientId);
             insertAppointment.Parameters.AddWithValue("@PetId", appointment.Pet.PetId); 
             insertAppointment.Parameters.AddWithValue("@EmployeeId", appointment.EmployeeStylists.EmployeeId);
-            insertAppointment.Parameters.AddWithValue("@Pet_Notes", (object?)appointment.PetNotes ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@Service", appointment.Service);
             insertAppointment.Parameters.AddWithValue("@Service_Notes", (object?)appointment.ServiceNotes ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@Cost", appointment.Cost);
             insertAppointment.Parameters.AddWithValue("@Date", appointment.Date?.ToString("yyyy/MM/dd"));
             insertAppointment.Parameters.AddWithValue("@StartTime", appointment.StartTime.ToString());
             insertAppointment.Parameters.AddWithValue("@EndTime", appointment.EndTime.ToString());
-            insertAppointment.Parameters.AddWithValue("@CheckIn", (object?)appointment.CheckIn.ToString() ?? DBNull.Value);
-            insertAppointment.Parameters.AddWithValue("@CheckOut", (object?)appointment.CheckOut.ToString() ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@CheckIn", (object?)appointment.CheckIn ?? DBNull.Value);
+            insertAppointment.Parameters.AddWithValue("@CheckOut", (object?)appointment.CheckOut ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@Cancelled", (object?)appointment.Cancelled ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@NoShow", (object?)appointment.NoShow ?? DBNull.Value);
             insertAppointment.Parameters.AddWithValue("@BookedBy", appointment.EmployeeBookedBy.EmployeeId);

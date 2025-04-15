@@ -21,17 +21,13 @@
         <!-- right panel grid -->
         <Grid Grid.Column="1" RowDefinitions="Auto, *">
             <!-- top panel -->
-            <Border Grid.Row="0"  Padding="10" Background="{DynamicResource PrimaryTopPanelGradient}">
+            <Border Grid.Row="0"  Padding="20" Background="{DynamicResource PrimaryTopPanelGradient}">
                 <Grid ColumnDefinitions="*, Auto">
-                    <Label Grid.Column="0" Content="The Groom Room" FontWeight="Black" FontSize="24"></Label>
-                    <Button Classes="bookappointment" Grid.Column="1" 
+                    <Label Grid.Column="0" Content="The Groom Room" FontWeight="Black" FontSize="25"></Label>
+                    <Button Classes="bookappointment" Grid.Column="1" Content="Book" FontSize="25"
                             Command="{Binding NavigateToBookAppointmentPageCommand}"
                             Background="{DynamicResource BookAppointmentBackGroundGradient}"
                             Foreground="Cornsilk">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Classes="SideBar" Content="&#xe108;"></Label>
-                            <Label Content="Book" Padding="0 2 10 0 "></Label>
-                        </StackPanel>
                     </Button>
                 </Grid>
             </Border>
@@ -54,8 +50,8 @@
                             Command="{Binding NavigateToHomePageCommand}"
                             HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Horizontal">
-                            <Label Classes="SideBar" Content="&#xe2c4;"></Label>
-                            <Label Content="Home"></Label>
+                            <Label Classes="SideBar" Content="&#xe108;"></Label>
+                            <Label Content="Appointments"></Label>
                         </StackPanel>
                     </Button>
                     
@@ -85,6 +81,7 @@
             </Grid>
         </Border>
         
+        <!-- dialog overlay -->
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Name="DialogOverlay" 
               IsVisible="{Binding #DialogOverlay.Opacity}" 
               Opacity="{Binding Dialog.IsDialogOpen, FallbackValue=0}">

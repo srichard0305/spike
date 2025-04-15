@@ -144,7 +144,7 @@ public partial class EditAppointmentViewModel : PageViewModel
                 AddedToDatabaseMessage = "Appointment Deleted!";
                 await Task.Delay(1500);
                 AddedToDatabaseMessage = "";
-                _mainWindowViewModel.CurrentPage = new ClientPetViewModel(_mainWindowViewModel, _dialogService);
+                _mainWindowViewModel.CurrentPage = new HomePageViewModel(_mainWindowViewModel, _dialogService);
             }
             else
             {

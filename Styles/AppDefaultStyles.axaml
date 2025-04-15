@@ -129,9 +129,23 @@
     </Style>
     
     <!-- Check box -->
-    <Style Selector="CheckBox">
-        
+    <Style Selector=":is(Button).AppointmentButton"> 
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Padding" Value="0"></Setter>
     </Style>
+    
+    <Style Selector=":is(Button).AppointmentButton:pointerover Label">
+        <Setter Property="RenderTransform" Value="scale(1)"></Setter>
+    </Style>
+    
+    <Style Selector=":is(Button).AppointmentButton:pointerover /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource SecondaryButtonPrimaryHoverText}"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Padding" Value="0"></Setter>
+    </Style>
+   
   
 </Styles>
 

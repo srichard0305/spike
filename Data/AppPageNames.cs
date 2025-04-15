@@ -13,5 +13,6 @@ public enum AppPageNames
     AddEmployee = 8,
     EmployeeProfile = 9,
     EditEmployeeProfile = 10,
+    SplashScreen = 11,
     
 }

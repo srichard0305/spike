@@ -263,18 +263,14 @@ public static class ReadFromDatabase
                     appointment.Pet = new Pet();
                     appointment.EmployeeStylists = new Employee();
                     appointment.EmployeeBookedBy = new Employee();
-                    
                     appointment.AppointmentId = (Int64)appointmentReader["Appointment_Id"];
-                    appointment.PetNotes = appointmentReader["Pet_Notes"] == DBNull.Value ? "" : (string)appointmentReader["Pet_Notes"];
                     appointment.Service  = (string)appointmentReader["Service"];
                     appointment.ServiceNotes = appointmentReader["Service_Notes"] == DBNull.Value ? "" : (string)appointmentReader["Service_Notes"];
                     appointment.Cost = (string)appointmentReader["Cost"];
-                    // TODO grab last appointment for comments
-                    appointment.CommentFromLastApponitmnet = appointmentReader["Service_Notes"] == DBNull.Value ? "" : (string)appointmentReader["Service_Notes"];
                     appointment.StartTime = TimeSpan.Parse(appointmentReader["StartTime"].ToString());
                     appointment.EndTime = TimeSpan.Parse(appointmentReader["EndTime"].ToString());
-                    appointment.CheckIn = (string)appointmentReader["CheckIn"];
-                    appointment.CheckOut = (string)appointmentReader["CheckOut"];
+                    appointment.CheckIn = appointmentReader["CheckIn"] == DBNull.Value ? "" : (string)appointmentReader["CheckIn"];
+                    appointment.CheckOut = appointmentReader["CheckOut"] == DBNull.Value ? "" : (string)appointmentReader["CheckOut"];
                     appointment.Cancelled = appointmentReader["Cancelled"] == DBNull.Value ? "" : (string)appointmentReader["Cancelled"];
                     appointment.NoShow = appointmentReader["NoShow"] == DBNull.Value ? "" : (string)appointmentReader["NoShow"];
                     appointment.Date = DateTimeOffset.Parse(appointmentReader["Date"].ToString());

@@ -38,9 +38,10 @@ public partial class MainWindowViewModel : ViewModelBase, IDialogProvider
     public MainWindowViewModel(PageFactory pageFactory)
     {
          _pageFactory = pageFactory;
-        //TODO add in a splash screen 
-        //NavigateToHomePage();
+         NavigateToSplashScreen();
     }
+    
+    private void NavigateToSplashScreen() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.SplashScreen);
 
     [RelayCommand]
     private void NavigateToHomePage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Home);

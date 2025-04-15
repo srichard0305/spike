@@ -51,17 +51,10 @@
                             </StackPanel>
                             
                             <Label Content="Service Notes:" Foreground="Azure" FontSize="20"/>
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <TextBlock Width="200" Height="100" HorizontalAlignment="Right" 
+                            <TextBlock HorizontalAlignment="Left" Margin="10 0 0 0"
                                        TextWrapping="Wrap" FontSize="20"
                                        Text="{Binding Appointment.ServiceNotes}"></TextBlock>
-                            </ScrollViewer>
                             
-                            <Label Content="Last Appt:" Foreground="Azure" FontSize="20"></Label>
-                            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <TextBlock Width="200" Height="100" TextWrapping="Wrap"  FontSize="20"
-                                           Text="{Binding Appointment.CommentFromLastApponitmnet}"></TextBlock>
-                            </ScrollViewer>
                             
                             <StackPanel Orientation="Horizontal" Margin="5" Spacing="15">
                                 <CheckBox Content="Check In" Foreground="Azure" 

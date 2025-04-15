@@ -104,7 +104,6 @@ public static class DatabaseConnection
                     Client_Id INTEGER NOT NULL,
                     Pet_Id INTEGER NOT NULL,
                     Employee_Id INTEGER NOT NULL,
-                    Pet_Notes TEXT NULL,
                     Service TEXT NOT NULL,
                     Service_Notes TEXT,
                     Cost TEXT NOT NULL,

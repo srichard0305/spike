@@ -57,11 +57,6 @@
                                              TextWrapping="Wrap" AcceptsReturn="True"  Background="DarkGray"
                                              Text="{Binding Appointment.ServiceNotes}"></TextBox>
                                 </Grid>
-                                <Grid Grid.Row="3" ColumnDefinitions="Auto, *"  Margin="10">
-                                    <Label Grid.Column="0" Content="Last Appt:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
-                                    <TextBlock Grid.Column="1" Width="200" HorizontalAlignment="Right"
-                                               Text="{Binding Appointment.CommentFromLastApponitmnet}"></TextBlock>
-                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
