@@ -63,6 +63,19 @@
                                            Text="{Binding Appointment.CommentFromLastApponitmnet}"></TextBlock>
                             </ScrollViewer>
                             
+                            <StackPanel Orientation="Horizontal" Margin="5" Spacing="15">
+                                <CheckBox Content="Check In" Foreground="Azure" 
+                                          Command="{Binding CheckInCommand}"></CheckBox>
+                                <CheckBox Content="Check Out" Foreground="Azure"
+                                          Command="{Binding CheckOutCommand}"></CheckBox>
+                            </StackPanel>
+
+                            <CheckBox Content="Cancelled" Foreground="Azure" Margin="5"
+                                      Command="{Binding CancelledCommand}"></CheckBox>
+
+                            <CheckBox Content="No Show" Foreground="Azure" Margin="5"
+                                      Command="{Binding NoShowCommand}"></CheckBox>
+
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -114,7 +127,7 @@
                 <Border Background="Black" Margin="20" CornerRadius="10">
                    <StackPanel  Margin="10">
                        <StackPanel Orientation="Horizontal" Spacing="10"  Margin="10">
-                           <Label Content="Stylist: " Foreground="Azure" FontSize="20"></Label>
+                           <Label Content="Stylist:" Foreground="Azure" FontSize="20"></Label>
                            <TextBlock VerticalAlignment="Center" FontSize="20"
                                       Text="{Binding Appointment.EmployeeStylists.FirstName}"></TextBlock>
                            <TextBlock VerticalAlignment="Center" FontSize="20"
@@ -122,7 +135,7 @@
                        </StackPanel>
     
                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="10">
-                           <Label Content="Booked By: " Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
+                           <Label Content="Booked By:" Foreground="Azure" FontSize="20" HorizontalAlignment="Center"></Label>
                            <TextBlock FontSize="20" VerticalAlignment="Center"
                                       Text="{Binding Appointment.EmployeeBookedBy.FirstName}"></TextBlock>
                            <TextBlock FontSize="20" VerticalAlignment="Center"

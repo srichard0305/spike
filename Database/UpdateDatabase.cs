@@ -447,4 +447,116 @@ public static class UpdateDatabase
 
         return true;
     }
+
+    public static bool UpdateCheckIn(Appointment appointment)
+    {
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+            
+            var sqlStatement = @"
+                    UPDATE Appointments 
+                    SET CheckIn = @CheckIn
+                    WHERE Appointment_Id = @AppointmentId;
+                ";
+            using var updateAppointmentInfo = new SqliteCommand(sqlStatement, connection);
+            updateAppointmentInfo.Parameters.AddWithValue("@AppointmentId", appointment.AppointmentId);
+            updateAppointmentInfo.Parameters.AddWithValue("@CheckIn", appointment.CheckIn);
+            updateAppointmentInfo.ExecuteNonQuery();
+
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+
+        }
+
+        return true;
+    }
+
+    public static bool UpdateCheckOut(Appointment appointment)
+    {
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+            
+            var sqlStatement = @"
+                    UPDATE Appointments 
+                    SET CheckOut = @CheckOut
+                    WHERE Appointment_Id = @AppointmentId;
+                ";
+            using var updateAppointmentInfo = new SqliteCommand(sqlStatement, connection);
+            updateAppointmentInfo.Parameters.AddWithValue("@AppointmentId", appointment.AppointmentId);
+            updateAppointmentInfo.Parameters.AddWithValue("@CheckOut", appointment.CheckOut);
+            updateAppointmentInfo.ExecuteNonQuery();
+
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+
+        }
+
+        return true;
+    }
+
+    public static bool UpdateCancelled(Appointment appointment)
+    {
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+            
+            var sqlStatement = @"
+                    UPDATE Appointments 
+                    SET Cancelled = @Cancelled
+                    WHERE Appointment_Id = @AppointmentId;
+                ";
+            using var updateAppointmentInfo = new SqliteCommand(sqlStatement, connection);
+            updateAppointmentInfo.Parameters.AddWithValue("@AppointmentId", appointment.AppointmentId);
+            updateAppointmentInfo.Parameters.AddWithValue("@Cancelled", appointment.Cancelled);
+            updateAppointmentInfo.ExecuteNonQuery();
+
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+
+        }
+
+        return true;
+    }
+
+    public static bool UpdateNoShow(Appointment appointment)
+    {
+        try
+        {
+            using var connection = DatabaseConnection.GetConnection();
+            connection.Open();
+            
+            var sqlStatement = @"
+                    UPDATE Appointments 
+                    SET NoShow = @NoShow
+                    WHERE Appointment_Id = @AppointmentId;
+                ";
+            using var updateAppointmentInfo = new SqliteCommand(sqlStatement, connection);
+            updateAppointmentInfo.Parameters.AddWithValue("@AppointmentId", appointment.AppointmentId);
+            updateAppointmentInfo.Parameters.AddWithValue("@NoShow", appointment.NoShow);
+            updateAppointmentInfo.ExecuteNonQuery();
+
+        }
+        catch (SqliteException e)
+        {
+            Debug.WriteLine(e.Message);
+            return false;
+
+        }
+
+        return true;
+    }
 }

@@ -273,8 +273,8 @@ public static class ReadFromDatabase
                     appointment.CommentFromLastApponitmnet = appointmentReader["Service_Notes"] == DBNull.Value ? "" : (string)appointmentReader["Service_Notes"];
                     appointment.StartTime = TimeSpan.Parse(appointmentReader["StartTime"].ToString());
                     appointment.EndTime = TimeSpan.Parse(appointmentReader["EndTime"].ToString());
-                    appointment.CheckIn = appointmentReader["CheckIn"] == "" ? null : TimeSpan.Parse(appointmentReader["CheckIn"].ToString());
-                    appointment.CheckOut = appointmentReader["CheckOut"] == "" ? null : TimeSpan.Parse(appointmentReader["CheckOut"].ToString());
+                    appointment.CheckIn = (string)appointmentReader["CheckIn"];
+                    appointment.CheckOut = (string)appointmentReader["CheckOut"];
                     appointment.Cancelled = appointmentReader["Cancelled"] == DBNull.Value ? "" : (string)appointmentReader["Cancelled"];
                     appointment.NoShow = appointmentReader["NoShow"] == DBNull.Value ? "" : (string)appointmentReader["NoShow"];
                     appointment.Date = DateTimeOffset.Parse(appointmentReader["Date"].ToString());

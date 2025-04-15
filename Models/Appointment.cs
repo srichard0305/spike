@@ -14,8 +14,8 @@ public class Appointment
     public string? CommentFromLastApponitmnet { get; set; }
     public TimeSpan? StartTime { get; set; }
     public TimeSpan? EndTime { get; set; }
-    public TimeSpan? CheckIn { get; set; }
-    public TimeSpan? CheckOut { get; set; }
+    public string? CheckIn { get; set; }
+    public string? CheckOut { get; set; }
     public string? Cancelled { get; set; }
     public string? NoShow { get; set; }
     public DateTimeOffset? Date { get; set; }

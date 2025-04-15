@@ -128,6 +128,10 @@
         <Setter Property="Background" Value="{DynamicResource SecondaryButtonPrimaryHover}"></Setter>
     </Style>
     
+    <!-- Check box -->
+    <Style Selector="CheckBox">
+        
+    </Style>
   
 </Styles>
 
