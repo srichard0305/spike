@@ -130,7 +130,7 @@
                                 <StackPanel Grid.Column="2">
                                     <ComboBox HorizontalAlignment="Right" Width="200"
                                               ItemsSource="{Binding Employees}"
-                                              SelectedItem="{Binding Appointment.EmployeeStylists}"></ComboBox>
+                                              SelectedItem="{Binding SelectedEmployeeStylist, Mode=TwoWay}"></ComboBox>
                                     <TextBlock HorizontalAlignment="Right" Text="{Binding Errors[5]}" 
                                                Foreground="Red" Margin="5"></TextBlock>
                                 </StackPanel>
@@ -142,7 +142,7 @@
                                 <StackPanel Grid.Column="2">
                                     <ComboBox  HorizontalAlignment="Right" Width="200"
                                                ItemsSource="{Binding Employees}"
-                                               SelectedItem="{Binding Appointment.EmployeeBookedBy}"></ComboBox>
+                                               SelectedItem="{Binding SelectedEmployeeBookedBy, Mode=TwoWay}"></ComboBox>
                                     <TextBlock HorizontalAlignment="Right" Text="{Binding Errors[6]}" 
                                                Foreground="Red" Margin="5"></TextBlock>
                                 </StackPanel>

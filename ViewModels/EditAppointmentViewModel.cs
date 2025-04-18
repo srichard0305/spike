@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -25,6 +26,11 @@ public partial class EditAppointmentViewModel : PageViewModel
     private TimeSpan? _selectedStartTime;
     [ObservableProperty]
     private TimeSpan? _selectedEndTime;
+    [ObservableProperty]
+    private Employee? _selectedEmployeeStylist;
+    [ObservableProperty]
+    private Employee? _selectedEmployeeBookedBy;
+    
     
     [ObservableProperty]
     private ObservableCollection<string> _errors;
@@ -41,12 +47,22 @@ public partial class EditAppointmentViewModel : PageViewModel
 
     public EditAppointmentViewModel(Appointment appointment, MainWindowViewModel mainWindowViewModel, DialogService dialogService)
     {
-        Appointment = appointment;
-        _mainWindowViewModel = mainWindowViewModel;
-        _dialogService = dialogService;
+        
         Errors = new ObservableCollection<string>();
         InitErrors();
         InitEmployees();
+        Appointment = appointment;
+        SelectedDate = appointment.Date;
+        SelectedStartTime = appointment.StartTime;
+        SelectedEndTime = appointment.EndTime;
+        
+        SelectedEmployeeStylist = Employees.FirstOrDefault(e => 
+            e.FirstName == appointment.EmployeeStylists.FirstName && e.LastName == appointment.EmployeeStylists.LastName); ;
+        SelectedEmployeeBookedBy = Employees.FirstOrDefault(e => 
+            e.FirstName == appointment.EmployeeBookedBy.FirstName && e.LastName == appointment.EmployeeBookedBy.LastName);
+        
+        _mainWindowViewModel = mainWindowViewModel;
+        _dialogService = dialogService;
     }
     
     private void ValidateAppointmentInfo()
@@ -122,6 +138,8 @@ public partial class EditAppointmentViewModel : PageViewModel
         Appointment.StartTime = SelectedStartTime;
         Appointment.EndTime = SelectedEndTime;
         Appointment.Date = SelectedDate;
+        Appointment.EmployeeStylists = SelectedEmployeeStylist;
+        Appointment.EmployeeBookedBy = SelectedEmployeeBookedBy;
 
         AddedToDatabaseMessage = UpdateDatabase.UpdateAppointment(Appointment) ? "Appointment Updated!" : "Appointment cannot be updated!";
         await Task.Delay(1500);

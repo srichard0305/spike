@@ -69,14 +69,7 @@
                             <Label Content="Employees"></Label>
                         </StackPanel>
                     </Button>
-                   
-                    <Button Classes="sidebar" HorizontalAlignment="Stretch" Classes.active="{Binding ReportsPageActive}" Command="{Binding NavigateToReportsPageCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Classes="SideBar" Content="&#xe156;"></Label>
-                            <Label Content="Reports"></Label>
-                        </StackPanel>
-                    </Button>
-                    
+
                 </StackPanel>
             </Grid>
         </Border>

@@ -33,7 +33,6 @@ public partial class App : Application
         collection.AddTransient<HomePageViewModel>();
         collection.AddTransient<ClientPetViewModel>();
         collection.AddTransient<EmployeePageViewModel>();
-        collection.AddTransient<ReportsPageViewModel>();
         collection.AddTransient<BookAppointmentViewModel>();
         collection.AddTransient<SplashScreenViewModel>();
         
@@ -45,7 +44,6 @@ public partial class App : Application
             AppPageNames.Home => x.GetRequiredService<HomePageViewModel>(),
             AppPageNames.ClientPet => x.GetRequiredService<ClientPetViewModel>(),
             AppPageNames.Employees=> x.GetRequiredService<EmployeePageViewModel>(),
-            AppPageNames.Reports => x.GetRequiredService<ReportsPageViewModel>(),
             AppPageNames.BookAppointment => x.GetRequiredService<BookAppointmentViewModel>(),
             AppPageNames.SplashScreen => x.GetRequiredService<SplashScreenViewModel>(),
             _ => throw new InvalidOperationException(),

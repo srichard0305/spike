@@ -25,6 +25,8 @@ public partial class EditClientProfileViewModel : PageViewModel
     
     [ObservableProperty]
     private ObservableCollection<string> _provinces;
+    [ObservableProperty]
+    private string _selectedProvince;
     
     [ObservableProperty]
     private ObservableCollection<string> _genders;
@@ -58,6 +60,7 @@ public partial class EditClientProfileViewModel : PageViewModel
         Pets = Client.Pets;
         
         Errors = new ObservableCollection<string>();
+        InitErrors();
         
         Provinces = new ObservableCollection<string>()
         {
@@ -65,6 +68,8 @@ public partial class EditClientProfileViewModel : PageViewModel
             "NS", "NU", "ON", "PE", "QC", "SK",
             "YT"
         };
+        SelectedProvince = Provinces.FirstOrDefault(p => p == Client.Address.Province);
+        
         Ages = new ObservableCollection<string>()
         {
             "1-6 Months", "6-12 Months", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -81,7 +86,8 @@ public partial class EditClientProfileViewModel : PageViewModel
             "Yes",
             "No"
         };
-        InitErrors();
+        
+        
         
         // convert birthday string to DateTimeOffset 
         if (client.Pets != null && client.Pets.Any())
@@ -233,6 +239,7 @@ public partial class EditClientProfileViewModel : PageViewModel
        
        ResetErrors();
 
+       Client.Address.Province = SelectedProvince;
        Client.Pets = Pets;
 
        AddedToDatabaseMessage = UpdateDatabase.UpdateClient(Client) ? "Client Updated!" : "Client cannot be updated!";

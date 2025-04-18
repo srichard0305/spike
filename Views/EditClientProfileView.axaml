@@ -88,7 +88,7 @@
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Grid.Row="3" Spacing="10">
                                     <ComboBox ItemsSource="{Binding Provinces}" SelectedIndex="1" 
-                                              SelectedItem="{Binding Client.Address.Province}"
+                                              SelectedItem="{Binding SelectedProvince, Mode=TwoWay }"
                                               Margin="50 0 0 0" Width="250" Background="DarkGray" MaxDropDownHeight="165">
                                         
                                     </ComboBox>

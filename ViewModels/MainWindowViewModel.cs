@@ -16,7 +16,6 @@ public partial class MainWindowViewModel : ViewModelBase, IDialogProvider
     [NotifyPropertyChangedFor(nameof(HomePageActive))]
     [NotifyPropertyChangedFor(nameof(ClientPetPageActive))]
     [NotifyPropertyChangedFor(nameof(EmployeePageActive))]
-    [NotifyPropertyChangedFor(nameof(ReportsPageActive))]
     private PageViewModel? _currentPage;
     
     [ObservableProperty]
@@ -31,7 +30,6 @@ public partial class MainWindowViewModel : ViewModelBase, IDialogProvider
     public bool EmployeePageActive => CurrentPage?.PageTitle is AppPageNames.Employees or AppPageNames.AddEmployee 
                                                                                        or AppPageNames.EmployeeProfile 
                                                                                        or AppPageNames.EditEmployeeProfile;
-    public bool ReportsPageActive => CurrentPage?.PageTitle is AppPageNames.Reports;
     
     //-------------------------------------------------------------------------------------------------------//
     
@@ -39,6 +37,7 @@ public partial class MainWindowViewModel : ViewModelBase, IDialogProvider
     {
          _pageFactory = pageFactory;
          NavigateToSplashScreen();
+        
     }
     
     private void NavigateToSplashScreen() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.SplashScreen);
@@ -51,9 +50,6 @@ public partial class MainWindowViewModel : ViewModelBase, IDialogProvider
     
     [RelayCommand]
     private void NavigateToEmployeePage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Employees);
-    
-    [RelayCommand]
-    private void NavigateToReportsPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.Reports);
     
     [RelayCommand]
     private void NavigateToBookAppointmentPage() => CurrentPage = _pageFactory.GetPageViewModel(AppPageNames.BookAppointment);
